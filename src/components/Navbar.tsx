@@ -52,7 +52,7 @@ export const Navbar = () => {
                         ></path>
                     </svg>
                 </a>
-                <div className='flex items-center whitespace-nowrap'>
+                <span className='flex items-center whitespace-nowrap'>
                     {navbars.map((navbar, index) => {
                         return (
                             <a
@@ -65,7 +65,7 @@ export const Navbar = () => {
                             </a>
                         );
                     })}
-                </div>
+                </span>
             </div>
         </div>
     );
