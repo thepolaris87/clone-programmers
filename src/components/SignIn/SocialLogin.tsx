@@ -1,4 +1,8 @@
 import React from "react";
+import kakao from '../../assets/signin/kakao.png'
+import google from '../../assets/signin/google.png'
+import github from '../../assets/signin/github.png'
+import facebook from '../../assets/signin/facebook.png'
 
 export default function SocialLogin() {
   return (
@@ -7,28 +11,28 @@ export default function SocialLogin() {
       <div className="flex justify-evenly text-center text-[0.75rem]">
         <div>
           <img
-            src="../src/assets/signin/google.png"
+            src={google}
             className="w-[2.875rem] cursor-pointer"
           ></img>
           <div>Google</div>
         </div>
         <div>
           <img
-            src="../src/assets/signin/kakao.png"
+            src={kakao}
             className="w-[2.875rem] cursor-pointer"
           ></img>
           <div>Kakao</div>
         </div>
         <div>
           <img
-            src="../src/assets/signin/github.png"
+            src={github}
             className="w-[2.875rem] cursor-pointer"
           ></img>
           <div>Github</div>
         </div>
         <div>
           <img
-            src="../src/assets/signin/facebook.png"
+            src={facebook}
             className="w-[2.875rem] cursor-pointer"
           ></img>
           <div>Facebook</div>
