@@ -8,28 +8,28 @@ export default function SocialLogin() {
         <div>
           <img
             src="../src/assets/signin/google.png"
-            className="w-[2.875rem]"
+            className="w-[2.875rem] cursor-pointer"
           ></img>
           <div>Google</div>
         </div>
         <div>
           <img
             src="../src/assets/signin/kakao.png"
-            className="w-[2.875rem]"
+            className="w-[2.875rem] cursor-pointer"
           ></img>
           <div>Kakao</div>
         </div>
         <div>
           <img
             src="../src/assets/signin/github.png"
-            className="w-[2.875rem]"
+            className="w-[2.875rem] cursor-pointer"
           ></img>
           <div>Github</div>
         </div>
         <div>
           <img
             src="../src/assets/signin/facebook.png"
-            className="w-[2.875rem]"
+            className="w-[2.875rem] cursor-pointer"
           ></img>
           <div>Facebook</div>
         </div>

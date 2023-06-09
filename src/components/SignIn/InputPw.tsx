@@ -4,7 +4,9 @@ import Hide from "../../assets/svg/Hide";
 import Seek from "../../assets/svg/Seek";
 
 interface MyProps {
-  placeholder: string | undefined
+  placeholder: string | undefined,
+  value: string | undefined,
+  onChange: any
 }
 export default function InputPw(props : MyProps) {
   const [hidePw, setHidePw] = useState<Boolean>(true)
@@ -17,8 +19,10 @@ export default function InputPw(props : MyProps) {
         type={hidePw ? "password" : "text"}
         className="w-full px-[2.5rem] text-[0.9rem]"
         placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
       ></input>
-      <div className="absolute top-3 left-[21.75rem] w-6 cursor-pointer" onClick={() => setHidePw(!hidePw)}>
+      <div className="absolute top-3 right-3 w-6 cursor-pointer" onClick={() => setHidePw(!hidePw)}>
         {(hidePw ? 
         <Hide/>
         :

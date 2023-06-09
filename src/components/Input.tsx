@@ -4,6 +4,8 @@ interface MyProps {
   svg: any,
   type: string,
   placeholder: string | undefined
+  value: string | undefined
+  onChange: any
 }
 export default function Input(props : MyProps) {
   return (
@@ -15,6 +17,8 @@ export default function Input(props : MyProps) {
         type={props.type}
         className="w-full px-[2.5rem] text-[0.9rem]"
         placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
       ></input>
     </div>
   );
