@@ -1,4 +1,4 @@
-import { logo } from '../../../assets/codingTest';
+import { logo } from '../../../assets/images/codingTest';
 
 export const Navbar = () => {
     return (

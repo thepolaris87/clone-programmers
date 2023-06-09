@@ -1,10 +1,17 @@
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Navbar } from './components/Navbar';
-import { verticalButton, horizonButton } from '../../assets/codingTest';
+import { verticalButton, horizonButton } from '../../assets/images/codingTest';
+
+import A from '../../assets/programmers/Q000001.md';
+const markdown = `*문제설명*`;
 
 export default function CodingTest() {
+    // console.log(a);
     return (
         <div className='block w-[100%] break-words break-keep shadow-[#172334]'>
             <Navbar />
+            <A />
             <section className='h-[3.5rem] flex relative bg-[#263747] px-[1rem] justify-between shadow-[0_0.0625rem_#172334]'>
                 <h5 className='text-[white] pt-[15px]'>문자열 출력하기</h5>
                 <span className='flex items-center justify-end h-[3rem]'>
@@ -31,6 +38,7 @@ export default function CodingTest() {
             <div className='min-h-[31.25rem] bg-[#263747]'>
                 <section className='flex h-[calc(100vh-(2.9375rem+3.5rem+3.5625rem))]'>
                     <div className='w-[calc(40%-12px)] h-[100%]'>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{A}</ReactMarkdown>
                         <iframe className='w-[100%] h-[100%]' src='http://192.168.101.10:9000'></iframe>
                     </div>
                     <div className='flex justify-end items-center w-[24px] border-r-[0.0625rem] border-[#172334]'>

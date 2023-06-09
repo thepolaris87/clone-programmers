@@ -12,11 +12,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@pity/vite-plugin-react-markdown": "^0.1.1",
     "jotai": "^2.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.7",
     "react-query": "^3.39.3",
-    "react-router-dom": "^6.12.0"
+    "react-router-dom": "^6.12.0",
+    "remark-gfm": "^3.0.1",
+    "vite-plugin-svgr": "^3.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
