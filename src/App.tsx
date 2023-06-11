@@ -1,15 +1,22 @@
-import { BrowserRouter } from 'react-router-dom';
-import Router from './Router';
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import Router from "./Router";
+import "./App.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { suspense: true } },
+});
 
 function App() {
-    return (
-        <>
-            <BrowserRouter>
-                <Router />
-            </BrowserRouter>
-        </>
-    );
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </>
+  );
 }
 
 export default App;

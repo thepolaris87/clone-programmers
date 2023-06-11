@@ -1,12 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import CodingTest from './pages/Coding';
-import Login from './pages/SignIn/SignIn';
+import SignIn from './pages/SignIn/SignIn';
 
 export default function Router() {
     return (
         <Routes>
             <Route path='/learn/courses' element={<CodingTest />}></Route>
-            <Route path='/learn/sign_in' element={<Login />}></Route>
+            <Route path='/sign-in' element={<SignIn />}></Route>
+            {/* <Route path='/comes/sign-up' element={<SignIn />}></Route> */}
         </Routes>
     );
 }
