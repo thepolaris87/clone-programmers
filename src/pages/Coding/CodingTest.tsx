@@ -21,7 +21,7 @@ import './css/markdown.css';
 
 export default function CodingTest() {
     return (
-        <div className='block w-[100%] break-words break-keep shadow-[#172334]'>
+        <div className='codingTest block w-[100%] break-words break-keep shadow-[#172334] h-[100%] bg-[#263747]'>
             <Navbar />
             <section className='h-[3.5rem] flex relative bg-[#263747] px-[1rem] justify-between shadow-[0_0.0625rem_#172334]'>
                 <h5 className='text-[white] pt-[15px]'>문자열 출력하기</h5>

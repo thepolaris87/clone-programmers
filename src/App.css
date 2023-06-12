@@ -9,9 +9,11 @@
     }
 }
 
-/* @layer components {
-    .my-custom {
-        @apply text,
-        border: 1px solid red;
+@layer components {
+    .codingTest ::-webkit-scrollbar {
+        width: 8px;
     }
-} */
+    .codingTest ::-webkit-scrollbar-thumb {
+        background: #3d4c5e;
+    }
+}

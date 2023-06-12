@@ -38,6 +38,10 @@
     margin-top: 16px;
     margin-left: 16px;
 }
+.line {
+    width: 100%;
+    border: 0.5px solid #172334;
+}
 table {
     background-color: #202b3d;
     color: white;
@@ -57,14 +61,4 @@ td {
     text-align: center;
     color: #b2c0cc;
     border: 1px solid rgb(23, 35, 52);
-}
-.line {
-    width: 100%;
-    border: 0.5px solid #172334;
-}
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-thumb {
-    background: #3d4c5e;
 }
