@@ -13,13 +13,13 @@ export const Navbar = () => {
                         {'>'}
                     </a>
                     <a className='hidden text-[#98a8b9] text-[14px] mx-[4px] hover:text-white md:block' href='#'>
-                        코딩 기초 트레이닝
+                        연습문제
                     </a>
                     <a className='hidden text-[#98a8b9] text-[14px] mx-[4px] md:block' href='#'>
                         {'>'}
                     </a>
                     <a className='text-[#ffffff] text-[14px] mx-[4px] font-[600] cursor-text' href='#'>
-                        문자열 출력하기
+                        귤 고르기
                     </a>
                 </span>
             </span>
