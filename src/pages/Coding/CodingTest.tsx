@@ -1,6 +1,22 @@
 import { Navbar } from './components/Navbar';
 import { verticalButton, horizonButton } from '../../assets/images/codingTest';
-import { Q000001, Q000002, Q000003, Q000004, Q000005, Q000006, Q000007, Q000008, Q000009, Q000010 } from '../../assets/programmers/index';
+import {
+    Q000001,
+    Q000002,
+    Q000003,
+    Q000004,
+    Q000005,
+    Q000006,
+    Q000007,
+    Q000008,
+    Q000009,
+    Q000010,
+    Q000011,
+    Q000012,
+    Q000013,
+    Q000014,
+    Q000015
+} from '../../assets/programmers/index';
 import './css/markdown.css';
 
 export default function CodingTest() {
@@ -10,19 +26,19 @@ export default function CodingTest() {
             <section className='h-[3.5rem] flex relative bg-[#263747] px-[1rem] justify-between shadow-[0_0.0625rem_#172334]'>
                 <h5 className='text-[white] pt-[15px]'>문자열 출력하기</h5>
                 <span className='flex items-center justify-end h-[3rem]'>
-                    <button className='w-[40px] h-[24px] text-[0.75rem] text-[white] rounded-[0.2rem_0_0_0.2rem] bg-[#44576c]'>
+                    <button className='hidden w-[40px] h-[24px] text-[0.75rem] text-[white] rounded-[0.2rem_0_0_0.2rem] bg-[#44576c] md:block'>
                         <h5 className='mt-1'>dark</h5>
                     </button>
-                    <button className='w-[40px] h-[24px] text-[0.75rem] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] rounded-[0_0.2rem_0.2rem_0] mr-[-1px] border-[#44576c] border-[1px]'>
+                    <button className='hidden w-[40px] h-[24px] text-[0.75rem] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] rounded-[0_0.2rem_0.2rem_0] mr-[-1px] border-[#44576c] border-[1px] md:block'>
                         <h5 className='mt-1'>light</h5>
                     </button>
-                    <button className='w-[59px] h-[24px] text-[0.75rem] text-[white] rounded-[0.2rem_0_0_0.2rem] bg-[#44576c] ml-[8px]'>
+                    <button className='hidden w-[59px] h-[24px] text-[0.75rem] text-[white] rounded-[0.2rem_0_0_0.2rem] bg-[#44576c] ml-[8px] md:block'>
                         <h5 className='mt-1'>sublime</h5>
                     </button>
-                    <button className='w-[34px] h-[24px] text-[0.75rem] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] mr-[-1px] border-[#44576c] border-[1px]'>
+                    <button className='hidden w-[34px] h-[24px] text-[0.75rem] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] mr-[-1px] border-[#44576c] border-[1px] md:block'>
                         <h5 className='mt-1'>vim</h5>
                     </button>
-                    <button className='w-[51px] h-[24px] text-[0.75rem] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] rounded-[0_0.2rem_0.2rem_0] mr-[-1px] border-[#44576c] border-[1px]'>
+                    <button className='hidden w-[51px] h-[24px] text-[0.75rem] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] rounded-[0_0.2rem_0.2rem_0] mr-[-1px] border-[#44576c] border-[1px] md:block'>
                         <h5 className='mt-1'>emacs</h5>
                     </button>
                     <button className='w-[88px] h-[24px] text-[0.75rem] text-[white] rounded-[0.2rem] bg-[#44576c] ml-[8px]'>
@@ -30,10 +46,10 @@ export default function CodingTest() {
                     </button>
                 </span>
             </section>
-            <div className='min-h-[31.25rem] bg-[#263747]'>
-                <section className='flex h-[calc(100vh-(2.9375rem+3.5rem+3.5625rem))]'>
+            <div className='min-h-[31.25rem] h-[100%] bg-[#263747]'>
+                <section className='flex flex-wrap h-[calc(100vh-(2.9375rem+3.5rem+3.5625rem))]'>
                     <div className='w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]'>
-                        <Q000010 />
+                        <Q000001 />
                     </div>
                     <div className='flex justify-end items-center w-[24px] border-r-[0.0625rem] border-[#172334]'>
                         <img className='h-[35px] cursor-ew-resize' src={verticalButton} />
@@ -60,8 +76,8 @@ export default function CodingTest() {
                         </div>
                     </div>
                 </section>
-                <section className='flex flex-wrap justify-between h-[3.5625rem] bg-[#263747] border-t-[1px] border-[#172334] px-[1rem] py-[0.5rem]'>
-                    <span className='flex'>
+                <section className='flex justify-between h-[3.5625rem] bg-[#263747] border-t-[1px] border-[#172334] px-[1rem] py-[0.5rem]'>
+                    <span className='hidden md:flex'>
                         <button className='w-[113px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]'>
                             <h5 className='mt-1'>질문하기</h5>
                         </button>
@@ -70,7 +86,7 @@ export default function CodingTest() {
                         </button>
                     </span>
                     <span className='flex'>
-                        <button className='w-[160px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]'>
+                        <button className='hidden w-[160px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px] md:block'>
                             <h5 className='mt-1'>다른 사람의 풀이</h5>
                         </button>
                         <button className='w-[72px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]'>

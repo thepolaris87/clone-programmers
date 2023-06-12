@@ -8,6 +8,8 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { suspense: true } },
 });
 
+console.log('aa')
+
 function App() {
   return (
     <>
