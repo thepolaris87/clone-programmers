@@ -8,3 +8,8 @@ export { default as Q000007 } from '../programmers/Q000007.md';
 export { default as Q000008 } from '../programmers/Q000008.md';
 export { default as Q000009 } from '../programmers/Q000009.md';
 export { default as Q000010 } from '../programmers/Q000010.md';
+export { default as Q000011 } from '../programmers/Q000011.md';
+export { default as Q000012 } from '../programmers/Q000012.md';
+export { default as Q000013 } from '../programmers/Q000013.md';
+export { default as Q000014 } from '../programmers/Q000014.md';
+export { default as Q000015 } from '../programmers/Q000015.md';
