@@ -1,10 +1,10 @@
+import React from "react";
 
 interface MyProps {
   svg: any,
   type: string,
+  name: string,
   placeholder: string | undefined
-  value: string | undefined
-  onChange: any
 }
 export default function Input(props : MyProps) {
   return (
@@ -15,9 +15,8 @@ export default function Input(props : MyProps) {
       <input
         type={props.type}
         className="w-full px-[2.5rem] text-[0.9rem]"
+        name={props.name}
         placeholder={props.placeholder}
-        value={props.value}
-        onChange={props.onChange}
       ></input>
     </div>
   );
