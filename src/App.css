@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer {
+@layer base {
     body {
         overflow-x: hidden;
         font-family: 'NotoSansRegular';
     }
 }
+
+/* @layer components {
+    .my-custom {
+        @apply text,
+        border: 1px solid red;
+    }
+} */
