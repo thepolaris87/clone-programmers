@@ -1,10 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import Email from "../../assets/svg/Email";
 import Input from "../../components/Input";
-import Password from "../../assets/svg/Password";
-import Smile from "../../assets/svg/Smile";
-import SocialLogin from "../../components/SignIn/SocialLogin";
-import InputPw from "../../components/SignIn/InputPw";
+import { ReactComponent as Email } from "../../assets/images/signin/email.svg";
+import { ReactComponent as Smile } from "../../assets/images/signin/smile.svg";
+import SocialLogin from "./components/SocialLogin";
+import InputPw from "./components/InputPw";
 import { useNavigate } from "react-router-dom";
 import title from "../../assets/images/signin/title.png";
 import main from "../../assets/images/signin/main.png";
@@ -13,21 +12,17 @@ import { useIsMutating, useMutation, useQuery } from "react-query";
 import { postSignIn, postSignUp } from "../../apis/api";
 
 export default function SignIn() {
-  const { mutate, error, mutateAsync, } = useMutation(["sign-in"], postSignIn, {
+  const { mutate, error, mutateAsync } = useMutation(["sign-in"], postSignIn, {
     onSuccess: () => {
       console.log("aasdfsad");
     },
-    onError: (e)=> {
-      console.log('fasfasdfsad', e)
-    }
+    onError: (e) => {
+      console.log("fasfasdfsad", e);
+    },
   });
-  useIsMutating()
+  useIsMutating();
 
   const [signIn, setSignIn] = useState<boolean>(true);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [checkPw, setCheckPw] = useState<string>("");
 
   //약관
   const [allCheck, setAllCheck] = useState<boolean>(false);
@@ -39,28 +34,11 @@ export default function SignIn() {
 
   const navigate = useNavigate();
 
-  const getUserEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const getUserPw = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const getCheckPw = (event: ChangeEvent<HTMLInputElement>) => {
-    setCheckPw(event.target.value);
-  };
-
-  const getUserName = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-
   //로그인
   const onSignInClick = async (id: string, pw: string) => {
-    if(!id || !pw) return;
+    if (!id || !pw) return;
     const b = await mutateAsync({ email: id, password: pw });
-    console.log(b)
-
+    console.log(b);
 
     // try {
     //   const aa = await postSignIn({ email: "test@test.com", password: "test1" });
@@ -71,7 +49,6 @@ export default function SignIn() {
 
   //회원가입
   const onSignUpClick = (
-
     name: string,
     id: string,
     pw: string,
@@ -82,16 +59,6 @@ export default function SignIn() {
     if (pw !== pw2) return;
     console.log(name, id, pw === pw2, check);
 
-    const { mutate } = useMutation(["sign-up"], postSignUp, {
-      onSuccess: () => {
-        console.log("success");
-      },
-      onError: (e)=> {
-        console.log('error', e)
-      }
-    });
-
-    mutate({name: name, email: id, password: pw})
   };
 
   const goToMain = () => {
@@ -153,7 +120,7 @@ export default function SignIn() {
   }, [useCheck, personalCheck, ageCheck, marketingCheck]);
 
   return (
-    <div className="bg-signin_bg h-[100%]">
+    <div className="bg-signin_bg">
       <div className="flex h-16 w-full bg-signin_bg fixed top-0 left-0 z-50 justify-center">
         <div className="w-[1200px] flex justify-between">
           <div className="px-5 w-30">
@@ -197,9 +164,7 @@ export default function SignIn() {
                       }
                       onClick={() => {
                         setSignIn(true);
-                        setEmail("");
-                        setPassword("");
-                        history.replaceState("", "", "/sign-in");
+                        // history.replaceState("", "", "/sign-in");
                       }}
                     >
                       <div
@@ -220,9 +185,7 @@ export default function SignIn() {
                       }
                       onClick={() => {
                         setSignIn(false);
-                        setEmail("");
-                        setPassword("");
-                        history.replaceState("", "", "/sign-up");
+                        // history.replaceState("", "", "/sign-up");
                       }}
                     >
                       <div
@@ -239,40 +202,48 @@ export default function SignIn() {
                   </div>
                   {signIn ? (
                     <div className="px-[2.5rem] py-[1.75rem] text-[0.8125rem]">
-                      <div className="font-bold mb-[0.5rem]">이메일</div>
-                      <Input
-                        svg={<Email />}
-                        type={"text"}
-                        placeholder={"이메일을 입력해주세요"}
-                        value={email}
-                        onChange={getUserEmail}
-                      />
-                      <div className="flex justify-between mt-[2.25rem] mb-[0.5rem]">
-                        <div className="font-bold">비밀번호</div>
-                        <div className="text-signin_font">비밀번호 재설정</div>
-                      </div>
-                      <InputPw
-                        placeholder={"비밀번호를 입력해주세요"}
-                        value={password}
-                        onChange={getUserPw}
-                      />
-                      <div
-                        className="bg-signin_btn text-center py-2 text-white my-[2.75rem] h-[2.75rem] text-[20px] font-bold rounded-md cursor-pointer"
-                        onClick={() => onSignInClick(email, password)}
+                      <form
+                        onSubmit={(event) => {
+                          console.log(event.target.email.value);
+                        }}
                       >
-                        로그인
-                      </div>
+                        <div className="font-bold mb-[0.5rem]">이메일</div>
+                        <Input
+                          svg={<Email />}
+                          name={"email"}
+                          type={"text"}
+                          placeholder={"이메일을 입력해주세요"}
+                        />
+                        <div className="flex justify-between mt-[2.25rem] mb-[0.5rem]">
+                          <div className="font-bold">비밀번호</div>
+                          <div className="text-signin_font">
+                            비밀번호 재설정
+                          </div>
+                        </div>
+                        <InputPw
+                          placeholder={"비밀번호를 입력해주세요"}
+                          name={"password"}
+                        />
+                        <button
+                          className="bg-signin_btn text-center w-full py-2 text-white my-[2.75rem] h-[2.75rem] text-[20px] font-bold rounded-md cursor-pointer"
+                          type="submit"
+                          // onClick={() => onSignInClick(email, password)}
+                        >
+                          로그인
+                        </button>
+                      </form>
+
                       <SocialLogin />
                     </div>
                   ) : (
                     <div className="px-[2.5rem] py-[1.75rem] text-[0.8125rem]">
+                      <form onSubmit={(event) => console.log(event.target.name.value)}>
                       <div className="mb-[0.625rem] font-bold">이름</div>
                       <Input
                         svg={<Smile />}
                         type={"text"}
+                        name={"name"}
                         placeholder={"이름을 입력해 주세요"}
-                        value={name}
-                        onChange={getUserName}
                       />
                       <div className="mt-[2.25rem] mb-[0.625rem] font-bold">
                         이메일
@@ -280,23 +251,20 @@ export default function SignIn() {
                       <Input
                         svg={<Email />}
                         type={"text"}
+                        name={"email"}
                         placeholder={"이메일을 입력해 주세요"}
-                        value={email}
-                        onChange={getUserEmail}
                       />
                       <div className="mt-[2.25rem] mb-[0.625rem] font-bold">
                         비밀번호
                       </div>
                       <InputPw
                         placeholder={"영문자, 숫자, 특수문자 포함 최소 8~20자"}
-                        value={password}
-                        onChange={getUserPw}
+                        name={"pw1"}
                       />
                       <div className="mb-[0.625rem]"></div>
                       <InputPw
                         placeholder={"비밀번호를 확인해 주세요"}
-                        value={checkPw}
-                        onChange={getCheckPw}
+                        name={"pw2"}
                       />
 
                       <div className="mt-[2.625rem] flex-col">
@@ -347,21 +315,22 @@ export default function SignIn() {
                           <div>[선택] 마케팅 활용 동의 및 광고 수신 동의</div>
                         </div>
                       </div>
-                      <div
-                        className="bg-signin_btn text-center py-2 text-white my-[2.75rem] h-[2.75rem] text-[20px] font-bold rounded-md cursor-pointer"
-                        onClick={() =>
-                          onSignUpClick(
-                            name,
-                            email,
-                            password,
-                            checkPw,
-                            mustCheck
-                          )
-                        }
+                      <button
+                        className="bg-signin_btn w-full text-center py-2 text-white my-[2.75rem] h-[2.75rem] text-[20px] font-bold rounded-md cursor-pointer"
+                        // onClick={() =>
+                        //   onSignUpClick(
+                        //     name,
+                        //     email,
+                        //     password,
+                        //     checkPw,
+                        //     mustCheck
+                        //   )
+                        // }
                       >
                         회원가입
-                      </div>
+                      </button>
                       <SocialLogin />
+                      </form>
                     </div>
                   )}
                 </div>
