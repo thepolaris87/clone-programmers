@@ -6,16 +6,16 @@ export const Navbar = () => {
             <span className='flex items-center'>
                 <img className='w-[24px] mr-[1rem]' src={logo} />
                 <span className='flex whitespace-nowrap p-[6px_0px]'>
-                    <a className='text-[#98a8b9] text-[14px] mr-[4px] hover:text-white' href='#'>
+                    <a className='hidden text-[#98a8b9] text-[14px] mr-[4px] hover:text-white md:block' href='#'>
                         코딩테스트 연습
                     </a>
-                    <a className='text-[#98a8b9] text-[14px] mx-[4px]' href='#'>
+                    <a className='hidden text-[#98a8b9] text-[14px] mx-[4px] md:block' href='#'>
                         {'>'}
                     </a>
-                    <a className='text-[#98a8b9] text-[14px] mx-[4px] hover:text-white' href='#'>
+                    <a className='hidden text-[#98a8b9] text-[14px] mx-[4px] hover:text-white md:block' href='#'>
                         코딩 기초 트레이닝
                     </a>
-                    <a className='text-[#98a8b9] text-[14px] mx-[4px]' href='#'>
+                    <a className='hidden text-[#98a8b9] text-[14px] mx-[4px] md:block' href='#'>
                         {'>'}
                     </a>
                     <a className='text-[#ffffff] text-[14px] mx-[4px] font-[600] cursor-text' href='#'>
@@ -24,7 +24,7 @@ export const Navbar = () => {
                 </span>
             </span>
             <span className='whitespace-nowrap'>
-                <a className='text-[#b2c0cc] text-[16px] font-[500] p-[4px_8px] hover:text-white' href='#'>
+                <a className='hidden text-[#b2c0cc] text-[16px] font-[500] p-[4px_8px] hover:text-white md:block' href='#'>
                     컴파일 옵션
                 </a>
             </span>
