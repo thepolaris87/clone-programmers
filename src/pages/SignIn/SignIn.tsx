@@ -6,8 +6,8 @@ import Smile from "../../assets/svg/Smile";
 import SocialLogin from "../../components/SignIn/SocialLogin";
 import InputPw from "../../components/SignIn/InputPw";
 import { useNavigate } from "react-router-dom";
-import title from "../../assets/signin/title.png";
-import main from "../../assets/signin/main.png";
+import title from "../../assets/images/signin/title.png";
+import main from "../../assets/images/signin/main.png";
 import axios from "axios";
 import { useIsMutating, useMutation, useQuery } from "react-query";
 import { postSignIn, postSignUp } from "../../apis/api";
@@ -199,7 +199,7 @@ export default function SignIn() {
                         setSignIn(true);
                         setEmail("");
                         setPassword("");
-                        history.replaceState("", null, "/sign-in");
+                        history.replaceState("", "", "/sign-in");
                       }}
                     >
                       <div
@@ -222,7 +222,7 @@ export default function SignIn() {
                         setSignIn(false);
                         setEmail("");
                         setPassword("");
-                        history.replaceState("", null, "/sign-up");
+                        history.replaceState("", "", "/sign-up");
                       }}
                     >
                       <div

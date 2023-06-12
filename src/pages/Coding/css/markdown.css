@@ -1,0 +1,66 @@
+.title {
+    color: white;
+    font-size: 15px;
+}
+.textBox {
+    color: #b2c0cc;
+    font-size: 16px;
+    margin-top: 16px;
+}
+.codeBox {
+    padding: 1rem;
+    background-color: #202b3d;
+    color: white;
+    font-size: 16px;
+    margin-top: 16px;
+}
+.restriction {
+    color: #b2c0cc;
+    font-size: 16px;
+    margin-top: 4px;
+    margin-left: 16px;
+}
+.restriction2 {
+    color: #b2c0cc;
+    font-size: 16px;
+    margin-top: 4px;
+    margin-left: 36px;
+}
+.example {
+    color: #b2c0cc;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 12px;
+}
+.description {
+    color: #b2c0cc;
+    font-size: 16px;
+    margin-top: 16px;
+    margin-left: 16px;
+}
+table {
+    background-color: #202b3d;
+    color: white;
+    margin-top: 10px;
+}
+th {
+    height: 2rem;
+    font-weight: 400;
+    color: white;
+}
+td {
+    height: 2rem;
+    min-width: 4rem;
+    text-align: center;
+    color: #b2c0cc;
+}
+.line {
+    width: 100%;
+    border: 0.5px solid #172334;
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #3d4c5e;
+}

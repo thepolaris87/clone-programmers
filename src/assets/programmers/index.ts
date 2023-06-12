@@ -1,0 +1,10 @@
+export { default as Q000001 } from '../programmers/Q000001.md';
+export { default as Q000002 } from '../programmers/Q000002.md';
+export { default as Q000003 } from '../programmers/Q000003.md';
+export { default as Q000004 } from '../programmers/Q000004.md';
+export { default as Q000005 } from '../programmers/Q000005.md';
+export { default as Q000006 } from '../programmers/Q000006.md';
+export { default as Q000007 } from '../programmers/Q000007.md';
+export { default as Q000008 } from '../programmers/Q000008.md';
+export { default as Q000009 } from '../programmers/Q000009.md';
+export { default as Q000010 } from '../programmers/Q000010.md';
