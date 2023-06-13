@@ -1,6 +1,6 @@
-import { logo } from '../../../assets/images/codingTest';
+import { logo } from '@/assets/images/codingTest';
 
-export const Navbar = () => {
+export const Navbar = ({ setModal }: { setModal: (modal: boolean) => void }) => {
     return (
         <div className='flex flex-wrap relative w-[100%] h-[46px] justify-between items-center bg-[#0c151c] px-[1rem] py-[0.375rem]'>
             <span className='flex items-center'>
@@ -24,7 +24,7 @@ export const Navbar = () => {
                 </span>
             </span>
             <span className='whitespace-nowrap'>
-                <a className='hidden text-[#b2c0cc] text-[16px] font-[500] p-[4px_8px] hover:text-white md:block' href='#'>
+                <a className='hidden text-[#b2c0cc] text-[16px] font-[500] p-[4px_8px] hover:text-white md:block' href='#' onClick={() => setModal(true)}>
                     컴파일 옵션
                 </a>
             </span>
