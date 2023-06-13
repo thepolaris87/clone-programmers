@@ -12,7 +12,9 @@ module.exports = {
                 signin_btn: "#4981f8",
                 navbar_gray1: "#aeaeae",
                 navbar_gray2: "#6b6b6b",
-                navbar_blue: "#0084ff"
+                navbar_blue: "#0084ff",
+                list_border: "rgb(215, 226, 235)",
+                btn_blue: "rgb(0, 120, 255)"
             },
         }
     },
