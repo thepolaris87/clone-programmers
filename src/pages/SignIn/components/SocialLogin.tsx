@@ -1,5 +1,5 @@
 import React from 'react';
-import kakao from '../../../assets/images/signin/kakao.png';
+import kakao from '@assets/images/signin/kakao.png';
 import google from '../../../assets/images/signin/google.png';
 import github from '../../../assets/images/signin/github.png';
 import facebook from '../../../assets/images/signin/facebook.png';
