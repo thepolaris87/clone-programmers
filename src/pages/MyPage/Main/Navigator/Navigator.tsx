@@ -7,7 +7,7 @@ export default function Navigator() {
     const onItemClick = (name: TNavi) => setNavi(name);
 
     return (
-        <aside className="bg-white">
+        <aside>
             <List>
                 <List.Title>내 정보 관리</List.Title>
                 <List.Item focus={navi === 'account'} onClick={() => onItemClick('account')}>

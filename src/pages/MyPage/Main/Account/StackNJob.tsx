@@ -15,7 +15,7 @@ export default function StackNJob() {
                             <span>주요 기술</span>
                             <span> - 최대 3개 선택 가능</span>
                         </div>
-                        <div className="h-5 flex">
+                        <div className="h-5 flex mt-1">
                             <Wrapper>HTML</Wrapper>
                             <Wrapper>CSS</Wrapper>
                             <Wrapper>Javascript</Wrapper>
@@ -30,7 +30,7 @@ export default function StackNJob() {
                             <span>희망 직무</span>
                             <span> - 최대 3개 선택 가능</span>
                         </div>
-                        <div className="h-5 flex">                                                        
+                        <div className="h-5 flex mt-1">                                                        
                             <Wrapper>웹 풀스택</Wrapper>
                             <Wrapper>안드로이드 앱</Wrapper>
                             <Wrapper>아이폰 앱</Wrapper>

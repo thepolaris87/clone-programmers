@@ -45,3 +45,17 @@ export const ContentButtonV1 = styled.button`
         background-color: #d7e2eb;
     }
 `;
+
+export const ContentButtonV2 = styled.button`
+    background-color: #0078ff;
+    color: #fff;
+    font-weight: 700;
+    padding-inline: 24px;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    border-radius: 6px;
+
+    &:hover {
+        background-color: #0053f4;
+    }
+`;

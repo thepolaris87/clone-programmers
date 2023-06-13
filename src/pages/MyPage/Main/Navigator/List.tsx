@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 export default function List({ children }: { children: React.ReactNode }) {
-    return <div className="border rounded-md p-4 w-64">{children}</div>;
+    return <div className="border rounded-md p-4 w-64 bg-white">{children}</div>;
 }
 
 List.Title = ({ children }: { children: React.ReactNode }) => {
