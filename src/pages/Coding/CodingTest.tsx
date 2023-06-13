@@ -1,20 +1,27 @@
 import { useEffect, useState } from 'react';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useQuery, useMutation } from 'react-query';
-import { getQuestion, postQuestion } from '../../apis/api';
+import { getQuestion, postQuestion } from '@/apis/api';
 import { Navbar } from './components/Navbar';
-import { verticalButton, horizonButton } from '../../assets/images/codingTest';
-import { Q000001 } from '../../assets/programmers/index';
+import { verticalButton, horizonButton } from '@/assets/images/codingTest';
+import { Q000001 } from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
+import { Modal } from '@/components/Modal';
 
 export default function CodingTest() {
     const monaco = useMonaco();
-    const { data } = useQuery(['question', 'Q000001'], () => getQuestion('Q000001'));
+    const questionId = 'Q000001';
+    const { data } = useQuery(['question', questionId], () => getQuestion(questionId));
     const { mutate } = useMutation(postQuestion);
     const [codeValue, setCodeValue] = useState('');
+    const [modal, setModal] = useState(false);
 
     const onPostQuestion = () => {
-        mutate({ questionId: 'Q000001', userCode: codeValue, status: '2' });
+        mutate({ questionId: questionId, userCode: codeValue, status: '2' });
+    };
+    const onReset = () => {
+        const value = window.confirm('정말로 초기화하시겠습니까?');
+        if (value) setCodeValue(data.questionStatus.defaultCode);
     };
 
     useEffect(() => {
@@ -39,7 +46,7 @@ export default function CodingTest() {
     return (
         <TestContainer>
             <div className='codingTest block w-[100%] break-words break-keep shadow-[#172334]'>
-                <Navbar />
+                <Navbar setModal={setModal} />
                 <section className='h-[3.5rem] flex relative bg-[#263747] px-[1rem] justify-between shadow-[0_0.0625rem_#172334]'>
                     <h5 className='text-[white] pt-[15px]'>귤 고르기</h5>
                     <span className='flex items-center justify-end h-[3rem]'>
@@ -65,18 +72,18 @@ export default function CodingTest() {
                 </section>
                 <div className='min-h-[31.25rem] h-[100%] bg-[#263747]'>
                     <section className='flex flex-wrap h-[calc(100vh-(2.9375rem+3.5rem+3.5625rem))]'>
-                        <div className='w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]'>
+                        <span className='w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]'>
                             <Q000001 />
-                        </div>
+                        </span>
                         <div className='flex justify-end items-center w-[24px] border-r-[0.0625rem] border-[#172334]'>
                             <img className='h-[35px] cursor-ew-resize' src={verticalButton} />
                         </div>
                         <div className='w-[calc(60%-12px)]'>
                             <div className='h-[calc(60%-7px)]'>
                                 <div className='h-[100%]'>
-                                    <div className='p-[16px] w-[100%] h-[54px] text-[15px] text-[white] font-[700] border-b-[1px] border-[#172334]'>
+                                    <p className='p-[16px] w-[100%] h-[54px] text-[15px] text-[white] font-[700] border-b-[1px] border-[#172334]'>
                                         <h5>solution.js</h5>
-                                    </div>
+                                    </p>
                                     <div className='h-[calc(100%-54px)] w-[100%] pt-[16px]'>
                                         <Editor
                                             language='javascript'
@@ -91,12 +98,12 @@ export default function CodingTest() {
                                     <img className='w-[35px] cursor-ns-resize' src={horizonButton} />
                                 </div>
                                 <div className='h-[calc(40%-7px)]'>
-                                    <div className='h-[41px] p-[0_16px] border-b-[1px] border-[#172334]'>
+                                    <p className='h-[41px] p-[0_16px] border-b-[1px] border-[#172334]'>
                                         <h5 className='text-[#4F6B81] text-[14px] font-[700] pt-1'>실행 결과</h5>
-                                    </div>
-                                    <div>
+                                    </p>
+                                    <p>
                                         <h5 className='p-[16px] text-[#78909C] text-[14px]'>실행 결과가 여기에 표시됩니다.</h5>
-                                    </div>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +121,7 @@ export default function CodingTest() {
                             <button className='hidden w-[160px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px] md:block'>
                                 <h5 className='mt-1'>다른 사람의 풀이</h5>
                             </button>
-                            <button className='w-[72px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]'>
+                            <button className='w-[72px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]' onClick={onReset}>
                                 <h5 className='mt-1'>초기화</h5>
                             </button>
                             <button className='w-[91px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]'>
@@ -127,6 +134,26 @@ export default function CodingTest() {
                     </section>
                 </div>
             </div>
+            {modal && (
+                <Modal title='컴파일 옵션' button='닫기' onClick={setModal}>
+                    <table>
+                        <thead className='text-left border-t-[1px] border-[#d7e2eb]'>
+                            <tr>
+                                <th className='w-[95px] p-[0.25rem_0.5rem]'>언어</th>
+                                <th className='w-[172px] p-[0.25rem_0.5rem]'>컴파일러</th>
+                                <th className='w-[384px] p-[0.25rem_0.5rem]'>컴파일 커맨드</th>
+                            </tr>
+                        </thead>
+                        <tbody className='bg-[rgba(50,50,144,0.02)] border-t-[1px] border-[#d7e2eb]'>
+                            <tr>
+                                <td className='w-[172px] p-[0.25rem_0.5rem]'>JavaScript</td>
+                                <td className='w-[172px] p-[0.25rem_0.5rem]'>Node.js 16.17.0</td>
+                                <td className='w-[384px] p-[0.25rem_0.5rem]'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </Modal>
+            )}
         </TestContainer>
     );
 }
