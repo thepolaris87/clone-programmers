@@ -31,8 +31,17 @@ export const ContentContainer = ({ children, className = '' }: { children: React
     return <div className={classNames('border bg-white rounded-xl p-6', className)}>{children}</div>;
 };
 
-export const ContentButton = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
-    return (
-        <button className={classNames('border rounded-md text-[#263747] bg-[#FBFBFE] font-bold pt-1 px-3 hover:bg-[#d7e2eb]', className)}>{children}</button>
-    );
-};
+export const ContentButtonV1 = styled.button`
+    border-width: 1px;
+    border-radius: 6px;
+    color: #263747;
+    background-color: #fbfbfe;
+    font-weight: 700;
+    padding-top: 4px;
+    padding-inline: 12px;
+    height: 42px;
+
+    &:hover {
+        background-color: #d7e2eb;
+    }
+`;
