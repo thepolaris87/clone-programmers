@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useQuery, useMutation } from 'react-query';
+import classNames from 'classnames';
 import { getQuestion, postQuestion } from '@/apis/api';
 import { Navbar } from './components/Navbar';
 import { verticalButton, horizonButton } from '@/assets/images/codingTest';
-import { Q000001 } from '@/assets/programmers/index';
+import { Q000002 } from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 
 type ResultProps = {
-    input: number | string | string[] | number[];
+    input: string[] | number[];
     output: number | string | string[] | number[];
 };
 export default function CodingTest() {
     const monaco = useMonaco();
-    const questionId = 'Q000001';
+    const questionId = 'Q000002';
     const { data } = useQuery(['question', questionId], () => getQuestion(questionId));
     const { mutate } = useMutation(postQuestion);
     const [codeValue, setCodeValue] = useState('');
@@ -34,7 +35,7 @@ export default function CodingTest() {
         setResult([]);
         const execFunc = new Function('return ' + codeValue)();
         data.questionStatus.testCase.forEach((result: ResultProps) => {
-            const answer = execFunc(result.input[0], result.input[1]);
+            const answer = execFunc(...result.input);
             setResult((prev) => {
                 return [...prev, answer];
             });
@@ -90,7 +91,7 @@ export default function CodingTest() {
                 <div className="min-h-[31.25rem] h-[100%] bg-[#263747]">
                     <section className="flex flex-wrap h-[calc(100vh-(2.9375rem+3.5rem+3.5625rem))]">
                         <span className="w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]">
-                            <Q000001 />
+                            <Q000002 />
                         </span>
                         <div className="flex justify-end items-center w-[24px] border-r-[0.0625rem] border-[#172334]">
                             <img className="h-[35px] cursor-ew-resize" src={verticalButton} />
@@ -164,10 +165,9 @@ export default function CodingTest() {
                                                                                       String(result.input[0]) +
                                                                                       ']'
                                                                                     : String(result.input[0])}
-                                                                                ,&nbsp;
                                                                                 {result.input[1] &&
                                                                                 typeof result.input[1] === 'object'
-                                                                                    ? '[' +
+                                                                                    ? ', [' +
                                                                                       String(result.input[1]) +
                                                                                       ']'
                                                                                     : result.input[1] &&
@@ -199,11 +199,12 @@ export default function CodingTest() {
                                                                                 </span>
                                                                             </td>
                                                                             <td
-                                                                                className={`bg-[#202b3d] ${
+                                                                                className={classNames(
+                                                                                    'bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[1.5rem]',
                                                                                     answer
                                                                                         ? 'text-[#0078ff]'
                                                                                         : 'text-[#d32f2f]'
-                                                                                } text-[14px] p-[2px_8px_2px_0] leading-[1.5rem]`}
+                                                                                )}
                                                                             >
                                                                                 {answer
                                                                                     ? '테스트를 통과하였습니다.'
@@ -219,15 +220,16 @@ export default function CodingTest() {
                                                         테스트 결과 (~˘▾˘)~
                                                     </div>
                                                     <div
-                                                        className={`${
+                                                        className={classNames(
+                                                            'text-[16px] font-[500] m-[0.25rem_0_1.5rem_0]',
                                                             answerNum === results.length
                                                                 ? 'text-[#0078ff]'
                                                                 : 'text-[#d32f2f]'
-                                                        } text-[16px] font-[500] m-[0.25rem_0_1.5rem_0]`}
+                                                        )}
                                                     >
                                                         {results.length}개 중 {answerNum}개 성공
                                                     </div>
-                                                    {answerNum === 3 && (
+                                                    {answerNum === results.length && (
                                                         <div className="text-[#5f7f90] text-[12.25px] m-[0.25rem_0] leading-5">
                                                             샘플 테스트 케이스를 통과했다는 의미로, 작성한 코드가 문제의
                                                             정답은 아닐 수 있습니다. <br /> (샘플 테스트 케이스는
