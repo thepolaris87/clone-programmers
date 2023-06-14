@@ -1,8 +1,16 @@
-import { ContentContainer, ContentSubTitle } from '../../MyPage.styles';
+import { useState } from 'react';
+import { ContentContainer, ContentSubTitle, Toggle } from '../../MyPage.styles';
+import { useAtom } from 'jotai';
+import { toastAtom } from '@/atoms/toast';
 
 export default function AlertEmail() {
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.checked);
+    const [message, setMessage] = useAtom(toastAtom);
+    const [checked, setChecked] = useState({ email: false, marketing: false });
+
+    const onChange = (e: React.FormEvent<HTMLLabelElement>, type: 'email' | 'marketing') => {
+        const { target } = e;
+        if (target instanceof HTMLInputElement) setChecked({ ...checked, [type]: target.checked });
+        setMessage({ message: '변경사항이 저장 되었습니다.' });
     };
 
     return (
@@ -15,10 +23,7 @@ export default function AlertEmail() {
                         <div>내 질문의 답변이 등록되면 이메일로 알림을 받겠습니다.</div>
                     </div>
                     <div>
-                        <label>
-                            <input hidden type="checkbox" id="toggle" onChange={onChange} />
-                            <div className="w-5 h-5 rounded-full bg-slate-500"></div>
-                        </label>
+                        <Toggle checked={checked.email} onChange={(e) => onChange(e, 'email')} />
                     </div>
                 </div>
                 <hr className="my-7" />
@@ -27,7 +32,9 @@ export default function AlertEmail() {
                         <div>마케팅 활용 동의 및 광고 수신 동의</div>
                         <div>각종 이벤트, 회원 혜택, 할인 행사등 마케팅 알림을 받겠습니다.</div>
                     </div>
-                    <div>Toggle</div>
+                    <div>
+                        <Toggle checked={checked.marketing} onChange={(e) => onChange(e, 'marketing')} />
+                    </div>
                 </div>
             </ContentContainer>
         </>

@@ -2,7 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Router from './Router';
 import './App.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import React from 'react';
+import ToastMessage from './components/ToastMessage';
 
 const queryClient = new QueryClient({
     defaultOptions: { queries: { suspense: true } }
@@ -11,9 +11,11 @@ const queryClient = new QueryClient({
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <Router />
-            </BrowserRouter>
+            <ToastMessage>
+                <BrowserRouter>
+                    <Router />
+                </BrowserRouter>
+            </ToastMessage>
         </QueryClientProvider>
     );
 }

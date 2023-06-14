@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import classNames from 'classnames';
+import { useState } from 'react';
 
 export const HeaderContainer = styled.header`
     .btn1 {
@@ -59,3 +60,14 @@ export const ContentButtonV2 = styled.button`
         background-color: #0053f4;
     }
 `;
+
+export const Toggle = ({ checked, onChange }: { checked?: boolean; onChange?: (e: React.FormEvent<HTMLLabelElement>) => void }) => {
+    return (
+        <label className="cursor-pointer" onChange={onChange}>
+            <input hidden type="checkbox" />
+            <div className={classNames('w-16 p-1 rounded-3xl flex', checked ? 'bg-[#2196f3]' : 'bg-[#ccc]')}>
+                <div className={classNames('w-5 h-5 rounded-full bg-white transition-all duration-300', checked ? 'ml-0' : 'ml-9')}></div>
+            </div>
+        </label>
+    );
+};
