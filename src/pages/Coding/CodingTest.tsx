@@ -8,13 +8,19 @@ import { Q000001 } from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 
+type ResultProps = {
+    input: number | string | string[] | number[];
+    output: number | string | string[] | number[];
+};
 export default function CodingTest() {
     const monaco = useMonaco();
     const questionId = 'Q000001';
     const { data } = useQuery(['question', questionId], () => getQuestion(questionId));
     const { mutate } = useMutation(postQuestion);
     const [codeValue, setCodeValue] = useState('');
+    const [results, setResult] = useState<number[]>([]);
     const [modal, setModal] = useState(false);
+    let answerNum = 0;
 
     const onPostQuestion = () => {
         mutate({ questionId: questionId, userCode: codeValue, status: '2' });
@@ -22,6 +28,17 @@ export default function CodingTest() {
     const onReset = () => {
         const value = window.confirm('정말로 초기화하시겠습니까?');
         if (value) setCodeValue(data.questionStatus.defaultCode);
+    };
+
+    const runFunc = () => {
+        setResult([]);
+        const execFunc = new Function('return ' + codeValue)();
+        data.questionStatus.testCase.forEach((result: ResultProps) => {
+            const answer = execFunc(result.input[0], result.input[1]);
+            setResult((prev) => {
+                return [...prev, answer];
+            });
+        });
     };
 
     useEffect(() => {
@@ -45,7 +62,7 @@ export default function CodingTest() {
 
     return (
         <TestContainer>
-            <div className="codingTest block w-[100%] break-words break-keep shadow-[#172334]">
+            <div className="codingTest block w-[100%] break-words break-keep shadow-[#172334] tracking-wider">
                 <Navbar setModal={setModal} />
                 <section className="h-[3.5rem] flex relative bg-[#263747] px-[1rem] justify-between shadow-[0_0.0625rem_#172334]">
                     <h5 className="text-[white] pt-[15px]">귤 고르기</h5>
@@ -78,18 +95,18 @@ export default function CodingTest() {
                         <div className="flex justify-end items-center w-[24px] border-r-[0.0625rem] border-[#172334]">
                             <img className="h-[35px] cursor-ew-resize" src={verticalButton} />
                         </div>
-                        <div className="w-[calc(60%-12px)]">
+                        <div className="w-[calc(60%-12px)] h-[100%]">
                             <div className="h-[calc(60%-7px)]">
                                 <div className="h-[100%]">
                                     <div className="p-[16px] w-[100%] h-[54px] text-[15px] text-[white] font-[700] border-b-[1px] border-[#172334]">
                                         <h5>solution.js</h5>
                                     </div>
-                                    <div className="h-[calc(100%-54px)] w-[100%] pt-[16px]">
+                                    <div className="h-[calc(100%-54px)] pt-[16px]">
                                         <Editor
                                             language="javascript"
                                             theme="theme"
                                             value={codeValue}
-                                            onChange={(e) => setCodeValue(e)}
+                                            onChange={(e) => setCodeValue(e as string)}
                                             options={{
                                                 fontSize: 16,
                                                 minimap: { enabled: false },
@@ -101,14 +118,125 @@ export default function CodingTest() {
                                 <div className="flex justify-center border-t-[1px] border-[#172334]">
                                     <img className="w-[35px] cursor-ns-resize" src={horizonButton} />
                                 </div>
-                                <div className="h-[calc(40%-7px)]">
+                                <div className="h-[calc(53%-7px)]">
                                     <div className="h-[41px] p-[0_16px] border-b-[1px] border-[#172334]">
                                         <h5 className="text-[#4F6B81] text-[14px] font-[700] pt-1">실행 결과</h5>
                                     </div>
-                                    <div>
-                                        <h5 className="p-[16px] text-[#78909C] text-[14px]">
-                                            실행 결과가 여기에 표시됩니다.
-                                        </h5>
+                                    <div className="h-[100%] px-[1rem] overflow-auto">
+                                        <div className="text-[14px] leading-[1.5rem] pt-[1rem] bg-[#263747] text-[#78909c]">
+                                            {results.length === 0 ? (
+                                                <div className="text-[#78909C] text-[14px]">
+                                                    실행 결과가 여기에 표시됩니다.
+                                                </div>
+                                            ) : (
+                                                <div className="mb-[1.3125rem] font-[white] p-0 bc-[#263747] whitespace-pre-wrap break-words">
+                                                    {data.questionStatus.testCase.map(
+                                                        (result: ResultProps, index: number) => {
+                                                            const answer = result.output === results[index];
+                                                            if (answer) answerNum += 1;
+                                                            return (
+                                                                <table
+                                                                    key={index}
+                                                                    className="w-[calc(100%-1rem)] pr-[1rem] border-[#172334] border-[1px]"
+                                                                >
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td
+                                                                                className="bg-[#202b3d] text-[#b2c0cc] text-[14px] p-[4px_16px] leading-[1.5rem]"
+                                                                                colSpan={2}
+                                                                            >
+                                                                                테스트 &nbsp; {index + 1}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td
+                                                                                className="bg-[#202b3d] text-[#44576c] w-[10rem] text-[14px] p-[2px_8px] leading-[1.5rem]"
+                                                                                align="right"
+                                                                            >
+                                                                                입력값&nbsp;
+                                                                                <span className="text-[#44576c] text-[14px]">
+                                                                                    &#62;
+                                                                                </span>
+                                                                            </td>
+                                                                            <td className="bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[1.5rem]">
+                                                                                {typeof result.input[0] === 'object'
+                                                                                    ? '[' +
+                                                                                      String(result.input[0]) +
+                                                                                      ']'
+                                                                                    : String(result.input[0])}
+                                                                                ,&nbsp;
+                                                                                {result.input[1] &&
+                                                                                typeof result.input[1] === 'object'
+                                                                                    ? '[' +
+                                                                                      String(result.input[1]) +
+                                                                                      ']'
+                                                                                    : result.input[1] &&
+                                                                                      String(result.input[1])}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td
+                                                                                className="bg-[#202b3d] text-[#44576c] w-[10rem] text-[14px] p-[2px_8px] leading-[1.5rem]"
+                                                                                align="right"
+                                                                            >
+                                                                                기댓값&nbsp;
+                                                                                <span className="text-[#44576c] text-[14px]">
+                                                                                    &#62;
+                                                                                </span>
+                                                                            </td>
+                                                                            <td className="bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[1.5rem]">
+                                                                                {result.output}
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td
+                                                                                className="bg-[#202b3d] text-[#44576c] w-[10rem] text-[14px] p-[2px_8px] leading-[1.5rem]"
+                                                                                align="right"
+                                                                            >
+                                                                                실행 결과&nbsp;
+                                                                                <span className="text-[#44576c] text-[14px]">
+                                                                                    &#62;
+                                                                                </span>
+                                                                            </td>
+                                                                            <td
+                                                                                className={`bg-[#202b3d] ${
+                                                                                    answer
+                                                                                        ? 'text-[#0078ff]'
+                                                                                        : 'text-[#d32f2f]'
+                                                                                } text-[14px] p-[2px_8px_2px_0] leading-[1.5rem]`}
+                                                                            >
+                                                                                {answer
+                                                                                    ? '테스트를 통과하였습니다.'
+                                                                                    : `실행한 결과 값 ${result[index]}이 기댓값 ${result.output}과 다릅니다.`}
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            );
+                                                        }
+                                                    )}
+                                                    <div className="text-[#98a8b9] text-[12.25px] m-[1.5rem_0_0.5rem_0]">
+                                                        테스트 결과 (~˘▾˘)~
+                                                    </div>
+                                                    <div
+                                                        className={`${
+                                                            answerNum === results.length
+                                                                ? 'text-[#0078ff]'
+                                                                : 'text-[#d32f2f]'
+                                                        } text-[16px] font-[500] m-[0.25rem_0_1.5rem_0]`}
+                                                    >
+                                                        {results.length}개 중 {answerNum}개 성공
+                                                    </div>
+                                                    {answerNum === 3 && (
+                                                        <div className="text-[#5f7f90] text-[12.25px] m-[0.25rem_0] leading-5">
+                                                            샘플 테스트 케이스를 통과했다는 의미로, 작성한 코드가 문제의
+                                                            정답은 아닐 수 있습니다. <br /> (샘플 테스트 케이스는
+                                                            [테스트 케이스 추가하기] 버튼을 통해 확인하실 수 있습니다.)
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +261,10 @@ export default function CodingTest() {
                             >
                                 <h5 className="mt-1">초기화</h5>
                             </button>
-                            <button className="w-[91px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]">
+                            <button
+                                className="w-[91px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]"
+                                onClick={runFunc}
+                            >
                                 <h5 className="mt-1">코드 실행</h5>
                             </button>
                             <button
