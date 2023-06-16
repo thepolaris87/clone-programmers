@@ -3,7 +3,7 @@ import Editor, { useMonaco } from '@monaco-editor/react';
 import { useQuery, useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import { getQuestion, postQuestion } from '@/apis/api';
+import { getQuestion, postSolution } from '@/apis/api';
 import { Navbar } from './components/Navbar';
 import { verticalButton, horizonButton } from '@/assets/images/codingTest';
 import { Q000002 } from '@/assets/programmers/index';
@@ -21,14 +21,14 @@ export default function CodingTest() {
     const navigate = useNavigate();
     const questionId = 'Q000002';
     const { data } = useQuery(['question', questionId], () => getQuestion(questionId));
-    const { mutate } = useMutation(postQuestion);
+    const { mutate } = useMutation(postSolution);
     const [codeValue, setCodeValue] = useState('');
     const [results, setResults] = useState<{ [key: number]: number | string | null }>({});
     const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(false);
     let answerNum = 0;
 
-    const onPostQuestion = () => {
+    const onPostSolution = () => {
         mutate({ questionId: questionId, userCode: codeValue, status: '2' });
     };
     const onReset = () => {
@@ -272,7 +272,7 @@ export default function CodingTest() {
                             </button>
                             <button
                                 className="w-[140px] h-[40px] bg-[#0078ff] hover:bg-[#0053f4] text-[white] font-[600] rounded-[4px] mx-[4px]"
-                                onClick={onPostQuestion}
+                                onClick={onPostSolution}
                             >
                                 <h5 className="mt-1">제출 후 채점하기</h5>
                             </button>

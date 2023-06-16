@@ -1,14 +1,34 @@
+import React, { useState } from 'react';
+import { useMutation } from 'react-query';
+import { postQuestion } from '@/apis/api';
+import classNames from 'classnames';
+
 export const ModalContent = ({ onClick }: { onClick: (value: boolean) => void }) => {
+    const { mutate } = useMutation(postQuestion);
+    const [form, setForm] = useState({ title: '', description: '' });
+
+    const onChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setForm((prev) => {
+            return { ...prev, [e.target.name]: e.target.value };
+        });
+    };
+    const onSubmit = () => {
+        mutate({ questionId: 'Q000001', title: form.title, description: form.description });
+    };
+
     return (
-        <div>
+        <React.Fragment>
             <div className="mb-[16px]">
                 <label className="inline-block text-[14px] leading-[24px] mb-[2px]">
                     <h5 className="inline-block align-top text-[#f44336] font-[700] text-[20px] mr-[2px]">* </h5>제목
                 </label>
                 <input
-                    required={true}
+                    name="title"
+                    value={form.title}
+                    onChange={(e) => onChange(e)}
                     placeholder="입력하세요."
-                    className="w-[100%] h-[40px] p-[8px_12px] bg-[#fbfbfd] font-[400] text-[#263747] text-[13px] md:text-[16px] leading-[24px] border-[1.5px] border-[#d7e2eb] rounded-[4px] hover:border-[#0078FF]"
+                    required={true}
+                    className="w-[100%] h-[40px] p-[8px_12px] bg-[#fbfbfd] font-[400] text-[13px] md:text-[16px] leading-[24px] border-[1.5px] border-[#d7e2eb] rounded-[4px] placeholder:text-[rgba(50,50,80,0.24)] hover:border-[#0078FF]"
                 ></input>
             </div>
             <div className="m-[16px_0_0_0]">
@@ -16,10 +36,13 @@ export const ModalContent = ({ onClick }: { onClick: (value: boolean) => void })
                     <h5 className="inline-block align-top text-[#f44336] font-[700] text-[20px] mr-[2px]">* </h5>내용
                 </label>
                 <textarea
-                    required={true}
+                    name="description"
+                    value={form.description}
+                    onChange={(e) => onChange(e)}
                     rows={10}
+                    required={true}
                     placeholder={`문제와 관련된 질문을 구체적으로 작성해주세요.\n타인에 대한 비방이나 욕설, 광고, 정답 공개 등 게시판의 목적과 관련 없는 내용은 삭제될 수 있습니다.`}
-                    className="block w-[100%] h-auto p-[8px_12px] bg-[#fbfbfd] font-[400] text-[#263747] text-[13px] md:text-[16px] leading-[24px] border-[1.5px] border-[#d7e2eb] rounded-[4px_4px_0_0] hover:border-[#0078FF]"
+                    className="block w-[100%] h-auto p-[8px_12px] bg-[#fbfbfd] font-[400] text-[13px] md:text-[16px] leading-[24px] border-[1.5px] border-[#d7e2eb] rounded-[4px_4px_0_0] placeholder:text-[rgba(50,50,80,0.24)] hover:border-[#0078FF]"
                 ></textarea>
             </div>
             <h5 className="p-[8px_12px] mt-0 mb-[16px] border-[1px] border-t-0 border-[#d7e2eb] text-[#b2c0cc] text-[12px] leading-[18px] rounded-[0_0_3px_3px]">
@@ -56,13 +79,16 @@ export const ModalContent = ({ onClick }: { onClick: (value: boolean) => void })
                     <h5 className="mt-0.5">취소</h5>
                 </button>
                 <button
-                    className="bg-[#0078ff] text-[white] bg-opacity-40 text-[14px] sm:text-[16px]  font-[500] leading-[24px] p-[7px_13px] mx-[4px] rounded-[4px] cursor-not-allowed"
-                    onClick={() => onClick(false)}
-                    disabled={true}
+                    className={classNames(
+                        'bg-[#0078ff] text-[white] text-[14px] sm:text-[16px] font-[500] leading-[24px] p-[7px_13px] mx-[4px] rounded-[4px]',
+                        form.title === '' || form.description === '' ? 'bg-opacity-40 cursor-not-allowed' : 'cursor-pointer'
+                    )}
+                    onClick={onSubmit}
+                    disabled={form.title === '' || form.description === '' ? true : false}
                 >
                     <h5 className="mt-0.5">등록</h5>
                 </button>
             </div>
-        </div>
+        </React.Fragment>
     );
 };

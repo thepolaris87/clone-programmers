@@ -32,8 +32,8 @@ export const Modal = ({ children, title, width, open, onClick }: ModalProps) => 
                 open ? 'modal-wrapper fade' : 'modal-wrapper'
             )}
         >
-            <div className={classNames(`lg:w-[${width}] md:min-w-[600px] sm:w-[auto] m-[40px]`, open ? 'modal-content fade' : 'modal-content')}>
-                <div className={`rounded-[4px] bg-[white]`}>
+            <div className={classNames('sm:w-[auto] m-[40px]', open ? 'modal-content fade' : 'modal-content')} style={{ width: width }}>
+                <div className={'rounded-[4px] bg-[white]'}>
                     <div className="h-[71px] p-[16px_16px_0_16px] lg:p-[32px_40px_0] md:p-[24px_24px_0]">
                         <button
                             className="float-right text-[24px] text-[#000] opacity-[0.16] leading-1 font-[700] hover:opacity-[0.5]"
