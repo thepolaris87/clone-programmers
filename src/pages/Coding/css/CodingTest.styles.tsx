@@ -9,10 +9,10 @@ export const TestContainer = styled.div`
         color: #b2c0cc;
         font-size: 16px;
         margin-top: 16px;
-        line-height: 1.8rem;
+        line-height: 28.8px;
     }
     .codeBox {
-        padding: 1rem;
+        padding: 16px;
         background-color: #202b3d;
         color: white;
         font-size: 16px;
@@ -46,24 +46,24 @@ export const TestContainer = styled.div`
         width: 100%;
         border: 0.5px solid #172334;
     }
-    table {
+    .table {
         background-color: #202b3d;
         color: white;
         margin-top: 10px;
         text-align: center;
         border: 0.5px solid rgb(23, 35, 52);
-    }
-    th {
-        height: 2rem;
-        font-weight: 400;
-        color: white;
-        border: 0.5px solid rgb(23, 35, 52);
-    }
-    td {
-        height: 2rem;
-        min-width: 4rem;
-        text-align: center;
-        color: #b2c0cc;
-        border: 1px solid rgb(23, 35, 52);
+        th {
+            height: 32px;
+            font-weight: 400;
+            color: white;
+            border: 0.5px solid rgb(23, 35, 52);
+        }
+        td {
+            height: 32px;
+            min-width: 64px;
+            text-align: center;
+            color: #b2c0cc;
+            border: 1px solid rgb(23, 35, 52);
+        }
     }
 `;

@@ -1,0 +1,51 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translate(0, -50px);
+    }
+    to {
+        transform: translate(0, 0px);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translate(0, 0px);
+    }
+    to {
+        transform: translate(0, -50px);
+    }
+}
+
+.modal-wrapper.fade {
+    transition: fadeIn 0.15s linear;
+}
+
+.modal-content.fade {
+    animation: slideDown 0.3s ease-out;
+}
+
+.modal-wrapper {
+    transition: fadeOut 0.15s linear;
+}
+
+.modal-content {
+    animation: slideUp 0.3s ease-out;
+}

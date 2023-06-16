@@ -1,32 +1,42 @@
 {
+<<<<<<< HEAD
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
         "@/*": ["src/*"],
         "@assets/*": ["src/assets/*"],
         "@apis/*":["src/apis/*"]
+=======
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@assets/*": ["src/assets/*"],
+            "@apis/*": ["src/apis/*"]
+        },
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "skipLibCheck": true,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+
+        /* Linting */
+        // "strict": true,
+        // "noUnusedLocals": true,
+        // "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "strictNullChecks": true
+>>>>>>> 97460a81f994c029712ebbb49ef1cf120608693a
     },
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
-    // "strict": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "typeRoots": ["src"]
+    "include": ["src"],
+    "references": [{ "path": "./tsconfig.node.json" }],
+    "typeRoots": ["src"]
 }
