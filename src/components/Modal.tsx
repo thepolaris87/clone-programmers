@@ -4,12 +4,12 @@ import classNames from 'classnames';
 type ModalProps = {
     children: ReactNode;
     title: string;
-    button: string;
+    width: string;
     open: boolean;
     onClick: (value: boolean) => void;
 };
 
-export const Modal = ({ children, title, button, open, onClick }: ModalProps) => {
+export const Modal = ({ children, title, width, open, onClick }: ModalProps) => {
     const [animate, setAnimate] = useState(false);
     const [visible, setVisible] = useState(open);
 
@@ -28,30 +28,22 @@ export const Modal = ({ children, title, button, open, onClick }: ModalProps) =>
     return (
         <div
             className={classNames(
-                'fixed flex justify-center items-center top-0 left-0 w-[100%] h-[100%] z-[1050] bg-[rgba(40,56,80,0.8)]',
+                'fixed flex justify-center items-center top-0 left-0 w-[100%] h-[100%] z-[1050] bg-[rgba(40,56,80,0.8)] overflow-auto',
                 open ? 'modal-wrapper fade' : 'modal-wrapper'
             )}
         >
-            <div className={classNames('w-[600px] m-[40px]', open ? 'modal-content fade' : 'modal-content')}>
-                <div className="w-[43.75rem] rounded-[0.25rem] bg-[white]">
-                    <div className="h-[71px] p-[1.25rem_1.5rem_0_1.5rem]">
+            <div className={classNames(`lg:w-[${width}] md:min-w-[600px] sm:w-[auto] m-[40px]`, open ? 'modal-content fade' : 'modal-content')}>
+                <div className={`rounded-[4px] bg-[white]`}>
+                    <div className="h-[71px] p-[16px_16px_0_16px] lg:p-[32px_40px_0] md:p-[24px_24px_0]">
                         <button
-                            className="float-right text-[1.5rem] text-[#000] opacity-[0.16] leading-1 font-[700] hover:opacity-[0.5]"
+                            className="float-right text-[24px] text-[#000] opacity-[0.16] leading-1 font-[700] hover:opacity-[0.5]"
                             onClick={() => onClick(false)}
                         >
                             x
                         </button>
                         <h3 className="text-[#263747] text-[26px] font-[700] mb-0 leading-[1.5]">{title}</h3>
                     </div>
-                    <div className="p-[1.5rem]">{children}</div>
-                    <div className="p-[1.5rem] flex justify-end">
-                        <button
-                            className="bg-[#0078FF] text-[white] text-[1rem] font-[500] leading-[1.5rem] p-[0.4375rem_0.8125rem] rounded-[0.25rem] hover:bg-[#0053f4]"
-                            onClick={() => onClick(false)}
-                        >
-                            <h5 className="mt-0.5">{button}</h5>
-                        </button>
-                    </div>
+                    <div className="p-[16px] lg:p-[40px] md:p-[24px]">{children}</div>
                 </div>
             </div>
         </div>
