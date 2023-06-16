@@ -28,11 +28,11 @@ export const postSolution = async (body: { questionId: string; userCode: string;
         .then((r) => console.log(r.data));
 };
 
-export const postQuestion = async (body: { questionId: string; userCode: string; status: string }) => {
+export const postQuestion = async (body: { questionId: string; title: string; description: string }) => {
     return axios
-        .post(`http://192.168.3.112:9000/learn/courses/${body.questionId}`, {
-            userCode: body.userCode,
-            status: body.status
+        .post(`http://192.168.3.112:9000/learn/courses/${body.questionId}/question`, {
+            title: body.title,
+            description: body.description
         })
         .then((r) => console.log(r.data));
 };
