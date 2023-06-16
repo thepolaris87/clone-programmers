@@ -1,7 +1,6 @@
 import React, { Children } from "react";
 
 export default function Dropdown(props) {
-
   const { visibility, onClick, title, array, style } = props;
 
   return (
@@ -25,9 +24,11 @@ export default function Dropdown(props) {
           ></path>
         </svg>
       </button>
-      <article>
+      <article className="absolute">
         {visibility ? (
-          <ul className={`border border-[rgb(215, 226, 235)] bg-[rgb(255, 255, 255)] mt-[0.25rem] p-[1rem] max-h-[18.5rem] min-w-max pr-[1rem] rounded-[0.25rem] text-[0.875rem] overflow-auto`}>
+          <ul
+            className={`border border-[rgb(215, 226, 235)] bg-white mt-[0.25rem] p-[1rem] max-h-[18.5rem] min-w-max pr-[1rem] rounded-[0.25rem] text-[0.875rem] overflow-auto ${style}`}
+          >
             {array.map((el, i) => {
               return (
                 <li key={i} className=" leading-7">

@@ -5,11 +5,11 @@ import { ReactComponent as Smile } from "../../assets/images/signin/smile.svg";
 import SocialLogin from "./components/SocialLogin";
 import InputPw from "./components/InputPw";
 import { useNavigate } from "react-router-dom";
-import title from "@assets/images/signin/title.png";
-import main from "@assets/images/signin/main.png";
+import title from "../../assets/images/signin/title.png";
+import main from "../../assets/images/signin/main.png";
 import axios from "axios";
 import { useIsMutating, useMutation, useQuery } from "react-query";
-import { postSignIn, postSignUp } from "@apis/api";
+import { postSignIn, postSignUp } from "../../apis/api";
 
 export default function SignIn() {
   const { mutate, error, mutateAsync } = useMutation(["sign-in"], postSignIn, {
@@ -204,7 +204,7 @@ export default function SignIn() {
                     <div className="px-[2.5rem] py-[1.75rem] text-[0.8125rem]">
                       <form
                         onSubmit={(event) => {
-                          console.log((event.target).email.value);
+                          console.log((event.target as HTMLInputElement & {email}).email.value);
                         }}
                       >
                         <div className="font-bold mb-[0.5rem]">이메일</div>
