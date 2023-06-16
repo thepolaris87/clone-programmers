@@ -1,12 +1,4 @@
 {
-<<<<<<< HEAD
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-        "@/*": ["src/*"],
-        "@assets/*": ["src/assets/*"],
-        "@apis/*":["src/apis/*"]
-=======
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
@@ -34,7 +26,6 @@
         // "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "strictNullChecks": true
->>>>>>> 97460a81f994c029712ebbb49ef1cf120608693a
     },
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }],
