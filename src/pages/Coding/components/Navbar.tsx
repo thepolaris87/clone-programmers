@@ -2,7 +2,7 @@ import { logo } from '@/assets/images/codingTest';
 
 export const Navbar = ({ setModal }: { setModal?: (modal: boolean) => void }) => {
     return (
-        <div className="flex flex-wrap relative w-[100%] h-[46px] justify-between items-center bg-[#0c151c] px-[16px] py-[6px]">
+        <div className="flex flex-wrap relative w-[100%] justify-between items-center bg-[#0c151c] p-[6px_16px]">
             <span className="flex items-center">
                 <img className="w-[24px] mr-[16px]" src={logo} />
                 <span className="flex whitespace-nowrap p-[6px_0px]">
