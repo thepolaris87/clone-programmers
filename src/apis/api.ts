@@ -29,14 +29,30 @@ export const postSolution = async (body: { questionId: string; userCode: string;
             userCode: body.userCode,
             status: body.status
         })
-        .then((r) => console.log(r.data));
+        .then((r) => r.data);
 };
 
-export const postQuestion = async (body: { questionId: string; userCode: string; status: string }) => {
+export const getQuestionList = async (questionId: string) => {
+    return axios.get(`http://192.1.31.79:9000/learn/courses/${questionId}/questions`).then((r) => r.data);
+};
+
+export const postQuestion = async (body: { questionId: string; title: string; description: string }) => {
     return axios
-        .post(`http://192.1.31.79:9000/learn/courses/${body.questionId}`, {
-            userCode: body.userCode,
-            status: body.status
+        .post(`http://192.1.31.79:9000/learn/courses/${body.questionId}/questions`, {
+            title: body.title,
+            description: body.description
         })
-        .then((r) => console.log(r.data));
+        .then((r) => r.data);
+};
+
+export const getDetailQuestion = async (questionId: string) => {
+    return axios.get(`http://192.1.31.79:9000/learn/questions/${questionId}`).then((r) => r.data);
+};
+
+export const postAnswer = async (body: { questionId: string; description: string }) => {
+    return axios
+        .post(`http://192.1.31.79:9000/learn/questions/${body.questionId}`, {
+            description: body.description
+        })
+        .then((r) => r.data);
 };

@@ -1,6 +1,8 @@
 import { ContentTitle } from '../../MyPage.styles';
 import AlertEmail from './AlertEmail';
 import BasicInfo from './BasicInfo';
+import Delete from './Delete';
+import Link from './Link';
 import Password from './Password';
 import StackNJob from './StackNJob';
 
@@ -11,9 +13,9 @@ export default function Account() {
             <BasicInfo />
             <Password />
             <StackNJob />
-            <AlertEmail />            
-            <h5>계정 연동</h5>
-            <h5>계정 삭제</h5>
+            <AlertEmail />
+            <Link />
+            <Delete />
         </>
     );
 }
