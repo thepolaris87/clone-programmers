@@ -25,7 +25,7 @@ export const postSolution = async (body: { questionId: string; userCode: string;
             userCode: body.userCode,
             status: body.status
         })
-        .then((r) => console.log(r.data));
+        .then((r) => r.data);
 };
 
 export const getQuestionList = async (questionId: string) => {
@@ -38,5 +38,17 @@ export const postQuestion = async (body: { questionId: string; title: string; de
             title: body.title,
             description: body.description
         })
-        .then((r) => console.log(r.data));
+        .then((r) => r.data);
+};
+
+export const getDetailQuestion = async (questionId: string) => {
+    return axios.get(`http://192.1.31.79:9000/learn/questions/${questionId}`).then((r) => r.data);
+};
+
+export const postAnswer = async (body: { questionId: string; description: string }) => {
+    return axios
+        .post(`http://192.1.31.79:9000/learn/questions/${body.questionId}`, {
+            description: body.description
+        })
+        .then((r) => r.data);
 };
