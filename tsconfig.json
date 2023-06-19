@@ -4,7 +4,8 @@
         "paths": {
             "@/*": ["src/*"],
             "@assets/*": ["src/assets/*"],
-            "@apis/*": ["src/apis/*"]
+            "@apis/*": ["src/apis/*"],
+            "@components/*": ["src/components/*"]
         },
         "target": "ES2020",
         "useDefineForClassFields": true,

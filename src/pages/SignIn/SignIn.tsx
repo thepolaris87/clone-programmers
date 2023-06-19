@@ -1,18 +1,18 @@
 import React, { ChangeEvent, HTMLInputTypeAttribute, useEffect, useState } from 'react';
 import Input from '../../components/Input';
-import { ReactComponent as Email } from '../../assets/images/signin/email.svg';
-import { ReactComponent as Smile } from '../../assets/images/signin/smile.svg';
+import { ReactComponent as Email } from '@assets/images/signin/email.svg';
+import { ReactComponent as Smile } from '@assets/images/signin/smile.svg';
 import SocialLogin from './components/SocialLogin';
 import InputPw from './components/InputPw';
 import { useNavigate } from 'react-router-dom';
-import title from '../../assets/images/signin/title.png';
-import main from '../../assets/images/signin/main.png';
+import title from '@assets/images/signin/title.png';
+import main from '@assets/images/signin/main.png';
 import axios from 'axios';
 import { useIsMutating, useMutation, useQuery } from 'react-query';
-import { postSignIn, postSignUp } from '../../apis/api';
+import { postSignIn, postSignUp } from '@apis/api';
 import { useAtom, useAtomValue } from 'jotai';
 import { emailAtom, nameAtom, tokenAtom } from '@/atoms/toast';
-import Check from './components/check';
+import Check from './components/Check';
 
 export default function SignIn() {
     const [signIn, setSignIn] = useState<boolean>(true);
