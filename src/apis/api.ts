@@ -19,7 +19,7 @@ export const getQuestion = async (questionId: string) => {
     return axios.get(`http://192.168.3.112:9000/learn/courses/${questionId}`).then((r) => r.data);
 };
 
-export const postQuestion = async (body: { questionId: string; userCode: string; status: string }) => {
+export const postSolution = async (body: { questionId: string; userCode: string; status: string }) => {
     return axios
         .post(`http://192.168.3.112:9000/learn/courses/${body.questionId}`, {
             userCode: body.userCode,
@@ -28,4 +28,11 @@ export const postQuestion = async (body: { questionId: string; userCode: string;
         .then((r) => console.log(r.data));
 };
 
-export const postSolution = ()=> {}
+export const postQuestion = async (body: { questionId: string; title: string; description: string }) => {
+    return axios
+        .post(`http://192.168.3.112:9000/learn/courses/${body.questionId}/question`, {
+            title: body.title,
+            description: body.description
+        })
+        .then((r) => console.log(r.data));
+};

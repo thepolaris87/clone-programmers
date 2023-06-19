@@ -120,7 +120,7 @@ export default function SignIn() {
   }, [useCheck, personalCheck, ageCheck, marketingCheck]);
 
   return (
-    <div className="bg-signin_bg">
+    <div className="bg-signin_bg min-h-screen">
       <div className="flex h-16 w-full bg-signin_bg fixed top-0 left-0 z-50 justify-center">
         <div className="w-[1200px] flex justify-between">
           <div className="px-5 w-30">
@@ -204,7 +204,7 @@ export default function SignIn() {
                     <div className="px-[2.5rem] py-[1.75rem] text-[0.8125rem]">
                       <form
                         onSubmit={(event) => {
-                          console.log(event.target.email.value);
+                          console.log((event.target as HTMLInputElement & {email}).email.value);
                         }}
                       >
                         <div className="font-bold mb-[0.5rem]">이메일</div>
