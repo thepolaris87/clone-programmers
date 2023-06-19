@@ -12,7 +12,7 @@ export default function Router() {
             <Route path="/sign-in" element={<SignIn />}></Route>
             <Route path="/learn/challenges" element={<CodingList />}></Route>
             <Route path="/my-page" element={<MyPage />}></Route>
-            <Route path="/learn/courses/question" element={<QuestionList />}></Route>
+            <Route path="/learn/courses/:questionId/questions" element={<QuestionList />}></Route>
         </Routes>
     );
 }
