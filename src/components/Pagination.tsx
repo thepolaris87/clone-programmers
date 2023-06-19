@@ -14,6 +14,8 @@ const Button = styled.button`
 export default function Pagination({ onClickPage, totalNum }: { onClickPage: (value: number) => void; totalNum: number }) {
     const [pages, setPages] = useState<number[]>([]);
     const [page, setPage] = useState(1);
+    const startPage = 1 === page || pages.length === 1;
+    const endPage = pages.length === page || pages.length === 1;
 
     const onClick = (idx: number) => {
         setPage(idx + 1);
@@ -35,16 +37,16 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
     return (
         <React.Fragment>
             <Button
-                className={classNames(1 === page || pages.length === 1 ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[22px] w-[22px]')}
+                className={classNames(startPage ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[22px] w-[22px]')}
                 onClick={() => onClick(0)}
-                disabled={1 === page || pages.length === 1 ? true : false}
+                disabled={startPage}
             >
                 |&#60;
             </Button>
             <Button
-                className={classNames(1 === page || pages.length === 1 ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[28px] w-[28px]')}
+                className={classNames(startPage ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[28px] w-[28px]')}
                 onClick={() => onClick(page - 2)}
-                disabled={1 === page || pages.length === 1 ? true : false}
+                disabled={startPage}
             >
                 &#60;
             </Button>
@@ -66,16 +68,16 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
                 })}
             </span>
             <Button
-                className={classNames(pages.length === page || pages.length === 1 ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[28px] w-[28px]')}
+                className={classNames(endPage ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[28px] w-[28px]')}
                 onClick={() => onClick(page)}
-                disabled={pages.length === page || pages.length === 1 ? true : false}
+                disabled={endPage ? true : false}
             >
                 &#62;
             </Button>
             <Button
-                className={classNames(pages.length === page || pages.length === 1 ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[22px] w-[22px]')}
+                className={classNames(endPage ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[22px] w-[22px]')}
                 onClick={() => onClick(pages.length - 1)}
-                disabled={pages.length === page || pages.length === 1 ? true : false}
+                disabled={endPage ? true : false}
             >
                 &#62;|
             </Button>

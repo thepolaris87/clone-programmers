@@ -13,7 +13,7 @@ type questionProps = {
     idx: number;
     title: string;
     userEmail: string;
-    userNmae: string;
+    userName: string;
 };
 export default function QuestionList() {
     const params = useParams();
@@ -74,7 +74,10 @@ export default function QuestionList() {
                                             src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
                                         />
                                         <div className="w-[calc(100%-44px)] pl-[16px] text-[16px] align-top">
-                                            <a className="block text-[rgb(38, 55, 71)] hover:text-[#0078ff] hover:underline" href="#">
+                                            <a
+                                                className="block text-[rgb(38, 55, 71)] hover:text-[#0078ff] hover:underline"
+                                                href={`/questions/${question.idx}`}
+                                            >
                                                 {question.title}
                                             </a>
                                             <div className="text-[#98a8b9] text-[14px]">
@@ -85,7 +88,7 @@ export default function QuestionList() {
                                                             d="M17 8c0-2.763-2.238-5-5-5S7 5.237 7 8c0 2.762 2.238 5 5 5s5-2.238 5-5ZM4 18.5V21h16v-2.5c0-3.325-4.662-4-8-4s-8 .675-8 4Z"
                                                         ></path>
                                                     </svg>
-                                                    <h5 className="ml-[4px]">{question.userNmae}</h5>
+                                                    <h5 className="ml-[4px]">{question.userName}</h5>
                                                 </div>
                                                 <div className="inline-flex mr-[16px]">
                                                     <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">
