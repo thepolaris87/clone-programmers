@@ -1,10 +1,17 @@
-import { ContentButtonV1, ContentContainer, ContentSubTitle } from '../../MyPage.styles';
-
-const Wrapper = ({ children }: { children: React.ReactNode }) => {
-    return <div className="bg-[#f0f5fa] text-[#44576c] text-[12px] pt-0.5 px-1 border rounded mr-1">{children}</div>;
-};
+import { useSetAtom } from 'jotai';
+import { ContentButtonV1, ContentContainer, ContentSubTitle, StackNJobWrapper } from '../../MyPage.styles';
+import { modal } from '../../atoms';
 
 export default function StackNJob() {
+    const setModalMessage = useSetAtom(modal);
+    const onStackChangeClick = () => {
+        setModalMessage({ message: '주요 기술 변경 준비 중입니다.' });
+    };
+
+    const onJobChangeClick = () => {
+        setModalMessage({ message: '희망 직무 변경 준비 중입니다.' });
+    };
+
     return (
         <>
             <ContentSubTitle>주요 기술 및 희망 직무</ContentSubTitle>
@@ -16,12 +23,12 @@ export default function StackNJob() {
                             <span> - 최대 3개 선택 가능</span>
                         </div>
                         <div className="h-5 flex mt-1">
-                            <Wrapper>HTML</Wrapper>
-                            <Wrapper>CSS</Wrapper>
-                            <Wrapper>Javascript</Wrapper>
+                            <StackNJobWrapper>HTML</StackNJobWrapper>
+                            <StackNJobWrapper>CSS</StackNJobWrapper>
+                            <StackNJobWrapper>Javascript</StackNJobWrapper>
                         </div>
                     </div>
-                    <ContentButtonV1>주요 기술 변경</ContentButtonV1>
+                    <ContentButtonV1 onClick={onStackChangeClick}>주요 기술 변경</ContentButtonV1>
                 </div>
                 <hr className="my-7" />
                 <div className="flex items-center">
@@ -30,13 +37,13 @@ export default function StackNJob() {
                             <span>희망 직무</span>
                             <span> - 최대 3개 선택 가능</span>
                         </div>
-                        <div className="h-5 flex mt-1">                                                        
-                            <Wrapper>웹 풀스택</Wrapper>
-                            <Wrapper>안드로이드 앱</Wrapper>
-                            <Wrapper>아이폰 앱</Wrapper>
+                        <div className="h-5 flex mt-1">
+                            <StackNJobWrapper>웹 풀스택</StackNJobWrapper>
+                            <StackNJobWrapper>안드로이드 앱</StackNJobWrapper>
+                            <StackNJobWrapper>아이폰 앱</StackNJobWrapper>
                         </div>
                     </div>
-                    <ContentButtonV1>희망 직무 선택</ContentButtonV1>
+                    <ContentButtonV1 onClick={onJobChangeClick}>희망 직무 선택</ContentButtonV1>
                 </div>
             </ContentContainer>
         </>

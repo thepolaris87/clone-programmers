@@ -27,3 +27,5 @@ export const postQuestion = async (body: { questionId: string; userCode: string;
         })
         .then((r) => console.log(r.data));
 };
+
+export const postSolution = ()=> {}

@@ -1,12 +1,13 @@
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { ContentButtonV2, ContentContainer, ContentSubTitle } from '../../MyPage.styles';
-import { userInfo } from '../../atoms';
+import { modal, userInfo } from '../../atoms';
 
 export default function BasicInfo() {
     const [user] = useAtom(userInfo);
+    const setModalMessage = useSetAtom(modal);
 
     const onModifyClick = () => {
-        console.log('modify');
+        setModalMessage({ message: '개인저보 수정 준비 중입니다.' });
     };
 
     return (

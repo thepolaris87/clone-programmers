@@ -1,10 +1,10 @@
 import { toastAtom } from '@/atoms/toast';
-import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 import { createToastElement, removeToastElement, transitionToast } from './helper';
 
 export default function ToastMessage({ children }) {
-    const [toast] = useAtom(toastAtom);
+    const toast = useAtomValue(toastAtom);
 
     useEffect(() => {
         if (!toast.message) return;
