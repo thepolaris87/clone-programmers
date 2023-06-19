@@ -9,6 +9,8 @@ import course3 from "@assets/images/codingList/img3.png";
 import Course from "./components/Course";
 import Carousel from "./components/Carousel";
 import { useNavigate } from "react-router-dom";
+import { useAtomValue } from "jotai";
+import { nameAtom, tokenAtom } from "@/atoms/toast";
 
 export default function CodingList() {
   const navigate = useNavigate();
@@ -58,6 +60,9 @@ export default function CodingList() {
   const [levelDropdown, setLevelDropdown] = useState<boolean>(false);
   const [langDropdown, setLangDropdown] = useState<boolean>(false);
   const [testDropdown, setTestDropdown] = useState<boolean>(false);
+  const token = useAtomValue(tokenAtom);
+  const name = useAtomValue(nameAtom);
+  console.log(token, name)
 
 
   return (
@@ -100,8 +105,8 @@ export default function CodingList() {
                 <ul></ul>
               </div>
             </div>
-            <div className="">
-              <table className="border border-list_border w-full">
+            <div className="border border-list_border rounded-md">
+              <table className=" w-full ">
                 <thead className="">
                   <tr className="text-[0.75rem] text-[#98A8B9] p-[0.5625rem] border-b border-list_border">
                     <th className="w-[3.75rem] text-center p-[0.5625rem]">
