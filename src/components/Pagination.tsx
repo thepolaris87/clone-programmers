@@ -37,12 +37,14 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
             <Button
                 className={classNames(1 === page || pages.length === 1 ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[22px] w-[22px]')}
                 onClick={() => onClick(0)}
+                disabled={1 === page || pages.length === 1 ? true : false}
             >
                 |&#60;
             </Button>
             <Button
                 className={classNames(1 === page || pages.length === 1 ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[28px] w-[28px]')}
                 onClick={() => onClick(page - 2)}
+                disabled={1 === page || pages.length === 1 ? true : false}
             >
                 &#60;
             </Button>
@@ -66,12 +68,14 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
             <Button
                 className={classNames(pages.length === page || pages.length === 1 ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[28px] w-[28px]')}
                 onClick={() => onClick(page)}
+                disabled={pages.length === page || pages.length === 1 ? true : false}
             >
                 &#62;
             </Button>
             <Button
                 className={classNames(pages.length === page || pages.length === 1 ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[22px] w-[22px]')}
                 onClick={() => onClick(pages.length - 1)}
+                disabled={pages.length === page || pages.length === 1 ? true : false}
             >
                 &#62;|
             </Button>
