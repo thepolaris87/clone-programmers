@@ -4,7 +4,7 @@ import { postQuestion } from '@/apis/api';
 import classNames from 'classnames';
 import { Code } from './Code';
 
-export const ModalContent = ({ onClick }: { onClick: (value: boolean) => void }) => {
+export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) => void; content?: string }) => {
     const { mutate } = useMutation(postQuestion);
     const [form, setForm] = useState({ title: '', description: '' });
     const [preview, setPreview] = useState(false);
@@ -34,7 +34,7 @@ export const ModalContent = ({ onClick }: { onClick: (value: boolean) => void })
                     {option.code && (
                         <div className="w-[379px] lg:w-[912px] md:w-[800px] sm:w-[600px] ">
                             <h5 className="text-[14px] text-[#263747] leading-[1.5] font-[400]">작성중인 코드―solution.js</h5>
-                            <Code />
+                            <Code content={content} />
                         </div>
                     )}
                     <hr className="border-[#d7e2eb] mt-[16px] mb-[16px]" />
