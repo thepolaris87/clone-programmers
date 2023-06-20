@@ -1,6 +1,4 @@
-import { tokenAtom } from '@/atoms/toast';
 import axios from 'axios';
-import { useAtom } from 'jotai';
 
 // const client = axios.create({ baseURL: 'http://192.1.31.79:9000' });
 
@@ -15,6 +13,13 @@ export const postSignUp = async (body: { name: string; email: string; password: 
 
 export const postSignIn = async (body: { email: string; password: string }) => {
     return axios.post('http://192.1.31.79:9000/coms/sign-in', body).then((r) => {
+        return r.data;
+    });
+};
+
+export const getQuestions = async () => {
+    return axios.get('http://192.1.31.79:9000/learn/challenges').then((r) => {
+        console.log(r.data)
         return r.data;
     });
 };
