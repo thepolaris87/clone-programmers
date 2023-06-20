@@ -3,7 +3,7 @@ import React from 'react';
 export const AnswerModalContent = ({ onClick, answer }: { onClick: (value: boolean) => void; answer: boolean }) => {
     return (
         <React.Fragment>
-            {!answer && <h5 className="pb-[40px] text-[#263747]">결과를 확인해 주세요.</h5>}
+            <h5 className="pb-[40px] text-[#263747]">{!answer && '결과를 확인해 주세요.'}</h5>
             <div className="pt-[40px] flex justify-end">
                 <button
                     className="bg-[#0078FF] text-[white] text-[16px] font-[500] leading-[24px] p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"

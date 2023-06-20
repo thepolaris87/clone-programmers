@@ -68,7 +68,9 @@ export default function Question() {
                                 {data.question.showUserCode === 'true' && (
                                     <div className="mt-[16px]">
                                         <h6 className="text-[#98a8b9] text-[14px] font-[400]">작성중인 코드―solution.js</h6>
-                                        <Code content={data.question.userCode} />
+                                        <div className="h-[400px] p-[20px_24px] bg-[#e9ecf3] rounded-[4px]">
+                                            <Code content={data.question.userCode} color="#e9ecf3" />
+                                        </div>
                                     </div>
                                 )}
                             </div>

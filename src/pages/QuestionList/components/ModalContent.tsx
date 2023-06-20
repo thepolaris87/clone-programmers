@@ -40,7 +40,9 @@ export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) =
                     {option.code && (
                         <div className="w-[379px] lg:w-[912px] md:w-[800px] sm:w-[600px] ">
                             <h5 className="text-[14px] text-[#263747] leading-[1.5] font-[400]">작성중인 코드―solution.js</h5>
-                            <Code content={content} />
+                            <div className="h-[400px] p-[20px_24px] bg-[#e9ecf3] rounded-[4px]">
+                                <Code content={content} color="#e9ecf3" />
+                            </div>
                         </div>
                     )}
                     <hr className="border-[#d7e2eb] mt-[16px] mb-[16px]" />
