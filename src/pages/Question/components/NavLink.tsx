@@ -3,6 +3,7 @@ import { List } from '../css/NavLink.styles';
 
 type questionProps = {
     id: string;
+    title: string;
     questionCategory: string;
     questionTitle: string;
 };
@@ -36,7 +37,7 @@ export default function NavLink({ question }: { question: questionProps }) {
                     <div>&#62;</div>
                 </List>
                 <List>
-                    <p>딕셔너리 출력과 리턴값 질문</p>
+                    <p>{question.title}</p>
                 </List>
             </ol>
         </div>

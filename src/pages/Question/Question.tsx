@@ -18,9 +18,12 @@ export default function Question() {
     const navigate = useNavigate();
     const params = useParams();
     const { data } = useQuery(['detailQue', params.questionId], () => getDetailQuestion(params.questionId as string));
-    const { mutate } = useMutation(postAnswer);
+    const { mutate } = useMutation(postAnswer, {
+        onSuccess: (data) => {
+            console.log(data);
+        }
+    });
     const [value, setValue] = useState('');
-
     const onClick = () => {
         if (params.questionId) mutate({ questionId: params.questionId, description: value });
     };
@@ -54,7 +57,7 @@ export default function Question() {
                                 </div>
                                 <button
                                     className="bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[500] p-[5px_13px] md:p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"
-                                    onClick={() => window.scrollTo(0, document.body.scrollHeight)}
+                                    onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                                 >
                                     <h5 className="mt-0.5">답변 작성</h5>
                                 </button>
@@ -62,10 +65,12 @@ export default function Question() {
                             <div className="mt-[16px]">
                                 <h3 className="text-[26px] font-[700] pb-[4px] border-b-[1px] border-[#d7e2eb]">{data.question.title}</h3>
                                 <div className="mt-[24px] break-words break-normal">{data.question.description}</div>
-                                <div className="mt-[16px]">
-                                    <h6 className="text-[#98a8b9] text-[14px] font-[400]">작성중인 코드―solution.js</h6>
-                                    <Code content={data.question.userCode} />
-                                </div>
+                                {data.question.showUserCode === 'true' && (
+                                    <div className="mt-[16px]">
+                                        <h6 className="text-[#98a8b9] text-[14px] font-[400]">작성중인 코드―solution.js</h6>
+                                        <Code content={data.question.userCode} />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -98,6 +103,7 @@ export default function Question() {
                         <div className="mb-[8px]">
                             <textarea
                                 value={value}
+                                required={true}
                                 onChange={(e) => setValue(e.target.value)}
                                 placeholder="답변을 입력하세요."
                                 className="w-[100%] h-[200px] p-[8px_12px] text-[16px] border-[1px] border-[#d7e2eb] bg-[#fbfbfd] rounded-[4px] placeholder:text-[rgba(50,50,80,0.24)] focus:bg-[white]"
