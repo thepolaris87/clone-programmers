@@ -69,3 +69,9 @@ export const postAnswer = async (body: { questionId: string; description: string
             return r.data;
         });
 };
+
+export const getSolutions = async (questionId: string) => {
+    return axios.get(`http://192.1.31.79:9000/learn/solutions/${questionId}`).then((r) => {
+        return r.data;
+    });
+};
