@@ -7,7 +7,7 @@ export const Navbar = () => {
 
     return (
         <div className="flex w-[100%] justify-center items-center box-border">
-            <div className="flex flex-wrap w-[100%] max-w-[1200px] h-[78px] items-center overflow-x-auto whitespace-nowrap box-border">
+            <div className="flex flex-wrap w-[100%] max-w-[1200px] h-[78px] px-[20px] items-center overflow-x-auto whitespace-nowrap box-border">
                 <a className="mr-[80px] flex items-center box-border" href="#">
                     <svg viewBox="0 0 851 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[260px]">
                         <path

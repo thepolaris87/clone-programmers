@@ -106,28 +106,34 @@ export default function Carousel(props) {
   const endSlide = slideItems[slideItems.length - 1];
   const [forward, setForward ] = useState(true);
 
+  const translate = [
+    'translate-x-[0%]',
+    'translate-x-[-100%]',
+    'translate-x-[-200%]',
+    'translate-x-[-300%]',
+    'translate-x-[-400%]',
+    'translate-x-[-500%]',
+    'translate-x-[-600%]',
+  ]
+
   const onNextClick = () => {
     setForward(true);
-      setMargin((prev) => prev + 100);
+    setCurrIndex(prev => prev +1);
+    if(margin === -600) setMargin(0);
       setStyle(
-        `transition duration-300 ease-in-out transform translate-x-[${
-          "-" + margin.toString() + "%"
-        }]`
+        `transition duration-300 ease-in-out transform ${translate[currIndex]}`
       );
   };
 
   const onPrevClick = () => {
     setForward(false)
+    setCurrIndex(prev => prev -1);
     console.log(currIndex);
   
-    if(margin === 0){
-      setMargin(600)
-    }
-      setMargin((prev) => prev - 100);
+    if(currIndex === 0) setCurrIndex(5);
+  
       setStyle(
-        `transition duration-300 ease-in-out transform translate-x-[${
-          "-" + Math.abs(margin).toString() + "%"
-        }]`
+        `transition duration-300 ease-in-out transform ${translate[currIndex]}`
       );
     console.log(margin);
   };
@@ -135,28 +141,22 @@ export default function Carousel(props) {
   useEffect(() => {
     if (currIndex === slideItems.length - 1 && forward) {
       setTimeout(() => {
-        setStyle(`translate-x-[0%}]`);
+        setStyle(`translate-x-[0%]`);
         setCurrIndex(1)
-        setMargin(0);
-      }, 300);
+      }, 800);
     }
-    // if(currIndex === 1 && !forward){
-    //   setTimeout(() => {
-    //     setStyle(`translate-x-[-500%}]`);
-    //     setMargin(500);
-    //   }, 500);
-    // }
+    if(currIndex === 5 && !forward){
+      setTimeout(() => {
+        setStyle(`translate-x-[-500%}]`);
+      }, 500);
+    }
   }, [currIndex]);
 
   // setInterval(()=> {
-  //   setMargin((prev) => prev + 100);
-  //     setStyle(
-  //       `transition duration-300 ease-in-out transform translate-x-[${
-  //         "-" + margin.toString() + "%"
-  //       }]`)
+  //     onNextClick();
   // }, 1000)
 
-  console.log(currIndex, margin);
+  // console.log(currIndex, margin, style);
 
 
   ///////////////////
@@ -213,7 +213,6 @@ export default function Carousel(props) {
               <button
                 onClick={() => {
                   onPrevClick();
-                  setCurrIndex(slideItems.indexOf(el)+1);
                 }}
               >
                 <svg
@@ -231,13 +230,12 @@ export default function Carousel(props) {
                   ></path>
                 </svg>
               </button>
-              <span className="text-white font-extrabold">0{i}</span>
+              <span className="text-white font-extrabold">0{(i===0) ? 5 : i}</span>
               <span className="border w-0 border-white"></span>
               <span className="text-white">05</span>
               <button
                 onClick={() => {
                   onNextClick();
-                  setCurrIndex(slideItems.indexOf(el)+1);
                 }}
               >
                 <svg

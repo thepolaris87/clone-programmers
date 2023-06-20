@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import { Navbar } from '../../components/Navbar';
-import TopNavBar from './components/TopNavBar';
-import BottomNavBar from './components/BottomNavBar';
-import Dropdown from './components/Dropdown';
-import course1 from '@assets/images/codingList/img1.png';
-import course2 from '@assets/images/codingList/img2.png';
-import course3 from '@assets/images/codingList/img3.png';
-import Course from './components/Course';
-import Carousel from './components/Carousel';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Navbar } from "../../components/Navbar";
+import TopNavBar from "./components/TopNavBar";
+import BottomNavBar from "./components/BottomNavBar";
+import Dropdown from "./components/Dropdown";
+import course1 from "@assets/images/codingList/img1.png";
+import course2 from "@assets/images/codingList/img2.png";
+import course3 from "@assets/images/codingList/img3.png";
+import Course from "./components/Course";
+import Carousel from "./components/Carousel";
+import { useNavigate } from "react-router-dom";
+import { useAtomValue } from "jotai";
+import { nameAtom, tokenAtom } from "@/atoms/toast";
 
 export default function CodingList() {
     const navigate = useNavigate();

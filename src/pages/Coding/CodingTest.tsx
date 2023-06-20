@@ -78,7 +78,7 @@ export default function CodingTest() {
 
     return (
         <TestContainer>
-            <div className="codingTest block w-[100%] break-words break-keep shadow-[#172334] tracking-wider">
+            <div className="codingTest break-words break-keep shadow-[#172334] tracking-wider">
                 <Navbar setModal={setModal} />
                 <section className="h-[56px] flex relative bg-[#263747] px-[16px] justify-between shadow-[0_1px_#172334]">
                     <h5 className="text-[white] pt-[15px]">귤 고르기</h5>
@@ -246,7 +246,7 @@ export default function CodingTest() {
                         <span className="hidden md:flex">
                             <button
                                 className="w-[113px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]"
-                                onClick={() => navigate('/learn/courses/question')}
+                                onClick={() => navigate(`/learn/courses/${questionId}/questions`)}
                             >
                                 <h5 className="mt-1">질문하기</h5>
                             </button>

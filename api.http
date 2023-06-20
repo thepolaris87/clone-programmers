@@ -1,1 +1,10 @@
 GET http://192.168.2.41:9000/learn/courses/1
+
+###
+POST http://192.1.31.79:9000/coms/sign-in
+Content-Type: 'application/json';
+
+{
+    "email": "visveryver2@gmail.com",
+    "password": "1234qwer"
+}
