@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { postQuestion } from '@/apis/api';
 import classNames from 'classnames';
 import { Code } from './Code';
 
 export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) => void; content?: string }) => {
-    const { mutate } = useMutation(postQuestion);
+    const navigate = useNavigate();
     const [form, setForm] = useState({ title: '', description: '' });
     const [preview, setPreview] = useState(false);
     const [option, setOption] = useState({ email: false, code: false });
+    const { mutate } = useMutation(postQuestion, {
+        onSuccess: (data) => {
+            navigate(`/questions/${data.questions.idx}`);
+        }
+    });
 
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setForm((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
     };
-    const onCheck = (e) => {
+    const onCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         setOption((prev) => {
-            return { ...prev, [e.target.name]: !option[e.target.name] };
+            return { ...prev, [e.target.name]: e.target.checked };
         });
     };
     const onSubmit = () => {
-        mutate({ questionId: 'Q000002', title: form.title, description: form.description });
+        mutate({ questionId: 'Q000002', title: form.title, description: form.description, showUserCode: String(option.code) });
     };
 
     return (
@@ -85,8 +91,7 @@ export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) =
                             type="checkbox"
                             name="email"
                             checked={option.email}
-                            onClick={(e) => onCheck(e)}
-                            onChange={(e) => console.log(e)}
+                            onChange={(e) => onCheck(e)}
                             className="accent-[#263747] w-[16px] h-[16px] mr-[6px] rounded-[4px] align-middle cursor-pointer"
                         />
                         <label className="text-[14px] leading-[1.5]">내 질문에 답변이 올라오면 이메일로 알림을 받습니다.</label>
@@ -96,8 +101,7 @@ export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) =
                             type="checkbox"
                             name="code"
                             checked={option.code}
-                            onClick={(e) => onCheck(e)}
-                            onChange={(e) => console.log(e)}
+                            onChange={(e) => onCheck(e)}
                             className="accent-[#263747] w-[16px] h-[16px] mr-[6px] rounded-[4px] align-middle cursor-pointer"
                         />
                         <label className="text-[14px] leading-[1.5]">내 코드를 첨부합니다.</label>
