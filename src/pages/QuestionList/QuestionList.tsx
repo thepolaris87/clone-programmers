@@ -45,13 +45,13 @@ export default function QuestionList() {
 
     return (
         <div className="tracking-wider">
-            <Navbar />
+            <Navbar title={data.title} category={data.category} id={data.questionId} />
             <div className="min-h-[calc(100vh-50px-394px-80px)]">
                 <div className="max-w-[1200px] px-[16px] mx-auto">
                     <div className="mt-[40px]">
                         <button
                             className="w-[147px] bg-[#EEEBFF] border-[#EEEBFF] border-[1px] rounded-[4px] text-[#0078FF] text-[16px] font-[600] mb-[24px] p-[7px] hover:bg-[#D8DDFF]"
-                            onClick={() => navigate('/learn/courses')}
+                            onClick={() => navigate(`/learn/courses/${data.questionId}`)}
                         >
                             <h5 className="mt-1">&#60;&nbsp; 강의로 돌아가기</h5>
                         </button>

@@ -5,16 +5,18 @@ import CodingList from './pages/CodingList/CodingList';
 import QuestionList from './pages/QuestionList/QuestionList';
 import Question from './pages/Question/Question';
 import MyPage from './pages/MyPage';
+import Solution from './pages/Solution/Solution';
 
 export default function Router() {
     return (
         <Routes>
-            <Route path="/learn/courses" element={<CodingTest />}></Route>
+            <Route path="/learn/courses/:questionId" element={<CodingTest />}></Route>
             <Route path="/sign-in" element={<SignIn />}></Route>
             <Route path="/learn/challenges" element={<CodingList />}></Route>
             <Route path="/my-page" element={<MyPage />}></Route>
             <Route path="/learn/courses/:questionId/questions" element={<QuestionList />}></Route>
             <Route path="/questions/:questionId" element={<Question />}></Route>
+            <Route path="/learn/solution/:questionId" element={<Solution />}></Route>
         </Routes>
     );
 }
