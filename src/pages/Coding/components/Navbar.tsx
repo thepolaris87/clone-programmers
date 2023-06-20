@@ -1,6 +1,8 @@
+import React from 'react';
+import classNames from 'classnames';
 import { logo } from '@/assets/images/codingTest';
 
-export const Navbar = ({ setModal }: { setModal?: (modal: boolean) => void }) => {
+export const Navbar = ({ setModal, title, category, id }: { setModal?: (modal: boolean) => void; title: string; category: string; id?: string }) => {
     return (
         <div className="flex flex-wrap relative w-[100%] justify-between items-center bg-[#0c151c] p-[6px_16px]">
             <span className="flex items-center">
@@ -13,14 +15,30 @@ export const Navbar = ({ setModal }: { setModal?: (modal: boolean) => void }) =>
                         {'>'}
                     </a>
                     <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] hover:text-white md:block" href="#">
-                        연습문제
+                        {category}
                     </a>
                     <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block" href="#">
                         {'>'}
                     </a>
-                    <a className="text-[#ffffff] text-[14px] mx-[4px] font-[600] cursor-text" href="#">
-                        귤 고르기
+                    <a
+                        className={classNames(
+                            setModal ? 'text-[#ffffff] font-[600] hover:text-white' : 'text-[#98a8b9] font-[400] cursor-pointer hover:text-white',
+                            'text-[14px] mx-[4px]'
+                        )}
+                        href={`/learn/courses/${id}`}
+                    >
+                        {title}
                     </a>
+                    {!setModal && (
+                        <React.Fragment>
+                            <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block" href="#">
+                                {'>'}
+                            </a>
+                            <a className="text-[#ffffff] text-[14px] mx-[4px] font-[600] cursor-text" href="#">
+                                질문목록
+                            </a>
+                        </React.Fragment>
+                    )}
                 </span>
             </span>
             {setModal && (

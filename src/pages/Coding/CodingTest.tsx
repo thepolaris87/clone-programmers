@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
+import { useParams } from 'react-router-dom';
 import { getQuestion, postSolution } from '@/apis/api';
 import { verticalButton, horizonButton } from '@/assets/images/codingTest';
 import { Q000003 } from '@/assets/programmers/index';
@@ -13,8 +14,8 @@ export type ResultProps = {
     output: number | string | string[] | number[];
 };
 export default function CodingTest() {
-    const questionId = 'Q000003';
-    const { data } = useQuery(['question', questionId], () => getQuestion(questionId));
+    const params = useParams();
+    const { data } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
     const { mutate } = useMutation(postSolution);
     const [codeValue, setCodeValue] = useState('');
     const [results, setResults] = useState<{ [key: number]: number | string | null | string[] }>({});
@@ -28,7 +29,7 @@ export default function CodingTest() {
     const answerNum = 0;
 
     const onPostSolution = (status: string) => {
-        mutate({ questionId: questionId, userCode: codeValue, status: status });
+        mutate({ questionId: params.questionId as string, userCode: codeValue, status: status });
     };
     const onReset = () => {
         const value = window.confirm('정말로 초기화하시겠습니까?');
@@ -56,6 +57,8 @@ export default function CodingTest() {
         });
     };
     const onSubmit = async () => {
+        setTotalNum('0');
+        if (!data.questionStatus.hiddenCase) return;
         setLoading(false);
         setCheckLoading(true);
         onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
@@ -87,15 +90,15 @@ export default function CodingTest() {
 
     useEffect(() => {
         if (data) setCodeValue(data.questionStatus.userCode);
-        onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
+        if (data.questionStatus.hiddenCase) onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
         onResetResult(data.questionStatus.testCase.length, setResults);
     }, [data, onResetResult]);
 
     return (
         <TestContainer>
             <div className="codingTest break-words break-keep shadow-[#172334] tracking-wider">
-                <Navbar setModal={setModal} />
-                <Header />
+                <Navbar setModal={setModal} title={data.questionStatus.title} category={data.questionStatus.category} />
+                <Header title={data.questionStatus.title} />
                 <div className="min-h-[500px] h-[100%] bg-[#263747]">
                     <section className="flex flex-wrap h-[calc(100vh-(47px+56px+57px))]">
                         <span className="w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]">
@@ -136,14 +139,14 @@ export default function CodingTest() {
                             </div>
                         </div>
                     </section>
-                    <BottomNavbar functions={[onReset, runFunc, onSubmit]} questionId={questionId} />
+                    <BottomNavbar functions={[onReset, runFunc, onSubmit]} questionId={params.questionId as string} />
                 </div>
             </div>
             <Modal title="컴파일 옵션" width="700px" open={modal} onClick={setModal}>
                 <ModalContent onClick={setModal} />
             </Modal>
             <Modal title={ans ? '정답입니다!' : '틀렸습니다!'} width="600px" open={ansModal} onClick={setAnsModal}>
-                <AnswerModalContent onClick={setAnsModal} answer={ans} />
+                <AnswerModalContent onClick={setAnsModal} answer={ans} questionId={params.questionId as string} />
             </Modal>
         </TestContainer>
     );

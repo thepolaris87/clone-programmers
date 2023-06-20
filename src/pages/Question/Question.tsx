@@ -27,7 +27,6 @@ export default function Question() {
     const onClick = () => {
         if (params.questionId) mutate({ questionId: params.questionId, description: value });
     };
-
     return (
         <React.Fragment>
             <TopNavBar />
@@ -39,7 +38,7 @@ export default function Question() {
                     <div className="max-w-[1200px] px-[16px] m-[0_auto_0_auto]">
                         <button
                             className="w-[147px] bg-[#EEEBFF] border-[#EEEBFF] border-b-[1px] rounded-[4px] text-[#0078FF] text-[14px] md:text-[16px] font-[600] mb-[32px] p-[5px_9px] md:p-[7px] hover:bg-[#D8DDFF]"
-                            onClick={() => navigate('/learn/courses')}
+                            onClick={() => navigate(`/learn/courses/${data.question.id}`)}
                         >
                             <h5 className="mt-1">&#60;&nbsp; 강의로 돌아가기</h5>
                         </button>

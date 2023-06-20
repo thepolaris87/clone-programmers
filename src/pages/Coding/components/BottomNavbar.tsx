@@ -18,7 +18,10 @@ export const BottomNavbar = ({ functions, questionId }: { functions: (() => void
                 </button>
             </span>
             <span className="flex">
-                <button className="hidden w-[160px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px] md:block">
+                <button
+                    className="hidden w-[160px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px] md:block"
+                    onClick={() => navigate(`/learn/solution/${questionId}`)}
+                >
                     <h5 className="mt-1">다른 사람의 풀이</h5>
                 </button>
                 <button className="w-[72px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]" onClick={onReset}>

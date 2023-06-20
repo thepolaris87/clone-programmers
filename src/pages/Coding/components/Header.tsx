@@ -1,7 +1,7 @@
-export const Header = () => {
+export const Header = ({ title }: { title: string }) => {
     return (
         <section className="h-[56px] flex relative bg-[#263747] px-[16px] justify-between shadow-[0_1px_#172334]">
-            <h5 className="text-[white] pt-[15px]">귤 고르기</h5>
+            <h5 className="text-[white] pt-[15px]">{title}</h5>
             <span className="flex items-center justify-end h-[48px]">
                 <button className="hidden w-[40px] h-[24px] text-[12px] text-[white] rounded-[3.2px_0_0_3.2px] bg-[#44576c] md:block">
                     <h5 className="mt-1">dark</h5>
