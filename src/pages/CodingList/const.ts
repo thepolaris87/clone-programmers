@@ -1,0 +1,43 @@
+export const level = ["Lv. 0", "Lv. 1", "Lv. 2", "Lv. 3", "Lv. 4", "Lv. 5"];
+export const lang = [
+    "C",
+    "C++",
+    "C#",
+    "Go",
+    "Java",
+    "JavaScript",
+    "Kotlin",
+    "Python2",
+    "Phthon3",
+    "Ruby",
+    "Scala",
+    "Swift",
+    "MySQL",
+    "Oracle",
+  ];
+  export const test = [
+    "2023 KAKAO BLIND RECRUITMENT",
+    "2022 KAKAO TECH INTERNSHIP",
+    "2022 KAKAO BLIND RECRUITMENT",
+    "2021 Dev-Matching: 웹 백엔드 개발자(상반기)",
+    "2021 KAKAO BLIND RECRUITMENT",
+    "2020 KAKAO BLIND RECRUITMENT",
+    "2019 KAKAO BLIND RECRUITMENT",
+    "2018 KAKAO BLIND RECRUITMENT",
+    "2021 카카오 채용연계형 인턴십",
+    "2020 카카오 인턴십",
+    "2019 카카오 개발자 겨울 인턴십",
+    "2017 카카오코드 예선",
+    "2017 카카오코드 본선",
+    "월간 코드 챌린지 시즌3",
+    "월간 코드 챌린지 시즌2",
+    "월간 코드 챌린지 시즌1",
+    "Summer/Winter Coding(2019)",
+    "Summer/Winter Coding(~2018)",
+    "2017 팁스타운",
+    "위클리 챌린지",
+    "코딩테스트 입문",
+    "코딩 기초 트레이닝",
+  ];
+
+  
