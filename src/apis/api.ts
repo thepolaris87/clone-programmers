@@ -17,9 +17,8 @@ export const postSignIn = async (body: { email: string; password: string }) => {
     });
 };
 
-export const getQuestions = async () => {
+export const getChallenges = async () => {
     return axios.get('http://192.1.31.79:9000/learn/challenges').then((r) => {
-        console.log(r.data)
         return r.data;
     });
 };

@@ -1,9 +1,9 @@
-import { getQuestions } from '@/apis/api';
-import check from '@assets/images/codingList/check.svg'
+import { getChallenges } from '@/apis/api';
+import check from '@assets/images/codingList/check.svg';
 import { useQuery } from 'react-query';
 
 export default function Table() {
-    const { data } = useQuery(['questions'], () => getQuestions());
+    const { data } = useQuery(['questions'], () => getChallenges());
     const questions = data.questions;
 
     return (
@@ -18,14 +18,25 @@ export default function Table() {
                 </tr>
             </thead>
             <tbody>
-                {questions.map((el: any, i : number) => {
-                <tr key={i} className="items-center border-b border-list_border p-[0.5625rem]">
-                    <td className="text-center">{(el.isComplete) ? check : null}</td>
-                    <td>{el.title}</td>
-                    <td className="text-center text-[#2189FF] font-bold">Lv.{el.difficulty}</td>
-                    <td className="text-right">{el.finished_count}명</td>
-                    <td className="text-right">{el.correct_rate}%</td>
-                </tr>
+                {questions.map((el: any, i: number) => {
+                    return (
+                        <tr key={i} className="items-center border-b border-list_border p-[0.5625rem] py-6 ">
+                            <td className="text-center w-[3.75rem] p-[0.5625rem] flex justify-center items-center mt-1">
+                                {el.isComplete ? <img className="w-4" src={check} /> : null}
+                            </td>
+                            <td className="p-3">{el.title}</td>
+                            <td
+                                className="text-center font-bold w-[5rem] p-[0.5625rem] text-[0.875rem]"
+                                style={{
+                                    color: el.difficulty === 0 ? '#2189FF' : el.difficulty === 1 ? '#1BBAFF' : el.difficulty === 2 ? '#47C84C' : '#2189FF'
+                                }}
+                            >
+                                Lv.{el.difficulty}
+                            </td>
+                            <td className="text-right w-[6.25rem] p-[0.5625rem] text-[0.875rem] pr-3">{el.finished_count}명</td>
+                            <td className="text-right w-[5rem] p-[0.5625rem] text-[0.875rem] pr-3">{el.correct_rate}%</td>
+                        </tr>
+                    );
                 })}
             </tbody>
         </table>
