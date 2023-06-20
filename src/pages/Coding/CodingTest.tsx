@@ -6,11 +6,12 @@ import classNames from 'classnames';
 import { getQuestion, postSolution } from '@/apis/api';
 import { Navbar } from './components/Navbar';
 import { verticalButton, horizonButton } from '@/assets/images/codingTest';
-import { Q000002 } from '@/assets/programmers/index';
+import { Q000003 } from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 import { ModalContent } from './components/ModalContent';
 import { Spinner } from '@/components/Spinner';
+import { AnswerModalContent } from './components/AnswerModalContent';
 
 type ResultProps = {
     input: string[] | number[];
@@ -19,25 +20,40 @@ type ResultProps = {
 export default function CodingTest() {
     const monaco = useMonaco();
     const navigate = useNavigate();
-    const questionId = 'Q000002';
+    const questionId = 'Q000003';
     const { data } = useQuery(['question', questionId], () => getQuestion(questionId));
     const { mutate } = useMutation(postSolution);
     const [codeValue, setCodeValue] = useState('');
-    const [results, setResults] = useState<{ [key: number]: number | string | null }>({});
+    const [results, setResults] = useState<{ [key: number]: number | string | null | string[] }>({});
+    const [answers, setAnswers] = useState<{ [key: number]: number | string | null | string[] }>({});
+    const [ans, setAns] = useState(false);
+    const [totalNum, setTotalNum] = useState('');
     const [modal, setModal] = useState(false);
+    const [ansModal, setAnsModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [checkLoading, setCheckLoading] = useState(false);
     let answerNum = 0;
 
-    const onPostSolution = () => {
-        mutate({ questionId: questionId, userCode: codeValue, status: '2' });
+    const onPostSolution = (status: string) => {
+        mutate({ questionId: questionId, userCode: codeValue, status: status });
     };
     const onReset = () => {
         const value = window.confirm('정말로 초기화하시겠습니까?');
         if (value) setCodeValue(data.questionStatus.defaultCode);
     };
+    const onResetResult = useCallback((idx: number, setValue: (value: any) => void) => {
+        for (let index = 0; index < idx; index++) {
+            setValue((prev: any) => {
+                return { ...prev, [index]: null };
+            });
+        }
+    }, []);
+    console.log(results, answers);
+
     const runFunc = () => {
+        setCheckLoading(false);
         setLoading(true);
-        onResetResult();
+        onResetResult(data.questionStatus.testCase.length, setResults);
         const execFunc = new Function('return ' + codeValue)();
         data.questionStatus.testCase.forEach((result: ResultProps, index: number) => {
             const answer = execFunc(...result.input);
@@ -48,13 +64,35 @@ export default function CodingTest() {
             }, 1500);
         });
     };
-    const onResetResult = useCallback(() => {
-        for (let index = 0; index < data.questionStatus.testCase.length; index++) {
-            setResults((prev) => {
-                return { ...prev, [index]: null };
-            });
-        }
-    }, [data.questionStatus.testCase]);
+    const onSubmit = async () => {
+        setLoading(false);
+        setCheckLoading(true);
+        onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
+        let score = 0;
+        const execFunc = new Function('return ' + codeValue)();
+        const promises = data.questionStatus.hiddenCase.map((result: ResultProps, index: number) => {
+            return () =>
+                new Promise<void>((resolve) => {
+                    const answer = execFunc(...result.input);
+                    const ans = answer === result.output ? '통과' : '실패';
+                    if (ans === '통과') score += 1;
+                    setTimeout(() => {
+                        setAnswers((prev) => {
+                            return { ...prev, [index]: ans };
+                        });
+                        resolve();
+                    }, 1000);
+                });
+        });
+        await Promise.all(promises.map((promise: () => void) => promise()));
+        const ans = score === data.questionStatus.hiddenCase.length;
+        setTotalNum(((score / data.questionStatus.hiddenCase.length) * 100).toFixed(1));
+        setTimeout(() => {
+            setAns(ans ? true : false);
+            setAnsModal(true);
+            onPostSolution(ans ? '2' : '1');
+        }, 500);
+    };
 
     useEffect(() => {
         if (!monaco) return;
@@ -73,7 +111,8 @@ export default function CodingTest() {
         });
         monaco.editor.setTheme('theme');
         if (data) setCodeValue(data.questionStatus.userCode);
-        onResetResult();
+        onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
+        onResetResult(data.questionStatus.testCase.length, setResults);
     }, [monaco, data, onResetResult]);
 
     return (
@@ -106,7 +145,7 @@ export default function CodingTest() {
                 <div className="min-h-[500px] h-[100%] bg-[#263747]">
                     <section className="flex flex-wrap h-[calc(100vh-(47px+56px+57px))]">
                         <span className="w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]">
-                            <Q000002 />
+                            <Q000003 />
                         </span>
                         <div className="flex justify-end items-center w-[24px] border-r-[1px] border-[#172334]">
                             <img className="h-[35px] cursor-ew-resize" src={verticalButton} />
@@ -140,10 +179,8 @@ export default function CodingTest() {
                                     </div>
                                     <div className="h-[100%] px-[16px] overflow-auto">
                                         <div className="text-[14px] leading-[24px] pt-[16px] bg-[#263747] text-[#78909c]">
-                                            {!loading ? (
-                                                <div className="text-[#78909C] text-[14px]">실행 결과가 여기에 표시됩니다.</div>
-                                            ) : (
-                                                <div className="mb-[21px] font-[white] p-0 bc-[#263747] whitespace-pre-wrap break-words">
+                                            {loading ? (
+                                                <React.Fragment>
                                                     {data.questionStatus.testCase.map((result: ResultProps, index: number) => {
                                                         const answer = result.output === results[index];
                                                         if (answer) answerNum += 1;
@@ -234,7 +271,43 @@ export default function CodingTest() {
                                                             )}
                                                         </React.Fragment>
                                                     )}
+                                                </React.Fragment>
+                                            ) : checkLoading ? (
+                                                <div className="mb-[21px] p-0 bc-[#263747] whitespace-pre-wrap break-words">
+                                                    <div className="text-[#5f7f90] text-[12.25px] m-[4px_0] leading-5">
+                                                        정확성&nbsp;&nbsp;&nbsp;&nbsp;테스트
+                                                    </div>
+                                                    {data.questionStatus.hiddenCase.map((result: ResultProps, index: number) => {
+                                                        return (
+                                                            <table key={index} className="w-[calc(100%-16px)] pr-[16px] border-[#172334] border-[1px]">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td className="w-[160px] bg-[#202b3d] text-[#44576c] text-[14px] p-[4px_16px] leading-[1.5] text-right">
+                                                                            테스트&nbsp;{index + 1}&nbsp;&nbsp;&#62;
+                                                                        </td>
+                                                                        <td
+                                                                            className={classNames(
+                                                                                answers[index] === '통과' ? 'text-[#0078ff]' : 'text-[#d32f2f]',
+                                                                                'bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[1.5]'
+                                                                            )}
+                                                                        >
+                                                                            {answers[index] === null ? <Spinner /> : answers[index]}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        );
+                                                    })}
+                                                    {Object.keys(answers).every((answer) => answer !== null) && (
+                                                        <React.Fragment>
+                                                            <p className="m-[24px_0_8px_0] text-[#98abb9] text-[12.25px] leading-5">채점 결과</p>
+                                                            <p className="my-[4px] text-[#5F7F90] text-[12.25px] leading-5">정확성 : {totalNum}</p>
+                                                            <p className="my-[4px] text-[#5F7F90] text-[12.25px] leading-5">합계 : {totalNum} / 100.0</p>
+                                                        </React.Fragment>
+                                                    )}
                                                 </div>
+                                            ) : (
+                                                <div className="text-[#78909C] text-[14px]">실행 결과가 여기에 표시됩니다.</div>
                                             )}
                                         </div>
                                     </div>
@@ -272,7 +345,7 @@ export default function CodingTest() {
                             </button>
                             <button
                                 className="w-[140px] h-[40px] bg-[#0078ff] hover:bg-[#0053f4] text-[white] font-[600] rounded-[4px] mx-[4px]"
-                                onClick={onPostSolution}
+                                onClick={onSubmit}
                             >
                                 <h5 className="mt-1">제출 후 채점하기</h5>
                             </button>
@@ -282,6 +355,9 @@ export default function CodingTest() {
             </div>
             <Modal title="컴파일 옵션" width="700px" open={modal} onClick={setModal}>
                 <ModalContent onClick={setModal} />
+            </Modal>
+            <Modal title={ans ? '정답입니다!' : '틀렸습니다!'} width="600px" open={ansModal} onClick={setAnsModal}>
+                <AnswerModalContent onClick={setAnsModal} answer={ans} />
             </Modal>
         </TestContainer>
     );
