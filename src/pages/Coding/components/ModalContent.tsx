@@ -21,7 +21,7 @@ export const ModalContent = ({ onClick }: { onClick: (value: boolean) => void })
             </table>
             <div className="pt-[40px] flex justify-end">
                 <button
-                    className="bg-[#0078FF] text-[white] text-[16px] font-[500] leading-[24px] p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"
+                    className="bg-[#0078FF] text-[white] text-[14px] md:text-[16px] font-[500] leading-[24px] p-[5px_8px] md:p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"
                     onClick={() => onClick(false)}
                 >
                     <h5 className="mt-0.5">닫기</h5>

@@ -15,7 +15,7 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
     const [pages, setPages] = useState<number[]>([]);
     const [page, setPage] = useState(1);
     const startPage = 1 === page || pages.length === 1;
-    const endPage = pages.length === page || pages.length === 1;
+    const endPage = pages.length === page || pages.length === 1 || pages.length === 0;
 
     const onClick = (idx: number) => {
         setPage(idx + 1);
