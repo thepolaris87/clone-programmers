@@ -193,7 +193,7 @@ export default function SignIn() {
                 </div>
             </div>
             <div className="w-full h-full px-5 flex justify-center">
-                <div className=" w-[1200px]">
+                <div className="w-[1200px]">
                     <div className="grid md:grid-cols-2 grid-cols-1 justify-items-center" style={{ alignSelf: 'flex-start' }}>
                         <div className="w-full sm:w-[468px] md:w-[378px]">
                             <div className="sm:text-slate-300 text-[1.5rem] text-white font-extrabold sm:text-[16px] sm:font-normal pt-5 mt-[148px] w-max min-w-[232px]">

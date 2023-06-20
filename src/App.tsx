@@ -3,6 +3,8 @@ import Router from './Router';
 import './App.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ToastMessage from './components/ToastMessage';
+import { Suspense } from 'react';
+import Loading from './components/Loading';
 
 const queryClient = new QueryClient({
     defaultOptions: { queries: { suspense: true } }
@@ -11,11 +13,13 @@ const queryClient = new QueryClient({
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <ToastMessage>
-                <BrowserRouter>
-                    <Router />
-                </BrowserRouter>
-            </ToastMessage>
+            <Suspense fallback={<Loading />}>
+                <ToastMessage>
+                    <BrowserRouter>
+                        <Router />
+                    </BrowserRouter>
+                </ToastMessage>
+            </Suspense>
         </QueryClientProvider>
     );
 }

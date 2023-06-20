@@ -1,30 +1,34 @@
 import Editor, { useMonaco } from '@monaco-editor/react';
 import { useEffect } from 'react';
 
-export const Code = ({ content }: { content?: string }) => {
+export const Code = ({ content, color, onChange }: { content?: string; color: string; onChange?: (value: string) => void }) => {
     const monaco = useMonaco();
 
     useEffect(() => {
         if (!monaco) return;
         monaco.editor.defineTheme('code-theme', {
-            base: 'vs',
+            base: onChange ? 'vs-dark' : 'vs',
             inherit: true,
             rules: [],
             colors: {
-                'editor.background': '#e9ecf3'
+                'editor.background': color
             }
         });
         monaco.editor.setTheme('code-theme');
-    }, [monaco]);
+    }, [monaco, color, onChange]);
 
     return (
-        <div className="h-[400px] p-[20px_24px] bg-[#e9ecf3] rounded-[4px]">
-            <Editor
-                language="javascript"
-                theme="code-theme"
-                value={content}
-                options={{ fontSize: 14, readOnly: true, minimap: { enabled: false }, scrollbar: { vertical: 'auto', horizontal: 'auto' } }}
-            />
-        </div>
+        <Editor
+            language="javascript"
+            theme="code-theme"
+            value={content}
+            onChange={(e) => onChange && onChange(e as string)}
+            options={{
+                fontSize: onChange ? 16 : 14,
+                readOnly: onChange ? false : true,
+                minimap: { enabled: false },
+                scrollbar: { vertical: 'auto', horizontal: 'auto' }
+            }}
+        />
     );
 };

@@ -6,7 +6,7 @@ export const Navbar = ({ setModal }: { setModal?: (modal: boolean) => void }) =>
             <span className="flex items-center">
                 <img className="w-[24px] mr-[16px]" src={logo} />
                 <span className="flex whitespace-nowrap p-[6px_0px]">
-                    <a className="hidden text-[#98a8b9] text-[14px] mr-[4px] hover:text-white md:block" href="#">
+                    <a className="hidden text-[#98a8b9] text-[14px] mr-[4px] hover:text-white md:block" href="/learn/challenges">
                         코딩테스트 연습
                     </a>
                     <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block" href="#">

@@ -57,7 +57,13 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
                             key={index}
                             className={classNames(
                                 page === pageId + 1 ? 'bg-[black] text-[white] shadow-[rgba(0,0,0,0.4)] shadow-[0_4px_10px]' : 'bg-[rgba(215,226,235,0.5)]',
-                                pageId + 1 === 1 ? 'rounded-[10px_0_0_10px]' : pageId + 1 === pages.length ? 'rounded-[0_10px_10px_0]' : 'rounded-none',
+                                pages.length === 1
+                                    ? 'rounded-[10px]'
+                                    : pageId + 1 === 1
+                                    ? 'rounded-[10px_0_0_10px]'
+                                    : pageId + 1 === pages.length
+                                    ? 'rounded-[0_10px_10px_0]'
+                                    : 'rounded-none',
                                 'flex justify-center items-center h-[28px] w-[28px] p-[5px_6px] text-[13px] font-[700]'
                             )}
                             onClick={() => onClick(pageId)}
