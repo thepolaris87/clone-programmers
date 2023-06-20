@@ -1,6 +1,12 @@
 import React, { Children } from "react";
-
-export default function Dropdown(props) {
+interface props {
+ visibility : boolean,
+ onClick : any,
+ title: string, 
+ array: any,
+ style: string
+}
+export default function Dropdown(props : props) {
   const { visibility, onClick, title, array, style } = props;
 
   return (
@@ -29,7 +35,7 @@ export default function Dropdown(props) {
           <ul
             className={`border border-[rgb(215, 226, 235)] bg-white mt-[0.25rem] p-[1rem] max-h-[18.5rem] min-w-max pr-[1rem] rounded-[0.25rem] text-[0.875rem] overflow-auto ${style}`}
           >
-            {array.map((el, i) => {
+            {array.map((el : string, i : number) => {
               return (
                 <li key={i} className=" leading-7">
                   <input
