@@ -1,4 +1,4 @@
-import React, { ChangeEvent, HTMLInputTypeAttribute, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Input from '../../components/Input';
 import { ReactComponent as Email } from '@assets/images/signin/email.svg';
 import { ReactComponent as Smile } from '@assets/images/signin/smile.svg';
@@ -7,12 +7,12 @@ import InputPw from './components/InputPw';
 import { useNavigate } from 'react-router-dom';
 import title from '@assets/images/signin/title.png';
 import main from '@assets/images/signin/main.png';
-import axios from 'axios';
-import { useIsMutating, useMutation, useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 import { postSignIn, postSignUp } from '@apis/api';
-import { useAtom, useAtomValue } from 'jotai';
-import { emailAtom, nameAtom, tokenAtom } from '@/atoms/toast';
+import { useSetAtom } from 'jotai';
+import { emailAtom, nameAtom } from '@/atoms/user';
 import Check from './components/Check';
+import axios from 'axios';
 
 export default function SignIn() {
     const [signIn, setSignIn] = useState<boolean>(true);
@@ -35,26 +35,27 @@ export default function SignIn() {
     const [text, setText] = useState<string>('');
     const [signUpBtn, setSignUpBtn] = useState<string>('bg-[#C8C8C8]');
     const [SuccessSignUp, setSuccessSignUp] = useState<boolean>(false);
+    const [initText, setInitText] = useState<string>('');
 
     const navigate = useNavigate();
+    const setName = useSetAtom(nameAtom);
+    const setEmail = useSetAtom(emailAtom);
 
-    const [token, setToken] = useAtom(tokenAtom);
-    const [name, setName] = useAtom(nameAtom);
-    // const [email, setEmail] = useAtom(emailAtom);
 
-    const count = useAtomValue(nameAtom);
 
     const signInMutation = useMutation(['sign-in'], postSignIn, {
         onSuccess: (data) => {
             navigate('/learn/challenges');
-            setToken(data.accessToken);
             setName(data.name);
+            axios.defaults.headers.common.Authorization = data.accessToken;
         },
         onError: (error: any) => {
             setCheckPw('');
             setText('이메일 또는 비밀번호를 다시 확인하세요.');
         }
     });
+
+    
 
     const signUpMutation = useMutation(['sign-up'], postSignUp, {
         onSuccess: () => {
@@ -69,10 +70,10 @@ export default function SignIn() {
     });
 
     //로그인
-    const onSignInClick = (event: React.FormEvent<HTMLFormElement>) => {
-        event?.preventDefault();
-        const email = (event.target as HTMLInputElement & { email }).email.value;
-        const password = (event.target as HTMLInputElement & { password }).password.value;
+    const onSignInClick = async (event: React.FormEvent<HTMLFormElement>) => {
+        event?.preventDefault();        
+        const email = (event.target as HTMLFormElement).email.value;
+        const password = (event.target as HTMLFormElement).password.value;
         !email ? setCheckEmail('') : setCheckEmail('hidden');
         if (!password) {
             setCheckPw('');
@@ -81,17 +82,19 @@ export default function SignIn() {
             setCheckPw('hidden');
         }
         if (!email || !password) return;
-        signInMutation.mutate({ email: email, password: password });
+        // signInMutation.mutate({ email: email, password: password });
+        const data = await signInMutation.mutateAsync({ email: email, password: password })
+        setEmail(email);        
     };
 
     //회원가입
-    const onSignUpClick = (event: React.FormEvent<HTMLFormElement>) => {
+    const onSignUpClick = async (event: React.FormEvent<HTMLFormElement>) => {
         event?.preventDefault();
         if (!mustCheck) return;
-        const name = (event.target as HTMLInputElement & { name }).name.value;
-        const email = (event.target as HTMLInputElement & { email }).email.value;
-        const password1 = (event.target as HTMLInputElement & { pw1 }).pw1.value;
-        const password2 = (event.target as HTMLInputElement & { pw2 }).pw2.value;
+        const name = ((event.target as HTMLFormElement).name as any).value;
+        const email = (event.target as HTMLFormElement).email.value;
+        const password1 = (event.target as HTMLFormElement).pw1.value;
+        const password2 = (event.target as HTMLFormElement).pw2.value;
         if (!name) {
             setCheckName('');
         } else {
@@ -123,6 +126,7 @@ export default function SignIn() {
         if (password1 !== password2) return;
         setSuccessSignUp(true);
         signUpMutation.mutate({ name: name, email: email, password: password1 });
+        
     };
 
     const goToMain = () => {
@@ -175,8 +179,11 @@ export default function SignIn() {
         }
     }, [useCheck, personalCheck, ageCheck, marketingCheck]);
 
+
+    
     return (
-        <div className="bg-signin_bg min-h-screen">
+        
+        <div className={`bg-signin_bg min-h-screen`}>           
             <div className="flex h-16 w-full bg-signin_bg fixed top-0 left-0 z-50 justify-center">
                 <div className="w-[1200px] flex justify-between">
                     <div className="px-5 w-30">
@@ -234,6 +241,7 @@ export default function SignIn() {
                                                     className={'w-[50%] text-center h-[48px] rounded-t-2xl cursor-pointer' + (signIn ? '' : ' bg-white ')}
                                                     onClick={() => {
                                                         setSignIn(false);
+                                                        setInitText('');
                                                         // history.replaceState("", "", "/sign-up");
                                                     }}
                                                 >
@@ -250,7 +258,17 @@ export default function SignIn() {
                                                         }}
                                                     >
                                                         <div className="font-bold mb-[0.5rem]">이메일</div>
-                                                        <Input svg={<Email />} name={'email'} type={'text'} placeholder={'이메일을 입력해주세요'} />
+                                                        <div className="relative flex w-full border border-signin_border h-[2.875rem] rounded-sm items-center">
+                                                            <div className="absolute top-3 left-3">{<Email />}</div>
+                                                            <input
+                                                                type={'text'}
+                                                                className={'w-full px-[2.5rem] text-[0.9rem]'}
+                                                                name={'email'}
+                                                                placeholder={'이메일을 입력해주세요'}
+                                                                value={initText}
+                                                                onChange={(e) => setInitText(e.target.value)}
+                                                            ></input>
+                                                        </div>
                                                         <Check text={'이메일을 입력해주세요.'} hidden={checkEmail} />
                                                         <div className="flex justify-between mt-[2.25rem] mb-[0.5rem]">
                                                             <div className="font-bold">비밀번호</div>
@@ -314,39 +332,30 @@ export default function SignIn() {
                                                         <Check text={'비밀번호 확인을 입력해주세요.'} hidden={checkPw3} />
                                                         <Check text={'입력하신 비밀번호와 다릅니다.'} hidden={checkPw4} />
                                                         <div className="mt-[2.625rem] flex-col">
-                                                            <div className="flex">
+                                                            <span className="">
                                                                 <input type="checkbox" className="mr-2" checked={allCheck} onChange={allBtnEvent} />
-                                                                <div>전체동의</div>
-                                                            </div>
-                                                            <div className="w-full border h-0 my-3"></div>
-                                                            <div className="flex mb-2">
+                                                                <span>전체동의</span>
+                                                            </span>
+                                                            <span className="w-full border h-0 my-3"></span>
+                                                            <span className="mb-2">
                                                                 <input type="checkbox" className="mr-2" checked={useCheck} onChange={useBtnEvent} />
-                                                                <div>이용약관 동의</div>
-                                                            </div>
-                                                            <div className="flex mb-2">
+                                                                <span>이용약관 동의</span>
+                                                            </span>
+                                                            <span className="mb-2">
                                                                 <input type="checkbox" className="mr-2" checked={personalCheck} onChange={personalBtnEvent} />
-                                                                <div>프로그래머스 개인정보 수집 및 이용동의</div>
-                                                            </div>
-                                                            <div className="flex mb-2">
+                                                                <span>프로그래머스 개인정보 수집 및 이용동의</span>
+                                                            </span>
+                                                            <span className="mb-2">
                                                                 <input type="checkbox" className="mr-2" checked={ageCheck} onChange={ageBtnEvent} />
-                                                                <div>[선택] 만 14세 이상입니다.</div>
-                                                            </div>
-                                                            <div className="flex mb-2">
+                                                                <span>[선택] 만 14세 이상입니다.</span>
+                                                            </span>
+                                                            <span className="mb-2">
                                                                 <input type="checkbox" className="mr-2" checked={marketingCheck} onChange={marketingBtnEvent} />
-                                                                <div>[선택] 마케팅 활용 동의 및 광고 수신 동의</div>
-                                                            </div>
+                                                                <span>[선택] 마케팅 활용 동의 및 광고 수신 동의</span>
+                                                            </span>
                                                         </div>
                                                         <button
                                                             className={`${signUpBtn} w-full text-center py-2 text-white my-[2.75rem] h-[2.75rem] text-[20px] font-bold rounded-md`}
-                                                            // onClick={() =>
-                                                            //   onSignUpClick(
-                                                            //     name,
-                                                            //     email,
-                                                            //     password,
-                                                            //     checkPw,
-                                                            //     mustCheck
-                                                            //   )
-                                                            // }
                                                         >
                                                             회원가입
                                                         </button>
