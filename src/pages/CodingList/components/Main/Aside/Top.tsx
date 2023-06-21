@@ -9,7 +9,7 @@ export default function Top() {
     return (
         <>
             {name ? (
-                <div className="p-[1.5rem]">
+                <div className="p-[1.5rem] border-b border-list_border">
                     <div className="text-[#2189FF] text-[1.125rem] font-extrabold">{name}</div>
                         <ul className="flex w-full my-[0.75rem] text-[0.875rem]">
                            <li className="w-1/3">
