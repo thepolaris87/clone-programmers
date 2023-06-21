@@ -1,13 +1,14 @@
-import { getChallenges } from '@/apis/api';
+import { listDataAtom } from '@/atoms/user';
 import check from '@assets/images/codingList/check.svg';
-import { useQuery } from 'react-query';
+import { useAtomValue } from 'jotai';
+import { useNavigate } from 'react-router-dom';
 
 export default function Table() {
-    const { data } = useQuery(['questions'], () => getChallenges());
-    const questions = data.questions;
+    const listData = useAtomValue(listDataAtom);
+    const navigate = useNavigate();
 
     return (
-        <table className=" w-full ">
+        <table className=" w-full bg-white rounded-md ">
             <thead className="">
                 <tr className="text-[0.75rem] text-[#98A8B9] p-[0.5625rem] border-b border-list_border">
                     <th className="w-[3.75rem] text-center p-[0.5625rem]">상태</th>
@@ -18,17 +19,27 @@ export default function Table() {
                 </tr>
             </thead>
             <tbody>
-                {questions.map((el: any, i: number) => {
+                {listData.map((el: any, i: number) => {
                     return (
                         <tr key={i} className="items-center border-b border-list_border p-[0.5625rem] py-6 ">
                             <td className="text-center w-[3.75rem] p-[0.5625rem] flex justify-center items-center mt-1">
                                 {el.isComplete ? <img className="w-4" src={check} /> : null}
                             </td>
-                            <td className="p-3">{el.title}</td>
+                            <td className="p-3" >
+                                <div className='w-fit cursor-pointer' onClick={() => navigate(`/questions/${el.question_id}`)} >{el.title}</div></td>
                             <td
                                 className="text-center font-bold w-[5rem] p-[0.5625rem] text-[0.875rem]"
                                 style={{
-                                    color: el.difficulty === 0 ? '#2189FF' : el.difficulty === 1 ? '#1BBAFF' : el.difficulty === 2 ? '#47C84C' : '#2189FF'
+                                    color:
+                                        el.difficulty === '0'
+                                            ? '#2189FF'
+                                            : el.difficulty === '1'
+                                            ? '#1BBAFF'
+                                            : el.difficulty === '2'
+                                            ? '#47C84C'
+                                            : el.difficulty === '3'
+                                            ? '#FFA800'
+                                            : '#2189FF'
                                 }}
                             >
                                 Lv.{el.difficulty}
