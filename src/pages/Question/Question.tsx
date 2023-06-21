@@ -5,7 +5,7 @@ import { getDetailQuestion, postAnswer } from '@/apis/api';
 import TopNavBar from '../CodingList/components/TopNavBar';
 import { Navbar } from '@/components/Navbar';
 import NavLink from './components/NavLink';
-import { Code } from '../QuestionList/components/Code';
+import { Code } from '../../components/Code';
 
 type commentProps = {
     date: string;
@@ -17,16 +17,19 @@ type commentProps = {
 export default function Question() {
     const navigate = useNavigate();
     const params = useParams();
-    const { data } = useQuery(['detailQue', params.questionId], () => getDetailQuestion(params.questionId as string));
+    const { data, refetch } = useQuery(['detailQue', params.questionId], () => getDetailQuestion(params.questionId as string));
+    const [value, setValue] = useState('');
     const { mutate } = useMutation(postAnswer, {
-        onSuccess: (data) => {
-            console.log(data);
+        onSuccess: () => {
+            refetch();
         }
     });
-    const [value, setValue] = useState('');
+
     const onClick = () => {
+        setValue('');
         if (params.questionId) mutate({ questionId: params.questionId, description: value });
     };
+
     return (
         <React.Fragment>
             <TopNavBar />
@@ -81,23 +84,24 @@ export default function Question() {
                         <div className="m-[40px_0_8px_0] flex justify-between items-center">
                             <h5 className="text-[16px] leading-[1.6] font-[700]">{data.comments.length}개의 답변</h5>
                         </div>
-                        {data.comments.map((comment: commentProps, idx: number) => {
-                            return (
-                                <React.Fragment key={idx}>
-                                    <div className="flex">
-                                        <img
-                                            className="w-[44px] h-[44px] rounded-[4px]"
-                                            src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
-                                        ></img>
-                                        <div className="ml-[10px]">
-                                            <h5 className="text-[16px] font-[700]">{comment.userEmail}</h5>
-                                            <h5 className="text-[14px] text-[#B2C0CC]">{comment.date}</h5>
+                        {data &&
+                            data.comments.map((comment: commentProps, idx: number) => {
+                                return (
+                                    <React.Fragment key={idx}>
+                                        <div className="flex">
+                                            <img
+                                                className="w-[44px] h-[44px] rounded-[4px]"
+                                                src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
+                                            ></img>
+                                            <div className="ml-[10px]">
+                                                <h5 className="text-[16px] font-[700]">{comment.userEmail}</h5>
+                                                <h5 className="text-[14px] text-[#B2C0CC]">{comment.date}</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="m-[16px_0_40px_0] text-[16px] break-words break-normal">{comment.description}</div>
-                                </React.Fragment>
-                            );
-                        })}
+                                        <div className="m-[16px_0_40px_0] text-[16px] break-words break-normal">{comment.description}</div>
+                                    </React.Fragment>
+                                );
+                            })}
                         <div className="m-[40px_0_8px_0]">
                             <h5 className="text-[16px] font-[700]">답변 쓰기</h5>
                         </div>

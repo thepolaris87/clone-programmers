@@ -6,7 +6,7 @@ import { verticalButton, horizonButton } from '@/assets/images/codingTest';
 import { Q000003 } from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
-import { Code } from '../QuestionList/components/Code';
+import { Code } from '../../components/Code';
 import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent } from './components';
 
 export type ResultProps = {

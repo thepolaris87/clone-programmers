@@ -3,7 +3,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { postQuestion } from '@/apis/api';
 import classNames from 'classnames';
-import { Code } from './Code';
+import { Code } from '../../../components/Code';
 
 export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) => void; content?: string }) => {
     const navigate = useNavigate();
