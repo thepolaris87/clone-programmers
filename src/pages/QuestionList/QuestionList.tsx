@@ -68,7 +68,7 @@ export default function QuestionList() {
                                 return <List key={question.idx} question={question} />;
                             })}
                             <div className="flex justify-center items-center mt-[40px] gap-[9px]">
-                                <Pagination onClickPage={onSetPage} totalNum={data.questions.length} />
+                                <Pagination onClickPage={onSetPage} totalNum={data.questions.length} number={10} />
                             </div>
                         </div>
                     </div>
