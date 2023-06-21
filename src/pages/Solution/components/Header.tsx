@@ -1,6 +1,10 @@
 import classNames from 'classnames';
 
-export const Header = ({ value, setValue }: { value: boolean; setValue: (value: boolean) => void }) => {
+type HeaderProps = {
+    value: boolean;
+    setValue: (value: boolean) => void;
+};
+export const Header = ({ value, setValue }: HeaderProps) => {
     return (
         <div className="flex justify-between mt-[24px]">
             <div className="relative inline-flex align-middle">

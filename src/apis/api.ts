@@ -80,7 +80,7 @@ export const postComment = async (body: { questionId: string; description: strin
         });
 };
 
-export const deleteComment = async (commentId: string) => {
+export const deleteComment = async (commentId: number) => {
     return axios.delete(`http://192.1.31.79:9000/learn/questions/${commentId}`).then((r) => {
         r.data;
     });
@@ -95,6 +95,17 @@ export const getSolutions = async (questionId: string) => {
 export const patchLike = async (body: { questionId: string; userEmail: string }) => {
     return axios
         .patch('http://192.1.31.79:9000/learn/solution-like', {
+            questionId: body.questionId,
+            userEmail: body.userEmail
+        })
+        .then((r) => {
+            return r.data;
+        });
+};
+
+export const patchUnLike = async (body: { questionId: string; userEmail: string }) => {
+    return axios
+        .patch('http://192.1.31.79:9000/learn/solution-unlike', {
             questionId: body.questionId,
             userEmail: body.userEmail
         })

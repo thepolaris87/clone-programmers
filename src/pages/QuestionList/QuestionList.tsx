@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { getQuestionList } from '@/apis/api';
 import { Navbar } from '../Coding/components/Navbar';
@@ -23,25 +23,22 @@ export default function QuestionList() {
     const [datas, setDatas] = useState<questionProps[]>([]);
     const [modal, setModal] = useState(false);
 
-    const onClick = (idx: number) => {
-        setDatas([]);
-        for (let index = idx * 10; index < (idx + 1) * 10; index++) {
-            if (!data.questions[index]) return;
-            setDatas((prev) => {
-                return [...prev, data.questions[index]];
-            });
-        }
-    };
+    const onSetPage = useCallback(
+        (idx: number) => {
+            setDatas([]);
+            for (let index = idx * 10; index < (idx + 1) * 10; index++) {
+                if (!data.questions[index]) return;
+                setDatas((prev) => {
+                    return [...prev, data.questions[index]];
+                });
+            }
+        },
+        [data.questions]
+    );
 
     useEffect(() => {
-        setDatas([]);
-        for (let index = 0; index < 10; index++) {
-            if (!data.questions[index]) return;
-            setDatas((prev) => {
-                return [...prev, data.questions[index]];
-            });
-        }
-    }, [data.questions]);
+        onSetPage(0);
+    }, [onSetPage]);
 
     return (
         <div className="tracking-wider">
@@ -71,14 +68,14 @@ export default function QuestionList() {
                                 return <List key={question.idx} question={question} />;
                             })}
                             <div className="flex justify-center items-center mt-[40px] gap-[9px]">
-                                <Pagination onClickPage={onClick} totalNum={data.questions.length} />
+                                <Pagination onClickPage={onSetPage} totalNum={data.questions.length} />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <Modal title="질문하기" width="992px" open={modal} onClick={setModal}>
-                <ModalContent onClick={setModal} content={data.userCode} />
+                <ModalContent onClick={setModal} content={data.userCode} questionId={params.questionId as string} status={data?.status} />
             </Modal>
         </div>
     );

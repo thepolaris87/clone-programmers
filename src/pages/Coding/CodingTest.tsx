@@ -3,7 +3,7 @@ import { useQuery, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getQuestion, postSolution } from '@/apis/api';
 import { verticalButton, horizonButton } from '@/assets/images/codingTest';
-import { Q000003 } from '@/assets/programmers/index';
+import * as MarkDown from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
@@ -27,6 +27,7 @@ export default function CodingTest() {
     const [loading, setLoading] = useState(false);
     const [checkLoading, setCheckLoading] = useState(false);
     const answerNum = 0;
+    const MarkDownTag = MarkDown[params.questionId];
 
     const onPostSolution = (status: string) => {
         mutate({ questionId: params.questionId as string, userCode: codeValue, status: status });
@@ -102,7 +103,7 @@ export default function CodingTest() {
                 <div className="min-h-[500px] h-[100%] bg-[#263747]">
                     <section className="flex flex-wrap h-[calc(100vh-(47px+56px+57px))]">
                         <span className="w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]">
-                            <Q000003 />
+                            <MarkDownTag />
                         </span>
                         <div className="flex justify-end items-center w-[24px] border-r-[1px] border-[#172334]">
                             <img className="h-[35px] cursor-ew-resize" src={verticalButton} />

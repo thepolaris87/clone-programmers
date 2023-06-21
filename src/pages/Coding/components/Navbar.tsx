@@ -2,19 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 import { logo } from '@/assets/images/codingTest';
 
-export const Navbar = ({
-    setModal,
-    title,
-    category,
-    id,
-    children
-}: {
+type NavbarProps = {
     setModal?: (modal: boolean) => void;
     title: string;
     category: string;
     id?: string;
     children?: string;
-}) => {
+};
+export const Navbar = ({ setModal, title, category, id, children }: NavbarProps) => {
     return (
         <div className="flex flex-wrap relative w-[100%] justify-between items-center bg-[#0c151c] p-[6px_16px]">
             <span className="flex items-center">

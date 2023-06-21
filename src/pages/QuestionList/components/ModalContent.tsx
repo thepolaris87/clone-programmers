@@ -5,7 +5,13 @@ import { postQuestion } from '@/apis/api';
 import classNames from 'classnames';
 import { Code } from '../../../components/Code';
 
-export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) => void; content?: string }) => {
+type ModalContentProps = {
+    onClick: (value: boolean) => void;
+    content?: string;
+    questionId: string;
+    status: string | undefined;
+};
+export const ModalContent = ({ onClick, content, questionId, status }: ModalContentProps) => {
     const navigate = useNavigate();
     const [form, setForm] = useState({ title: '', description: '' });
     const [preview, setPreview] = useState(false);
@@ -15,7 +21,6 @@ export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) =
             navigate(`/questions/${data.questions.idx}`);
         }
     });
-
     const onChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setForm((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
@@ -27,7 +32,7 @@ export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) =
         });
     };
     const onSubmit = () => {
-        mutate({ questionId: 'Q000002', title: form.title, description: form.description, showUserCode: String(option.code) });
+        mutate({ questionId: questionId, title: form.title, description: form.description, showUserCode: String(option.code) });
     };
 
     return (
@@ -98,16 +103,18 @@ export const ModalContent = ({ onClick, content }: { onClick: (value: boolean) =
                         />
                         <label className="text-[14px] leading-[1.5]">내 질문에 답변이 올라오면 이메일로 알림을 받습니다.</label>
                     </div>
-                    <div className="mt-[16px]">
-                        <input
-                            type="checkbox"
-                            name="code"
-                            checked={option.code}
-                            onChange={(e) => onCheck(e)}
-                            className="accent-[#263747] w-[16px] h-[16px] mr-[6px] rounded-[4px] align-middle cursor-pointer"
-                        />
-                        <label className="text-[14px] leading-[1.5]">내 코드를 첨부합니다.</label>
-                    </div>
+                    {status && (
+                        <div className="mt-[16px]">
+                            <input
+                                type="checkbox"
+                                name="code"
+                                checked={option.code}
+                                onChange={(e) => onCheck(e)}
+                                className="accent-[#263747] w-[16px] h-[16px] mr-[6px] rounded-[4px] align-middle cursor-pointer"
+                            />
+                            <label className="text-[14px] leading-[1.5]">내 코드를 첨부합니다.</label>
+                        </div>
+                    )}
                 </React.Fragment>
             )}
             <div className="pt-[40px] flex flex-wrap justify-end">
