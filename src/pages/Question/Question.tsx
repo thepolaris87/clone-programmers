@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { emailAtom } from '@/atoms/user';
 import { useAtomValue } from 'jotai';
 import { getDetailQuestion, postComment, deleteComment, deleteQuestion } from '@/apis/api';
-import TopNavBar from '../CodingList/components/TopNavBar';
+import TopNavBar from '../../components/TopNavBar';
 import { Navbar } from '@/components/Navbar';
 import { NavLink, Header, Detail, Comments, Input } from './components';
 
