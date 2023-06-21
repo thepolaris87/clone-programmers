@@ -7,7 +7,7 @@ export const Code = ({ content, color, onChange }: { content?: string; color: st
     useEffect(() => {
         if (!monaco) return;
         monaco.editor.defineTheme('code-theme', {
-            base: onChange ? 'vs-dark' : 'vs',
+            base: color === '#e9ecf3' ? 'vs' : 'vs-dark',
             inherit: true,
             rules: [],
             colors: {
@@ -15,7 +15,7 @@ export const Code = ({ content, color, onChange }: { content?: string; color: st
             }
         });
         monaco.editor.setTheme('code-theme');
-    }, [monaco, color, onChange]);
+    }, [monaco, color]);
 
     return (
         <Editor

@@ -4,7 +4,7 @@ import { getQuestionList } from '@/apis/api';
 import { Navbar } from '../Coding/components/Navbar';
 import { Modal } from '@/components/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ModalContent } from './components/ModalContent';
+import { ModalContent, List } from './components';
 import Pagination from '@/components/Pagination';
 
 type questionProps = {
@@ -67,52 +67,8 @@ export default function QuestionList() {
                             </div>
                         </div>
                         <div className="p-[6px_0_16px_0]">
-                            {datas.map((question: questionProps, index: number) => {
-                                return (
-                                    <div key={index} className="flex py-[10px]">
-                                        <img
-                                            className="inline-block w-[44px] h-[44px] rounded-[4px] align-top"
-                                            src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
-                                        />
-                                        <div className="w-[calc(100%-44px)] pl-[16px] text-[16px] align-top">
-                                            <a
-                                                className="block text-[rgb(38, 55, 71)] hover:text-[#0078ff] hover:underline"
-                                                href={`/questions/${question.idx}`}
-                                            >
-                                                {question.title}
-                                            </a>
-                                            <div className="text-[#98a8b9] text-[14px]">
-                                                <div className="inline-flex mr-[16px]">
-                                                    <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            d="M17 8c0-2.763-2.238-5-5-5S7 5.237 7 8c0 2.762 2.238 5 5 5s5-2.238 5-5ZM4 18.5V21h16v-2.5c0-3.325-4.662-4-8-4s-8 .675-8 4Z"
-                                                        ></path>
-                                                    </svg>
-                                                    <h5 className="ml-[4px] leading-[1.5]">{question.userName}</h5>
-                                                </div>
-                                                <div className="inline-flex mr-[16px]">
-                                                    <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            d="M7 11v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Zm3-7V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 18a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-1ZM5 18V9h14v9H5Z"
-                                                        ></path>
-                                                    </svg>
-                                                    <h5 className="ml-[4px] leading-[1.5]">{question.date}</h5>
-                                                </div>
-                                                <div className="inline-flex mr-[16px]">
-                                                    <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            d="M20.01 3C21.108 3 22 3.897 22 5.006v9.988A2.003 2.003 0 0 1 20.01 17H18l-5 5v-5H3.99C2.892 17 2 16.103 2 14.994V5.006C2 3.898 2.898 3 3.99 3h16.02ZM9 9H7v2h2V9Zm4 0h-2v2h2V9Zm4 0h-2v2h2V9Z"
-                                                        ></path>
-                                                    </svg>
-                                                    <h5 className="ml-[4px] leading-[1.5]">{question.commentCount}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                );
+                            {datas.map((question: questionProps) => {
+                                return <List key={question.idx} question={question} />;
                             })}
                             <div className="flex justify-center items-center mt-[40px] gap-[9px]">
                                 <Pagination onClickPage={onClick} totalNum={data.questions.length} />
