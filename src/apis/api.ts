@@ -19,7 +19,7 @@ export const postSignIn = async (body: { email: string; password: string }) => {
 
 export const getQuestions = async () => {
     return axios.get('http://192.1.31.79:9000/learn/challenges').then((r) => {
-        console.log(r.data)
+        console.log(r.data);
         return r.data;
     });
 };
@@ -79,4 +79,15 @@ export const getSolutions = async (questionId: string) => {
     return axios.get(`http://192.1.31.79:9000/learn/solutions/${questionId}`).then((r) => {
         return r.data;
     });
+};
+
+export const patchLike = async (body: { questionId: string; userEmail: string }) => {
+    return axios
+        .patch('http://192.1.31.79:9000/learn/solution-like', {
+            questionId: body.questionId,
+            userEmail: body.userEmail
+        })
+        .then((r) => {
+            return r.data;
+        });
 };
