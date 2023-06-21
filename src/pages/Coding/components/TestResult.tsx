@@ -67,7 +67,6 @@ export const TestResult = ({ data, results, answerNum }: TestResultProps) => {
             })}
             {Object.keys(results).every((result, index) => results[index] !== null) && (
                 <React.Fragment>
-                    <div>{Object.keys(results).every((result) => result !== null)}</div>
                     <div className="text-[#98a8b9] text-[12.25px] m-[24px_0_8px_0]">테스트 결과 (~˘▾˘)~</div>
                     <div
                         className={classNames(

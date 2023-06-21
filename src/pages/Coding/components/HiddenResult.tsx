@@ -33,7 +33,7 @@ export const HiddenResult = ({ data, answers, totalNum }: HiddenResultProps) => 
                     </table>
                 );
             })}
-            {Object.keys(answers).every((answer) => answer !== null) && (
+            {totalNum !== '0' && (
                 <React.Fragment>
                     <p className="m-[24px_0_8px_0] text-[#98abb9] text-[12.25px] leading-5">채점 결과</p>
                     <p className="my-[4px] text-[#5F7F90] text-[12.25px] leading-5">정확성 : {totalNum}</p>

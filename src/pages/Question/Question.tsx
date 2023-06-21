@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getDetailQuestion, postAnswer } from '@/apis/api';
+import { getDetailQuestion, postComment } from '@/apis/api';
 import TopNavBar from '../CodingList/components/TopNavBar';
 import { Navbar } from '@/components/Navbar';
 import NavLink from './components/NavLink';
-import { Code } from '../QuestionList/components/Code';
+import { Code } from '../../components/Code';
 
 type commentProps = {
     date: string;
@@ -17,14 +17,16 @@ type commentProps = {
 export default function Question() {
     const navigate = useNavigate();
     const params = useParams();
-    const { data } = useQuery(['detailQue', params.questionId], () => getDetailQuestion(params.questionId as string));
-    const { mutate } = useMutation(postAnswer, {
-        onSuccess: (data) => {
-            console.log(data);
+    const { data, refetch } = useQuery(['detailQue', params.questionId], () => getDetailQuestion(params.questionId as string));
+    const [value, setValue] = useState('');
+    const { mutate } = useMutation(postComment, {
+        onSuccess: () => {
+            refetch();
         }
     });
-    const [value, setValue] = useState('');
+
     const onClick = () => {
+        setValue('');
         if (params.questionId) mutate({ questionId: params.questionId, description: value });
     };
 
@@ -32,14 +34,14 @@ export default function Question() {
         <React.Fragment>
             <TopNavBar />
             <Navbar />
-            <div className="box-border border-b border-slate-100" />
+            <div className="box-border border-b border-slate-100 " />
             <NavLink question={data.question} />
             <div className="h-[calc(100vh-50px-394px)]">
                 <div className="p-[24px_0_40px_0] border-b-[1px] border-[#d7e2eb]">
                     <div className="max-w-[1200px] px-[16px] m-[0_auto_0_auto]">
                         <button
                             className="w-[147px] bg-[#EEEBFF] border-[#EEEBFF] border-b-[1px] rounded-[4px] text-[#0078FF] text-[14px] md:text-[16px] font-[600] mb-[32px] p-[5px_9px] md:p-[7px] hover:bg-[#D8DDFF]"
-                            onClick={() => navigate('/learn/courses')}
+                            onClick={() => navigate(`/learn/courses/${data.question.id}`)}
                         >
                             <h5 className="mt-1">&#60;&nbsp; 강의로 돌아가기</h5>
                         </button>
@@ -82,23 +84,24 @@ export default function Question() {
                         <div className="m-[40px_0_8px_0] flex justify-between items-center">
                             <h5 className="text-[16px] leading-[1.6] font-[700]">{data.comments.length}개의 답변</h5>
                         </div>
-                        {data.comments.map((comment: commentProps, idx: number) => {
-                            return (
-                                <React.Fragment key={idx}>
-                                    <div className="flex">
-                                        <img
-                                            className="w-[44px] h-[44px] rounded-[4px]"
-                                            src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
-                                        ></img>
-                                        <div className="ml-[10px]">
-                                            <h5 className="text-[16px] font-[700]">{comment.userEmail}</h5>
-                                            <h5 className="text-[14px] text-[#B2C0CC]">{comment.date}</h5>
+                        {data &&
+                            data.comments.map((comment: commentProps, idx: number) => {
+                                return (
+                                    <React.Fragment key={idx}>
+                                        <div className="flex">
+                                            <img
+                                                className="w-[44px] h-[44px] rounded-[4px]"
+                                                src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
+                                            ></img>
+                                            <div className="ml-[10px]">
+                                                <h5 className="text-[16px] font-[700]">{comment.userEmail}</h5>
+                                                <h5 className="text-[14px] text-[#B2C0CC]">{comment.date}</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="m-[16px_0_40px_0] text-[16px] break-words break-normal">{comment.description}</div>
-                                </React.Fragment>
-                            );
-                        })}
+                                        <div className="m-[16px_0_40px_0] text-[16px] break-words break-normal">{comment.description}</div>
+                                    </React.Fragment>
+                                );
+                            })}
                         <div className="m-[40px_0_8px_0]">
                             <h5 className="text-[16px] font-[700]">답변 쓰기</h5>
                         </div>

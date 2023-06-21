@@ -24,7 +24,7 @@ export default function NavLink({ question }: { question: questionProps }) {
                 <List>
                     <div>&#62;</div>
                 </List>
-                <List onClick={() => navigate('/learn/courses')}>
+                <List onClick={() => navigate(`/learn/courses/${question.id}`)}>
                     <a>{question.questionTitle}</a>
                 </List>
                 <List>

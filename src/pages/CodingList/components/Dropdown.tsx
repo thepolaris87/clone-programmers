@@ -10,7 +10,7 @@ export default function Dropdown(props : props) {
   const { visibility, onClick, title, array, style } = props;
 
   return (
-    <div>
+    <div className="bg-white">
       <button
         onClick={onClick}
         className={`flex items-center py-[0.6875rem] px-[1.25rem] border border-[rgb(255, 255, 255)] justify-between h-[40px] font-bold rounded-[0.25rem] ${style}`}

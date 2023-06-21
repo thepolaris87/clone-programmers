@@ -17,9 +17,9 @@ export const postSignIn = async (body: { email: string; password: string }) => {
     });
 };
 
-export const getQuestions = async () => {
+export const getChallenges = async () => {
     return axios.get('http://192.1.31.79:9000/learn/challenges').then((r) => {
-        console.log(r.data)
+        console.log(r.data);
         return r.data;
     });
 };
@@ -65,10 +65,39 @@ export const getDetailQuestion = async (questionId: string) => {
     });
 };
 
-export const postAnswer = async (body: { questionId: string; description: string }) => {
+export const deleteQuestion = async (questionId: string) => {
+    return axios.delete(`http://192.1.31.79:9000/learn/courses/${questionId}`).then((r) => {
+        return r.data;
+    });
+};
+
+export const postComment = async (body: { questionId: string; description: string }) => {
     return axios
         .post(`http://192.1.31.79:9000/learn/questions/${body.questionId}`, {
             description: body.description
+        })
+        .then((r) => {
+            return r.data;
+        });
+};
+
+export const deleteComment = async (commentId: string) => {
+    return axios.delete(`http://192.1.31.79:9000/learn/questions/${commentId}`).then((r) => {
+        r.data;
+    });
+};
+
+export const getSolutions = async (questionId: string) => {
+    return axios.get(`http://192.1.31.79:9000/learn/solutions/${questionId}`).then((r) => {
+        return r.data;
+    });
+};
+
+export const patchLike = async (body: { questionId: string; userEmail: string }) => {
+    return axios
+        .patch('http://192.1.31.79:9000/learn/solution-like', {
+            questionId: body.questionId,
+            userEmail: body.userEmail
         })
         .then((r) => {
             return r.data;

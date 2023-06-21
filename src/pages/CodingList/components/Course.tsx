@@ -12,7 +12,7 @@ export default function Course(props: props) {
       </div>
       <div className="col-span-3">
         <div className="font-semibold flex pr-3 text-[0.875rem]">{props.title}</div>
-        <div className="flex text-[0.625rem] gap-[0.375rem]">
+        <div className="flex text-[0.625rem] gap-[0.375rem] pt-1">
           <div className="px-[0.5rem] bg-course_box rounded">{props.level}</div>
           <div className="px-[0.5rem] bg-course_box rounded">{props.lang}</div>
         </div>

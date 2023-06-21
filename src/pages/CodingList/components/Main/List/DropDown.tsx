@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Dropdown from '../../Dropdown';
-import { level, lang, test } from '@/pages/CodingList/const';
+import { level, lang, test } from '@/pages/CodingList/data';
 
 export default function DropDown() {
     const [levelDropdown, setLevelDropdown] = useState<boolean>(false);
