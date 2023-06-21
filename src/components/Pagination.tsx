@@ -23,7 +23,7 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
     };
 
     useEffect(() => {
-        const num = Math.ceil(totalNum / 10);
+        const num = Math.ceil(totalNum / 20);
         for (let index = 0; index < num; index++) {
             setPages((prev) => {
                 return [...prev, index];
