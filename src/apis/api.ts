@@ -65,7 +65,13 @@ export const getDetailQuestion = async (questionId: string) => {
     });
 };
 
-export const postAnswer = async (body: { questionId: string; description: string }) => {
+export const deleteQuestion = async (questionId: string) => {
+    return axios.delete(`http://192.1.31.79:9000/learn/courses/${questionId}`).then((r) => {
+        return r.data;
+    });
+};
+
+export const postComment = async (body: { questionId: string; description: string }) => {
     return axios
         .post(`http://192.1.31.79:9000/learn/questions/${body.questionId}`, {
             description: body.description
@@ -73,6 +79,12 @@ export const postAnswer = async (body: { questionId: string; description: string
         .then((r) => {
             return r.data;
         });
+};
+
+export const deleteComment = async (commentId: string) => {
+    return axios.delete(`http://192.1.31.79:9000/learn/questions/${commentId}`).then((r) => {
+        r.data;
+    });
 };
 
 export const getSolutions = async (questionId: string) => {

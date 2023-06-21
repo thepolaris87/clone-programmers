@@ -45,7 +45,7 @@ export default function QuestionList() {
 
     return (
         <div className="tracking-wider">
-            <Navbar title={data.title} category={data.category} id={data.questionId} />
+            <Navbar title={data.title} category={data.category} id={data.questionId} children="질문 목록" />
             <div className="min-h-[calc(100vh-50px-394px-80px)]">
                 <div className="max-w-[1200px] px-[16px] mx-auto">
                     <div className="mt-[40px]">

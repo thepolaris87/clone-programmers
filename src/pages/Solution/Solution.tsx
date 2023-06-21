@@ -38,8 +38,8 @@ export default function Solution() {
     };
 
     return (
-        <div className="min-h-[calc(100vh-50px-394px-80px)]">
-            <Navbar title={data.questionInfo.title} category={data.questionInfo.category} id={data.questionInfo.questionId} />
+        <div className="min-h-[calc(100vh-50px-394px-80px)] tracking-wider">
+            <Navbar title={data.questionInfo.title} category={data.questionInfo.category} id={data.questionInfo.questionId} children="다른 사람의 풀이" />
             <div className="max-w-[1200px] px-[16px] mx-auto">
                 <Header value={value} setValue={setValue} />
                 {datas.map((solution: SolutionProps, index: number) => {
