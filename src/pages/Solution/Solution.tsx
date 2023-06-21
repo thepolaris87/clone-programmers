@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { getSolutions, patchLike } from '@/apis/api';
 import { useQuery, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { emailAtom } from '@/atoms/user';
+import { useAtomValue } from 'jotai';
 import { Navbar } from '../Coding/components';
 import { Header, CodeItem } from './components';
 import Pagination from '@/components/Pagination';
@@ -17,6 +19,8 @@ export default function Solution() {
     const { data, refetch } = useQuery(['solution', params.questionId], () => getSolutions(params.questionId as string));
     const [value, setValue] = useState(true);
     const [datas, setDatas] = useState<SolutionProps[]>(data.solutions);
+    const email = useAtomValue(emailAtom);
+
     const { mutate } = useMutation(patchLike, {
         onSuccess: () => {
             refetch();
@@ -43,7 +47,11 @@ export default function Solution() {
             <div className="max-w-[1200px] px-[16px] mx-auto">
                 <Header value={value} setValue={setValue} />
                 {datas.map((solution: SolutionProps, index: number) => {
-                    return <CodeItem key={index} solution={solution} onLike={(value) => onLike(value)} />;
+                    return value ? (
+                        <CodeItem key={index} solution={solution} onLike={(value) => onLike(value)} />
+                    ) : (
+                        solution.userEmail === email && <CodeItem key={index} solution={solution} onLike={(value) => onLike(value)} />
+                    );
                 })}
             </div>
             <div className="flex justify-center items-center my-[40px] gap-[9px]">

@@ -81,7 +81,7 @@ export const postComment = async (body: { questionId: string; description: strin
         });
 };
 
-export const deleteComment = async (commentId: string) => {
+export const deleteComment = async (commentId: number) => {
     return axios.delete(`http://192.1.31.79:9000/learn/questions/${commentId}`).then((r) => {
         r.data;
     });
