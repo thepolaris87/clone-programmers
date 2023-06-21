@@ -41,21 +41,18 @@ export default function SignIn() {
     const setName = useSetAtom(nameAtom);
     const setEmail = useSetAtom(emailAtom);
 
-
-
     const signInMutation = useMutation(['sign-in'], postSignIn, {
         onSuccess: (data) => {
             navigate('/learn/challenges');
             setName(data.name);
             axios.defaults.headers.common.Authorization = data.accessToken;
+            window.localStorage.setItem('name', data.name);
         },
         onError: (error: any) => {
             setCheckPw('');
             setText('이메일 또는 비밀번호를 다시 확인하세요.');
         }
     });
-
-    
 
     const signUpMutation = useMutation(['sign-up'], postSignUp, {
         onSuccess: () => {
@@ -71,7 +68,7 @@ export default function SignIn() {
 
     //로그인
     const onSignInClick = async (event: React.FormEvent<HTMLFormElement>) => {
-        event?.preventDefault();        
+        event?.preventDefault();
         const email = (event.target as HTMLFormElement).email.value;
         const password = (event.target as HTMLFormElement).password.value;
         !email ? setCheckEmail('') : setCheckEmail('hidden');
@@ -83,8 +80,9 @@ export default function SignIn() {
         }
         if (!email || !password) return;
         // signInMutation.mutate({ email: email, password: password });
-        const data = await signInMutation.mutateAsync({ email: email, password: password })
-        setEmail(email);        
+        const data = await signInMutation.mutateAsync({ email: email, password: password });
+        setEmail(email);
+        window.localStorage.setItem('email', email);
     };
 
     //회원가입
@@ -126,7 +124,6 @@ export default function SignIn() {
         if (password1 !== password2) return;
         setSuccessSignUp(true);
         signUpMutation.mutate({ name: name, email: email, password: password1 });
-        
     };
 
     const goToMain = () => {
@@ -179,11 +176,8 @@ export default function SignIn() {
         }
     }, [useCheck, personalCheck, ageCheck, marketingCheck]);
 
-
-    
     return (
-        
-        <div className={`bg-signin_bg min-h-screen`}>           
+        <div className={`bg-signin_bg min-h-screen`}>
             <div className="flex h-16 w-full bg-signin_bg fixed top-0 left-0 z-50 justify-center">
                 <div className="w-[1200px] flex justify-between">
                     <div className="px-5 w-30">

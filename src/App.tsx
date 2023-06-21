@@ -6,6 +6,7 @@ import ToastMessage from './components/ToastMessage';
 import { Suspense } from 'react';
 import Loading from './components/Loading';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import GlobalProvider from './components/GlobalProvider';
 
 const queryClient = new QueryClient({
     defaultOptions: { queries: { suspense: true } }
@@ -17,9 +18,11 @@ function App() {
             <QueryClientProvider client={queryClient}>
                 <ErrorBoundary>
                     <Suspense fallback={<Loading />}>
-                        <ToastMessage>
-                            <Router />
-                        </ToastMessage>
+                        <GlobalProvider>
+                            <ToastMessage>
+                                <Router />
+                            </ToastMessage>
+                        </GlobalProvider>
                     </Suspense>
                 </ErrorBoundary>
             </QueryClientProvider>
