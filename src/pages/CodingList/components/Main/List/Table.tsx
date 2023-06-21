@@ -1,4 +1,4 @@
-import { listDataAtom } from '@/atoms/user';
+import { listDataAtom } from '@/atoms/codingList';
 import check from '@assets/images/codingList/check.svg';
 import { useAtomValue } from 'jotai';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ export default function Table() {
                 {listData.map((el: any, i: number) => {
                     return (
                         <tr key={i} className="items-center border-b border-list_border p-[0.5625rem] py-6 ">
-                            <td className="text-center w-[3.75rem] p-[0.5625rem] flex justify-center items-center mt-1">
+                            <td className="text-center w-[3.75rem] p-[0.5625rem] flex justify-center items-center mt-2">
                                 {el.isComplete ? <img className="w-4" src={check} /> : null}
                             </td>
                             <td className="p-4" >

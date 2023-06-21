@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getDetailQuestion, postComment } from '@/apis/api';
-import TopNavBar from '../CodingList/components/TopNavBar';
+import TopNavBar from '../CodingList/components/Header/TopNavBar';
 import { Navbar } from '@/components/Navbar';
 import NavLink from './components/NavLink';
 import { Code } from '../../components/Code';

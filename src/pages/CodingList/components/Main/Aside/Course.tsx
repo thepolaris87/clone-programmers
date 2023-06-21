@@ -7,7 +7,7 @@ interface props {
 export default function Course(props: props) {
   return (
     <div className="grid grid-cols-5 mb-[1.1875rem]">
-      <div className="w-[5.4375rem] col-span-2 justify-self-center">
+      <div className="w-[5.4375rem] lg:col-span-2 justify-self-center">
         <img className="rounded-md" src={props.src}></img>
       </div>
       <div className="col-span-3">
