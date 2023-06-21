@@ -5,7 +5,7 @@ import course3 from '@assets/images/codingList/img3.png';
 
 export default function Middle() {
     return (
-        <div className="border-b border-list_border">
+        <div className="">
             <div className="flex items-center p-[1.5rem]">
                 <div className="font-extrabold text-[1rem]">내 실력 향상을 위한 추천 코스</div>
                 <div>

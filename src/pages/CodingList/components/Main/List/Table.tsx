@@ -25,8 +25,8 @@ export default function Table() {
                             <td className="text-center w-[3.75rem] p-[0.5625rem] flex justify-center items-center mt-1">
                                 {el.isComplete ? <img className="w-4" src={check} /> : null}
                             </td>
-                            <td className="p-3" >
-                                <div className='w-fit cursor-pointer' onClick={() => navigate(`/questions/${el.question_id}`)} >{el.title}</div></td>
+                            <td className="p-4" >
+                                <div className='w-fit cursor-pointer' onClick={() => navigate(`/learn/courses/${el.question_id}`)} >{el.title}</div></td>
                             <td
                                 className="text-center font-bold w-[5rem] p-[0.5625rem] text-[0.875rem]"
                                 style={{

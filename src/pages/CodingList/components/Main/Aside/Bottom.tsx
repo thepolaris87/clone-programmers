@@ -2,7 +2,7 @@ import Position from "./Position";
 
 export default function Bottom() {
     return (
-        <div className="p-[1.5rem]">
+        <div className="border-t border-list_border p-[1.5rem] hidden lg:block">
         <div className="flex items-center">
             <div className="font-extrabold text-[1rem]">추천 포지션</div>
             <div>
