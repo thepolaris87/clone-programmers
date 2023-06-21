@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getSolutions, patchLike, patchUnLike } from '@/apis/api';
 import { useQuery, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -32,15 +32,19 @@ export default function Solution() {
         }
     });
 
-    const onClick = (idx: number) => {
-        setDatas([]);
-        for (let index = idx * 20; index < (idx + 1) * 20; index++) {
-            if (!data.solutions[index]) return;
-            setDatas((prev) => {
-                return [...prev, data.solutions[index]];
-            });
-        }
-    };
+    const onSetPage = useCallback(
+        (idx: number) => {
+            setDatas([]);
+            for (let index = idx * 20; index < (idx + 1) * 20; index++) {
+                if (!data.solutions[index]) return;
+                setDatas((prev) => {
+                    return [...prev, data.solutions[index]];
+                });
+            }
+        },
+        [data.solutions]
+    );
+
     const onLike = (userEmail: string) => {
         mutate({ questionId: params.questionId as string, userEmail: userEmail });
     };
@@ -50,7 +54,8 @@ export default function Solution() {
 
     useEffect(() => {
         setDatas(data.solutions);
-    }, [data]);
+        onSetPage(0);
+    }, [data, onSetPage]);
 
     return (
         <div className="min-h-[calc(100vh-50px-394px-80px)] tracking-wider">
@@ -66,7 +71,7 @@ export default function Solution() {
                 })}
             </div>
             <div className="flex justify-center items-center my-[40px] gap-[9px]">
-                <Pagination onClickPage={onClick} totalNum={data.solutions.length} />
+                <Pagination onClickPage={onSetPage} totalNum={data.solutions.length} />
             </div>
         </div>
     );
