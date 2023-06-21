@@ -7,7 +7,7 @@ type questionProps = {
     questionCategory: string;
     questionTitle: string;
 };
-export default function NavLink({ question }: { question: questionProps }) {
+export const NavLink = ({ question }: { question: questionProps }) => {
     const navigate = useNavigate();
     return (
         <div className="max-w-[1200px] flex justify-start m-[0_auto_0_auto] px-[16px]">
@@ -42,4 +42,4 @@ export default function NavLink({ question }: { question: questionProps }) {
             </ol>
         </div>
     );
-}
+};

@@ -78,7 +78,7 @@ export default function QuestionList() {
                 </div>
             </div>
             <Modal title="질문하기" width="992px" open={modal} onClick={setModal}>
-                <ModalContent onClick={setModal} content={data.userCode} />
+                <ModalContent onClick={setModal} content={data.userCode} questionId={params.questionId as string} status={data?.status} />
             </Modal>
         </div>
     );

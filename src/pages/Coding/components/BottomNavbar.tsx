@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-export const BottomNavbar = ({ functions, questionId }: { functions: (() => void)[]; questionId: string }) => {
+type BottomNavbarProps = {
+    functions: (() => void)[];
+    questionId: string;
+};
+export const BottomNavbar = ({ functions, questionId }: BottomNavbarProps) => {
     const [onReset, runFunc, onSubmit] = functions;
     const navigate = useNavigate();
 
