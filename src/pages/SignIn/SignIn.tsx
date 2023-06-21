@@ -262,7 +262,7 @@ export default function SignIn() {
                                                             <div className="absolute top-3 left-3">{<Email />}</div>
                                                             <input
                                                                 type={'text'}
-                                                                className={'w-full px-[2.5rem] text-[0.9rem]'}
+                                                                className={'w-full h-full px-[2.5rem] text-[0.9rem]'}
                                                                 name={'email'}
                                                                 placeholder={'이메일을 입력해주세요'}
                                                                 value={initText}
@@ -331,7 +331,7 @@ export default function SignIn() {
                                                         <InputPw placeholder={'비밀번호를 확인해 주세요'} name={'pw2'} />
                                                         <Check text={'비밀번호 확인을 입력해주세요.'} hidden={checkPw3} />
                                                         <Check text={'입력하신 비밀번호와 다릅니다.'} hidden={checkPw4} />
-                                                        <div className="mt-[2.625rem] flex-col">
+                                                        <div className="mt-[2.625rem] flex flex-col">
                                                             <span className="">
                                                                 <input type="checkbox" className="mr-2" checked={allCheck} onChange={allBtnEvent} />
                                                                 <span>전체동의</span>
