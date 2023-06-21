@@ -103,3 +103,14 @@ export const patchLike = async (body: { questionId: string; userEmail: string })
             return r.data;
         });
 };
+
+export const patchUnLike = async (body: { questionId: string; userEmail: string }) => {
+    return axios
+        .patch('http://192.1.31.79:9000/learn/solution-unlike', {
+            questionId: body.questionId,
+            userEmail: body.userEmail
+        })
+        .then((r) => {
+            return r.data;
+        });
+};

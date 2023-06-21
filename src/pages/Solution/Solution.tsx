@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { getSolutions, patchLike } from '@/apis/api';
+import { useState, useEffect } from 'react';
+import { getSolutions, patchLike, patchUnLike } from '@/apis/api';
 import { useQuery, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { emailAtom } from '@/atoms/user';
@@ -9,6 +9,7 @@ import { Header, CodeItem } from './components';
 import Pagination from '@/components/Pagination';
 
 export type SolutionProps = {
+    isAlreadyLike: boolean;
     userEmail: string;
     userName: string;
     likeCount: number;
@@ -20,11 +21,14 @@ export default function Solution() {
     const [value, setValue] = useState(true);
     const [datas, setDatas] = useState<SolutionProps[]>(data.solutions);
     const email = useAtomValue(emailAtom);
-
     const { mutate } = useMutation(patchLike, {
         onSuccess: () => {
             refetch();
-            setDatas(data.solutions);
+        }
+    });
+    const { mutate: patchUnLikeMutate } = useMutation(patchUnLike, {
+        onSuccess: () => {
+            refetch();
         }
     });
 
@@ -40,6 +44,13 @@ export default function Solution() {
     const onLike = (userEmail: string) => {
         mutate({ questionId: params.questionId as string, userEmail: userEmail });
     };
+    const onUnLike = (userEmail: string) => {
+        patchUnLikeMutate({ questionId: params.questionId as string, userEmail: userEmail });
+    };
+
+    useEffect(() => {
+        setDatas(data.solutions);
+    }, [data]);
 
     return (
         <div className="min-h-[calc(100vh-50px-394px-80px)] tracking-wider">
@@ -48,7 +59,7 @@ export default function Solution() {
                 <Header value={value} setValue={setValue} />
                 {datas.map((solution: SolutionProps, index: number) => {
                     return value ? (
-                        <CodeItem key={index} solution={solution} onLike={(value) => onLike(value)} />
+                        <CodeItem key={index} solution={solution} onLike={(value) => (!solution.isAlreadyLike ? onLike(value) : onUnLike(value))} />
                     ) : (
                         solution.userEmail === email && <CodeItem key={index} solution={solution} onLike={(value) => onLike(value)} />
                     );
