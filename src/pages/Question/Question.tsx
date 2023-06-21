@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getDetailQuestion, postAnswer } from '@/apis/api';
+import { getDetailQuestion, postComment } from '@/apis/api';
 import TopNavBar from '../CodingList/components/TopNavBar';
 import { Navbar } from '@/components/Navbar';
 import NavLink from './components/NavLink';
@@ -19,7 +19,7 @@ export default function Question() {
     const params = useParams();
     const { data, refetch } = useQuery(['detailQue', params.questionId], () => getDetailQuestion(params.questionId as string));
     const [value, setValue] = useState('');
-    const { mutate } = useMutation(postAnswer, {
+    const { mutate } = useMutation(postComment, {
         onSuccess: () => {
             refetch();
         }
@@ -34,7 +34,7 @@ export default function Question() {
         <React.Fragment>
             <TopNavBar />
             <Navbar />
-            <div className="box-border border-b border-slate-100" />
+            <div className="box-border border-b border-slate-100 " />
             <NavLink question={data.question} />
             <div className="h-[calc(100vh-50px-394px)]">
                 <div className="p-[24px_0_40px_0] border-b-[1px] border-[#d7e2eb]">
