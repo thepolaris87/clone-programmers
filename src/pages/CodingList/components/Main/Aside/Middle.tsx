@@ -1,4 +1,4 @@
-import Course from '../../Course';
+import Course from './Course';
 import course1 from '@assets/images/codingList/img1.png';
 import course2 from '@assets/images/codingList/img2.png';
 import course3 from '@assets/images/codingList/img3.png';

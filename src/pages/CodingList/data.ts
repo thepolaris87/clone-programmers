@@ -46,3 +46,4 @@ export const position = [
     { logo: logo8, title: 'Frontend Developer', company: '제네시스템', response: '평균 2주 이내 응답', career: '2 ~ 5년', region: '경기 성남시' },
     { logo: logo9, title: 'Backend Developer', company: '스윙비', response: '평균 1주 이내 응답', career: '3 ~ 15년', region: '서울시 성동구' }
 ];
+

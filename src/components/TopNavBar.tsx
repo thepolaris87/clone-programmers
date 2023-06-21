@@ -10,8 +10,8 @@ export default function TopNavBar() {
     const navigate = useNavigate();
 
     return (
-        <div className="flex w-[100%] justify-center items-center box-border border-b border-slate-100">
-            <div className="flex flex-wrap w-[100%] max-w-[75rem] h-[2.5rem] px-[20px] items-center overflow-x-auto whitespace-nowrap box-border justify-between text-[0.875rem]">
+        <div className="flex w-[100%] justify-center items-center box-border border-b border-slate-100 px-[1rem]">
+            <div className="flex flex-wrap w-[100%] max-w-[75rem] h-[2.5rem] items-center overflow-x-auto whitespace-nowrap box-border justify-between text-[0.875rem]">
                 <div className="flex items-center font-bold">
                     {menu.map((el, i) => {
                         return (

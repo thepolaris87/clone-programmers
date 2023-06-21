@@ -1,7 +1,8 @@
 import { useAtomValue } from 'jotai';
-import DropDown from './DropDown';
+import DropDown from './DropDownMenu';
 import Table from './Table';
-import { listDataAtom } from '@/atoms/user';
+import { listDataAtom } from '@/atoms/codingList';
+import Sort from './Sort';
 
 export default function List() {
     const listData = useAtomValue(listDataAtom);
@@ -11,7 +12,7 @@ export default function List() {
             <div className="flex justify-between pt-[1.5rem]">
                 <div className="font-extrabold">{listData.length}문제</div>
                 <div>
-                    <button>최신순</button>
+                    <Sort />
                     <ul></ul>
                 </div>
             </div>

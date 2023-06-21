@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import banner2 from '@assets/images/codingList/banner2.png';
 import banner3 from '@assets/images/codingList/banner3.png';
 import banner4 from '@assets/images/codingList/banner4.png';
@@ -6,6 +6,18 @@ import banner5 from '@assets/images/codingList/banner5.png';
 import banner6 from '@assets/images/codingList/banner6.png';
 
 const slideItems = [
+    {
+        img: banner6,
+        bg: 'bg-banner6',
+        class: '기획전',
+        title: (
+            <div>
+                프로그래머스 <br />
+                인기 강의 TOP13
+            </div>
+        ),
+        description: <div>선배 개발자의 노하우를 내 것으로 만들어요!</div>
+    },
     {
         img: banner2,
         bg: 'bg-banner2',
@@ -95,92 +107,55 @@ const slideItems = [
 
 export default function Carousel() {
     const [style, setStyle] = useState('');
-    const [currIndex, setCurrIndex] = useState(0);
-
+    const index = useRef(1);
     const [forward, setForward] = useState(true);
-
-    const translate = [
-        'translate-x-[0%]',
-        'translate-x-[-100%]',
-        'translate-x-[-200%]',
-        'translate-x-[-300%]',
-        'translate-x-[-400%]',
-        'translate-x-[-500%]'
-    ];
+    const translate = ['translate-x-[0%]', 'translate-x-[-100%]', 'translate-x-[-200%]', 'translate-x-[-300%]', 'translate-x-[-400%]', 'translate-x-[-500%]', 'translate-x-[-600%]'];
 
     const onNextClick = () => {
         setForward(true);
-        if(currIndex === 5){
-          setCurrIndex(0)
-        } else{
-        setCurrIndex((prev) => prev + 1);
-      }
-        // if (margin === -600) setMargin(0);
-        
-    };
+        if (index.current === slideItems.length - 2) {
+            index.current = slideItems.length - 1;
+            setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`);
+            setTimeout(() => {
+                setStyle(`translate-x-[-100%]`);
+                index.current = 1;
+            }, 300);
+        } else {
+            index.current = index.current + 1;
+            setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`);
+        }
 
-    useEffect(()=> {
-      if(forward){
-        setStyle(`transition duration-300 ease-in-out transform ${translate[currIndex]}`);
-      } else {
-        setStyle(`transition duration-300 ease-in-out transform ${translate[currIndex]}`);
-      }
-    }, [currIndex])
+    };
 
     const onPrevClick = () => {
         setForward(false);
-        if (currIndex === 0) {
-            setCurrIndex(5);
+        if (index.current === 1) {
+            index.current = 0;
+            setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`)
+            setTimeout(() => {
+                setStyle(`translate-x-[-500%]`);
+                index.current = 5;
+            }, 300);
         } else {
-            setCurrIndex((prev) => prev - 1);
+            index.current = index.current - 1;
         }
-        console.log(currIndex);
+        setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`);
     };
 
-    console.log(currIndex);
+    useEffect(()=>{
+        setStyle(`transition duration-300 ease-in-out transform ${translate[1]}`)
+        // requestAnimationFrame(onNextClick)
+    }, [])
 
     useEffect(() => {
-        if (currIndex === slideItems.length -1 && forward) {
-            setTimeout(() => {
-                setStyle(`translate-x-[0%]`);
-                setCurrIndex(0);
-            }, 800);
+        const autoPage = setTimeout(()=> {
+            onNextClick();
+        }, 5000)
+        return () => {
+            clearTimeout(autoPage)
         }
-        if (currIndex === 5 && !forward) {
-            setTimeout(() => {
-                setStyle(`translate-x-[-500%}]`);
-            }, 500);
-        }
-    }, [currIndex]);
+    }, [style]);
 
-    // setInterval(()=> {
-    //     onNextClick();
-    // }, 1000)
-
-    // console.log(currIndex, margin, style);
-
-    ///////////////////
-
-    // const slider = document.querySelector('.slider')
-    // const slides = document.querySelectorAll('.slideCard');
-    // const [index, setIndex] = useState(1);
-    // const [currSlide, setCurrSlide] = useState()
-    // const [translate, setTranslate] = useState()
-
-    // console.log(slides)
-
-    // const firstClone = slides[0].cloneNode(true);
-    // const lastClone = slides[slides.length - 1].cloneNode(true);
-
-    // console.log('first', firstClone);
-    // console.log('last', lastClone);
-
-    // slider.insertBefore(lastClone, slides[0])
-    // slider.appendChild(firstClone)
-
-    // const sliderCloneLis = slider.querySelectorAll('div');
-    // const liWidth = slides[0].clientWidth;
-    // const sliderWidth = liWidth * sliderCloneLis.length;
 
     return (
         <div className={`slider flex w-full h-[17.25rem] overflow-hidden relative `}>
@@ -188,7 +163,7 @@ export default function Carousel() {
                 return (
                     <div key={i} className={`slideCard flex-none w-full justify-center flex ${el.bg} ${style}`}>
                         <div className="flex flex-wrap max-w-[75rem] relative">
-                            <div className="w-2/5 pt-[2.375rem]">
+                            <div className="w-2/5 pt-[2.375rem] px-[1rem]">
                                 <div className="text-white font-bold bg-banner_classification text-[0.75rem] p-[0.4rem] rounded w-fit items-center">
                                     {el.class}
                                 </div>
@@ -214,7 +189,7 @@ export default function Carousel() {
                                     ></path>
                                 </svg>
                             </button>
-                            <span className="text-white font-extrabold">0{i === 5 ? 1 : i + 1}</span>
+                            <span className="text-white font-extrabold">0{i === 6 ? 1 : i === 0 ? 5 : i }</span>
                             <span className="border w-0 border-white"></span>
                             <span className="text-white">05</span>
                             <button
