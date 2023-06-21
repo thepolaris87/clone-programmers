@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import ToastMessage from './components/ToastMessage';
 import { Suspense } from 'react';
 import Loading from './components/Loading';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 const queryClient = new QueryClient({
     defaultOptions: { queries: { suspense: true } }
@@ -12,15 +13,17 @@ const queryClient = new QueryClient({
 
 function App() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <Suspense fallback={<Loading />}>
-                <ToastMessage>
-                    <BrowserRouter>
-                        <Router />
-                    </BrowserRouter>
-                </ToastMessage>
-            </Suspense>
-        </QueryClientProvider>
+        <BrowserRouter>
+            <QueryClientProvider client={queryClient}>
+                <ErrorBoundary>
+                    <Suspense fallback={<Loading />}>
+                        <ToastMessage>
+                            <Router />
+                        </ToastMessage>
+                    </Suspense>
+                </ErrorBoundary>
+            </QueryClientProvider>
+        </BrowserRouter>
     );
 }
 
