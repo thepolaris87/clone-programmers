@@ -47,6 +47,7 @@ export default function SignIn() {
             setName(data.name);
             axios.defaults.headers.common.Authorization = data.accessToken;
             window.localStorage.setItem('name', data.name);
+            window.localStorage.setItem('token', data.accessToken);
         },
         onError: (error: any) => {
             setCheckPw('');
