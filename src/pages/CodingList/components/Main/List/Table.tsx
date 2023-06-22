@@ -45,7 +45,7 @@ export default function Table() {
                                 Lv.{el.difficulty}
                             </td>
                             <td className="text-right w-[6.25rem] p-[0.5625rem] text-[0.875rem] pr-3">{el.finished_count}명</td>
-                            <td className="text-right w-[5rem] p-[0.5625rem] text-[0.875rem] pr-3">{el.correct_rate}%</td>
+                            <td className="text-right w-[5rem] p-[0.5625rem] text-[0.875rem] pr-3">{el.correct_rate * 100}%</td>
                         </tr>
                     );
                 })}
