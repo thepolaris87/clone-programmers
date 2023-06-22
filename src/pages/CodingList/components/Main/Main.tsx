@@ -57,7 +57,7 @@ export default function Main() {
                         </div>
                         <div className="w-full lg:w-2/3">
                             <List/>
-                            <div className="flex justify-center itmes-center gap-[0.5625rem] mt-[5rem]">
+                            <div className="flex justify-center itmes-center gap-[0.5625rem] mt-[5rem] pb-[12.825rem]">
                             <Pagination onClickPage={onClick} totalNum={data.questions.length} />
                             </div>
                         </div>

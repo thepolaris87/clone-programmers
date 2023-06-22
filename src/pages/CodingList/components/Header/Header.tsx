@@ -1,4 +1,3 @@
-import React from 'react';
 import TopNavBar from '../../../../components/TopNavBar';
 import { Navbar } from '@/components/Navbar';
 import BottomNavBar from '../../../../components/BottomNavBar';
