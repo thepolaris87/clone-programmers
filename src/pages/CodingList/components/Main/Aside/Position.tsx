@@ -1,12 +1,35 @@
 import { position } from "@/pages/CodingList/data";
 import career from "@assets/images/codingList/career.svg"
 import region from "@assets/images/codingList/region.svg"
+import { useEffect, useState } from "react";
 
 export default function Position() {
+  const [count, setCount] = useState(0);
+  const pages = [];
+  for (let i=0; i<position.length; i+=3){
+    const page = position.slice(i, i+3);
+    pages.push(page)
+  }
+  
+  useEffect(() => {
+    if(pages.length < 3) return;
+
+    const autoPage = setTimeout(()=> {
+      if(count === pages.length -1){
+        setCount(0)
+      } else{
+        setCount(prev => prev + 1);
+      }
+    }, 5000)
+    return () => {
+        clearTimeout(autoPage)
+    }
+}, [count]);
+
 
   return (
     <>
-    {position.map((el, i) => {
+    {pages[count].map((el, i) => {
       return(
     <div key={i} className="flex mt-[1.5rem] gap-[1rem]">
       <div className="w-[3.75rem] h-[3.75rem]">
@@ -31,6 +54,11 @@ export default function Position() {
       </div>
     </div>
   )})}
+  <div className="flex gap-1 justify-center pt-7">
+    <span className="w-[8px] h-[8px] border-[0.0625rem] rounded-full cursor-pointer" style={{backgroundColor: count===0 ? "#B2C0CC" : ""}} onClick={() => setCount(0)}></span>
+    <span className="w-[8px] h-[8px] border-[0.0625rem] rounded-full cursor-pointer" style={{backgroundColor: count===1 ? "#B2C0CC" : ""}} onClick={() => setCount(1)}></span>
+    <span className="w-[8px] h-[8px] border-[0.0625rem] rounded-full cursor-pointer" style={{backgroundColor: count===2 ? "#B2C0CC" : ""}} onClick={() => setCount(2)}></span>
+  </div>
   </>
   );
 }
