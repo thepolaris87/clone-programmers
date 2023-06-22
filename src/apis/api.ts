@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { ResultProps } from '@/pages/Coding/CodingTest';
 
 // const client = axios.create({ baseURL: 'http://192.1.31.79:9000' });
 
