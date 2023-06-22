@@ -35,7 +35,7 @@ export default function Pagination({ onClickPage, totalNum, number }: { onClickP
     }, [totalNum, number]);
 
     return (
-        <React.Fragment>
+        <div className="flex justify-center items-center gap-[9px]">
             <Button
                 className={classNames(startPage ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[22px] w-[22px]')}
                 onClick={() => onClick(0)}
@@ -87,6 +87,6 @@ export default function Pagination({ onClickPage, totalNum, number }: { onClickP
             >
                 &#62;|
             </Button>
-        </React.Fragment>
+        </div>
     );
 }

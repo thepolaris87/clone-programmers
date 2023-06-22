@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import CodingTest from './pages/Coding';
 import SignIn from './pages/SignIn/SignIn';
 import CodingList from './pages/CodingList/CodingList';
@@ -17,6 +17,7 @@ export default function Router() {
             <Route path="/learn/courses/:questionId/questions" element={<QuestionList />}></Route>
             <Route path="/questions/:questionId" element={<Question />}></Route>
             <Route path="/learn/solution/:questionId" element={<Solution />}></Route>
+            <Route path="/*" element={<Navigate to={'/sign-in'} />}></Route>
         </Routes>
     );
 }

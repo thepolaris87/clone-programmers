@@ -1,11 +1,6 @@
 import axios from 'axios';
 
-// const client = axios.create({ baseURL: 'http://192.1.31.79:9000' });
-
-// axios.defaults.headers.common.Authorization = window.localStorage.getItem('token');
-
 export const postSignUp = async (body: { name: string; email: string; password: string }) => {
-    //   return axios.post("http://192.168.2.41:9000/coms/sign-up", body, {headers: {Authorization: '9a3lQe3S7QWSr1xeZQvp9'}}).then((r) => {
     return axios.post('http://192.1.31.79:9000/coms/sign-up', body).then((r) => {
         return r.data;
     });
