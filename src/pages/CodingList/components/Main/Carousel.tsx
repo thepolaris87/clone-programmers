@@ -101,6 +101,12 @@ const slideItems = [
                 23년 현대 모비스 <br />
                 알고리즘 경진대회
             </div>
+        ),
+        description: (
+            <div>
+                총 상금 1억6천만원 <br />
+                참가 접수: 5.26(금)~6.23(금)
+            </div>
         )
     }
 ];
@@ -108,11 +114,17 @@ const slideItems = [
 export default function Carousel() {
     const [style, setStyle] = useState('');
     const index = useRef(1);
-    const [forward, setForward] = useState(true);
-    const translate = ['translate-x-[0%]', 'translate-x-[-100%]', 'translate-x-[-200%]', 'translate-x-[-300%]', 'translate-x-[-400%]', 'translate-x-[-500%]', 'translate-x-[-600%]'];
+    const translate = [
+        'translate-x-[0%]',
+        'translate-x-[-100%]',
+        'translate-x-[-200%]',
+        'translate-x-[-300%]',
+        'translate-x-[-400%]',
+        'translate-x-[-500%]',
+        'translate-x-[-600%]'
+    ];
 
     const onNextClick = () => {
-        setForward(true);
         if (index.current === slideItems.length - 2) {
             index.current = slideItems.length - 1;
             setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`);
@@ -124,38 +136,35 @@ export default function Carousel() {
             index.current = index.current + 1;
             setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`);
         }
-
     };
 
     const onPrevClick = () => {
-        setForward(false);
         if (index.current === 1) {
             index.current = 0;
-            setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`)
+            setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`);
             setTimeout(() => {
                 setStyle(`translate-x-[-500%]`);
                 index.current = 5;
             }, 300);
         } else {
             index.current = index.current - 1;
+            setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`);
         }
-        setStyle(`transition duration-300 ease-in-out transform ${translate[index.current]}`);
     };
 
-    useEffect(()=>{
-        setStyle(`transition duration-300 ease-in-out transform ${translate[1]}`)
+    useEffect(() => {
+        setStyle(`transition duration-300 ease-in-out transform ${translate[1]}`);
         // requestAnimationFrame(onNextClick)
-    }, [])
+    }, []);
 
     useEffect(() => {
-        const autoPage = setTimeout(()=> {
+        const autoPage = setTimeout(() => {
             onNextClick();
-        }, 5000)
+        }, 5000);
         return () => {
-            clearTimeout(autoPage)
-        }
+            clearTimeout(autoPage);
+        };
     }, [style]);
-
 
     return (
         <div className={`slider flex w-full h-[17.25rem] overflow-hidden relative `}>
@@ -163,48 +172,48 @@ export default function Carousel() {
                 return (
                     <div key={i} className={`slideCard flex-none w-full justify-center flex ${el.bg} ${style}`}>
                         <div className="flex flex-wrap max-w-[75rem] relative">
-                            <div className="w-2/5 pt-[2.375rem] px-[1rem]">
+                            <div className="w-2/5 pt-[2.375rem] px-[1rem] relative">
                                 <div className="text-white font-bold bg-banner_classification text-[0.75rem] p-[0.4rem] rounded w-fit items-center">
                                     {el.class}
                                 </div>
                                 <div className="text-white text-[1.75rem] font-extrabold">{el.title}</div>
                                 <div className="text-white text-[1rem]">{el.description}</div>
+                                <div className="h-[0.75rem] pl-[0.7rem] flex gap-2 absolute bottom-7 left-0">
+                                    <button
+                                        onClick={() => {
+                                            onPrevClick();
+                                        }}
+                                    >
+                                        <svg viewBox="0 0 8 13" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="0.75rem" height="0.75rem">
+                                            <path
+                                                opacity="1"
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d="M2.24575 6.15321L7.35274 11.6458L6.64705 12.3543L0.859131 6.12938L6.85747 0.106934L7.5384 0.839281L2.24575 6.15321Z"
+                                            ></path>
+                                        </svg>
+                                    </button>
+                                    <span className="text-white font-extrabold">0{i === 6 ? 1 : i === 0 ? 5 : i}</span>
+                                    <span className="border w-0 border-white"></span>
+                                    <span className="text-white">05</span>
+                                    <button
+                                        onClick={() => {
+                                            onNextClick();
+                                        }}
+                                    >
+                                        <svg viewBox="0 0 8 13" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="0.75rem" height="0.75rem">
+                                            <path
+                                                fillRule="evenodd"
+                                                clipRule="evenodd"
+                                                d="M5.75408 6.15321L0.647092 11.6458L1.35278 12.3543L7.1407 6.12938L1.14236 0.106934L0.461426 0.839281L5.75408 6.15321Z"
+                                            ></path>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                             <div className="flex md:justify-center w-3/5 ">
                                 <img className="md:object-cover object-scale-down" src={el.img} />
                             </div>
-                        </div>
-                        <div className="h-[0.75rem] pl-[2.375rem] flex gap-2 absolute bottom-7">
-                            <button
-                                onClick={() => {
-                                    onPrevClick();
-                                }}
-                            >
-                                <svg viewBox="0 0 8 13" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="0.75rem" height="0.75rem">
-                                    <path
-                                        opacity="1"
-                                        fillRule="evenodd"
-                                        clipRule="evenodd"
-                                        d="M2.24575 6.15321L7.35274 11.6458L6.64705 12.3543L0.859131 6.12938L6.85747 0.106934L7.5384 0.839281L2.24575 6.15321Z"
-                                    ></path>
-                                </svg>
-                            </button>
-                            <span className="text-white font-extrabold">0{i === 6 ? 1 : i === 0 ? 5 : i }</span>
-                            <span className="border w-0 border-white"></span>
-                            <span className="text-white">05</span>
-                            <button
-                                onClick={() => {
-                                    onNextClick();
-                                }}
-                            >
-                                <svg viewBox="0 0 8 13" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="0.75rem" height="0.75rem">
-                                    <path
-                                        fillRule="evenodd"
-                                        clipRule="evenodd"
-                                        d="M5.75408 6.15321L0.647092 11.6458L1.35278 12.3543L7.1407 6.12938L1.14236 0.106934L0.461426 0.839281L5.75408 6.15321Z"
-                                    ></path>
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 );
