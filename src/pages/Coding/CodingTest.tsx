@@ -8,17 +8,15 @@ import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
 import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent, TestModalContent } from './components';
-import { useAtomValue } from 'jotai';
-import { emailAtom } from '@/atoms/user';
 
 export type ResultProps = {
     input: string[] | number[];
     output: number | string | string[] | number[];
 };
 
-console.log(MarkDown);
 export default function CodingTest() {
     const params = useParams();
+
     const { data, refetch } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
     const { mutate } = useMutation(postSolution);
     const { mutate: patchCase } = useMutation(patchTestCase, {
