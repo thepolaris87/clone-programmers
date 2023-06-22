@@ -41,18 +41,6 @@ export const postSolution = async (body: { questionId: string; userCode: string;
         });
 };
 
-export const patchTestCase = async (body: { questionId: string; userTestCase: ResultProps[] }) => {
-    console.log(body.userTestCase);
-    return axios
-        .patch(`http://192.1.31.79:9000/learn/courses/user-test-case/${body.questionId}`, {
-            userTestCase: body.userTestCase
-        })
-        .then((r) => {
-            console.log(r);
-            return r.data;
-        });
-};
-
 export const getQuestionList = async (questionId: string) => {
     return axios.get(`http://192.1.31.79:9000/learn/courses/${questionId}/questions`).then((r) => {
         return r.data;

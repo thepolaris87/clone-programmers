@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { getQuestion, postSolution, patchTestCase } from '@/apis/api';
+import { getQuestion, postSolution } from '@/apis/api';
 import { verticalButton, horizonButton } from '@/assets/images/codingTest';
 import * as MarkDown from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
-import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent, TestModalContent } from './components';
+import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent } from './components';
 
 export type ResultProps = {
     input: string[] | number[];
@@ -16,13 +16,8 @@ export type ResultProps = {
 
 export default function CodingTest() {
     const params = useParams();
-    const { data, refetch } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
+    const { data } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
     const { mutate } = useMutation(postSolution);
-    const { mutate: patchCase } = useMutation(patchTestCase, {
-        onSuccess: () => {
-            refetch();
-        }
-    });
     const [codeValue, setCodeValue] = useState('');
     const [results, setResults] = useState<{ [key: number]: number | string | null | string[] }>({});
     const [answers, setAnswers] = useState<{ [key: number]: number | string | null | string[] }>({});
@@ -30,8 +25,6 @@ export default function CodingTest() {
     const [totalNum, setTotalNum] = useState('');
     const [modal, setModal] = useState(false);
     const [ansModal, setAnsModal] = useState(false);
-    const [testModal, setTestModal] = useState<boolean | undefined>(false);
-    const [userTestCase, setUserTestCase] = useState(data.questionStatus.userTestCase);
     const [loading, setLoading] = useState(false);
     const [checkLoading, setCheckLoading] = useState(false);
     const answerNum = 0;
@@ -96,23 +89,6 @@ export default function CodingTest() {
             onPostSolution(ans ? '2' : '1');
         }, 500);
     };
-    const onAddUserTestCase = () => {
-        setUserTestCase([...userTestCase, { input: [], output: '' }]);
-    };
-    const onDeleteUserTestCase = (index: number) => {
-        setUserTestCase((prev: ResultProps[]) => {
-            return prev.filter((prevCase, idx) => idx !== index);
-        });
-    };
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-        const copy = [...userTestCase];
-        copy[index][e.target.name] = e.target.value;
-        setUserTestCase(copy);
-    };
-    const onClick = () => {
-        setTestModal(false);
-        patchCase({ questionId: params.questionId as string, userTestCase: userTestCase });
-    };
 
     useEffect(() => {
         if (data) setCodeValue(data.questionStatus.userCode);
@@ -165,7 +141,7 @@ export default function CodingTest() {
                             </div>
                         </div>
                     </section>
-                    <BottomNavbar functions={[onReset, runFunc, onSubmit, setTestModal]} questionId={params.questionId as string} />
+                    <BottomNavbar functions={[onReset, runFunc, onSubmit]} questionId={params.questionId as string} />
                 </div>
             </div>
             <Modal title="컴파일 옵션" width="700px" open={modal} onClick={setModal}>
@@ -173,16 +149,6 @@ export default function CodingTest() {
             </Modal>
             <Modal title={ans ? '정답입니다!' : '틀렸습니다!'} width="600px" open={ansModal} onClick={setAnsModal}>
                 <AnswerModalContent onClick={setAnsModal} answer={ans} questionId={params.questionId as string} />
-            </Modal>
-            <Modal title="테스트 케이스 추가" width="100%" open={testModal} onClick={setTestModal}>
-                <TestModalContent
-                    onClick={onClick}
-                    testCase={data.questionStatus.testCase}
-                    userTestCase={userTestCase}
-                    onAddUserTestCase={onAddUserTestCase}
-                    onDeleteUserTestCase={onDeleteUserTestCase}
-                    onChange={onChange}
-                />
             </Modal>
         </TestContainer>
     );

@@ -5,7 +5,7 @@ type BottomNavbarProps = {
     questionId: string;
 };
 export const BottomNavbar = ({ functions, questionId }: BottomNavbarProps) => {
-    const [onReset, runFunc, onSubmit, setTestModal] = functions;
+    const [onReset, runFunc, onSubmit] = functions;
     const navigate = useNavigate();
 
     return (
@@ -16,12 +16,6 @@ export const BottomNavbar = ({ functions, questionId }: BottomNavbarProps) => {
                     onClick={() => navigate(`/learn/courses/${questionId}/questions`)}
                 >
                     <h5 className="mt-1">질문하기</h5>
-                </button>
-                <button
-                    className="w-[183px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] font-[600] rounded-[4px] mx-[4px]"
-                    onClick={() => setTestModal(true)}
-                >
-                    <h5 className="mt-1">테스트 케이스 추가하기</h5>
                 </button>
             </span>
             <span className="flex">

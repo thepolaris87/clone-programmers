@@ -5,4 +5,3 @@ export { HiddenResult } from './HiddenResult';
 export { ModalContent } from './ModalContent';
 export { Navbar } from './Navbar';
 export { TestResult } from './TestResult';
-export { TestModalContent } from './TestModalContent';
