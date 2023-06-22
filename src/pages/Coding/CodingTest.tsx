@@ -8,15 +8,12 @@ import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
 import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent, TestModalContent } from './components';
-import { useAtomValue } from 'jotai';
-import { emailAtom } from '@/atoms/user';
 
 export type ResultProps = {
     input: string[] | number[];
     output: number | string | string[] | number[];
 };
 
-console.log(MarkDown);
 export default function CodingTest() {
     const params = useParams();
     const { data, refetch } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
@@ -24,7 +21,6 @@ export default function CodingTest() {
     const { mutate: patchCase } = useMutation(patchTestCase, {
         onSuccess: () => {
             refetch();
-            setUserTestCase(data.questionStatus.userTestCase);
         }
     });
     const [codeValue, setCodeValue] = useState('');
@@ -105,7 +101,7 @@ export default function CodingTest() {
     };
     const onDeleteUserTestCase = (index: number) => {
         setUserTestCase((prev: ResultProps[]) => {
-            return prev.splice(index);
+            return prev.filter((prevCase, idx) => idx !== index);
         });
     };
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -119,13 +115,10 @@ export default function CodingTest() {
     };
 
     useEffect(() => {
-        if (data) {
-            setCodeValue(data.questionStatus.userCode);
-            setUserTestCase(data.questionStatus.userTestCase);
-        }
+        if (data) setCodeValue(data.questionStatus.userCode);
         if (data.questionStatus.hiddenCase) onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
         onResetResult(data.questionStatus.testCase.length, setResults);
-    }, [data, onResetResult, refetch]);
+    }, [data, onResetResult]);
 
     return (
         <TestContainer>
@@ -136,7 +129,6 @@ export default function CodingTest() {
                     <section className="flex flex-wrap h-[calc(100vh-(47px+56px+57px))]">
                         <span className="w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]">
                             <MarkDownTag />
-                            {/* <MarkDown.Q000001 /> // params.questionId */}
                         </span>
                         <div className="flex justify-end items-center w-[24px] border-r-[1px] border-[#172334]">
                             <img className="h-[35px] cursor-ew-resize" src={verticalButton} />
