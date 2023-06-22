@@ -254,7 +254,7 @@ export default function SignIn() {
                                                     >
                                                         <div className="font-bold mb-[0.5rem]">이메일</div>
                                                         <div className="relative flex w-full border border-signin_border h-[2.875rem] rounded-sm items-center">
-                                                            <div className="absolute top-3 left-3">{<Email />}</div>
+                                                            <div className="absolute top-[0.9rem] left-3">{<Email />}</div>
                                                             <input
                                                                 type={'text'}
                                                                 className={'w-full h-full px-[2.5rem] text-[0.9rem]'}
