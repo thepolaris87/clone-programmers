@@ -1,22 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { getQuestion, postSolution } from '@/apis/api';
+import { getQuestion, postSolution, patchTestCase } from '@/apis/api';
 import { verticalButton, horizonButton } from '@/assets/images/codingTest';
 import * as MarkDown from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
-import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent } from './components';
+import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent, TestModalContent } from './components';
+import { useAtomValue } from 'jotai';
+import { emailAtom } from '@/atoms/user';
 
 export type ResultProps = {
     input: string[] | number[];
     output: number | string | string[] | number[];
 };
+
+console.log(MarkDown);
 export default function CodingTest() {
     const params = useParams();
-    const { data } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
+    const { data, refetch } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
     const { mutate } = useMutation(postSolution);
+    const { mutate: patchCase } = useMutation(patchTestCase, {
+        onSuccess: () => {
+            refetch();
+            setUserTestCase(data.questionStatus.userTestCase);
+        }
+    });
     const [codeValue, setCodeValue] = useState('');
     const [results, setResults] = useState<{ [key: number]: number | string | null | string[] }>({});
     const [answers, setAnswers] = useState<{ [key: number]: number | string | null | string[] }>({});
@@ -24,10 +34,12 @@ export default function CodingTest() {
     const [totalNum, setTotalNum] = useState('');
     const [modal, setModal] = useState(false);
     const [ansModal, setAnsModal] = useState(false);
+    const [testModal, setTestModal] = useState<boolean | undefined>(false);
+    const [userTestCase, setUserTestCase] = useState(data.questionStatus.userTestCase);
     const [loading, setLoading] = useState(false);
     const [checkLoading, setCheckLoading] = useState(false);
     const answerNum = 0;
-    const MarkDownTag = MarkDown[params.questionId];
+    const MarkDownTag = MarkDown[params.questionId as keyof typeof MarkDown];
 
     const onPostSolution = (status: string) => {
         mutate({ questionId: params.questionId as string, userCode: codeValue, status: status });
@@ -88,12 +100,32 @@ export default function CodingTest() {
             onPostSolution(ans ? '2' : '1');
         }, 500);
     };
+    const onAddUserTestCase = () => {
+        setUserTestCase([...userTestCase, { input: [], output: '' }]);
+    };
+    const onDeleteUserTestCase = (index: number) => {
+        setUserTestCase((prev: ResultProps[]) => {
+            return prev.splice(index);
+        });
+    };
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        const copy = [...userTestCase];
+        copy[index][e.target.name] = e.target.value;
+        setUserTestCase(copy);
+    };
+    const onClick = () => {
+        setTestModal(false);
+        patchCase({ questionId: params.questionId as string, userTestCase: userTestCase });
+    };
 
     useEffect(() => {
-        if (data) setCodeValue(data.questionStatus.userCode);
+        if (data) {
+            setCodeValue(data.questionStatus.userCode);
+            setUserTestCase(data.questionStatus.userTestCase);
+        }
         if (data.questionStatus.hiddenCase) onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
         onResetResult(data.questionStatus.testCase.length, setResults);
-    }, [data, onResetResult]);
+    }, [data, onResetResult, refetch]);
 
     return (
         <TestContainer>
@@ -104,6 +136,7 @@ export default function CodingTest() {
                     <section className="flex flex-wrap h-[calc(100vh-(47px+56px+57px))]">
                         <span className="w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]">
                             <MarkDownTag />
+                            {/* <MarkDown.Q000001 /> // params.questionId */}
                         </span>
                         <div className="flex justify-end items-center w-[24px] border-r-[1px] border-[#172334]">
                             <img className="h-[35px] cursor-ew-resize" src={verticalButton} />
@@ -140,7 +173,7 @@ export default function CodingTest() {
                             </div>
                         </div>
                     </section>
-                    <BottomNavbar functions={[onReset, runFunc, onSubmit]} questionId={params.questionId as string} />
+                    <BottomNavbar functions={[onReset, runFunc, onSubmit, setTestModal]} questionId={params.questionId as string} />
                 </div>
             </div>
             <Modal title="컴파일 옵션" width="700px" open={modal} onClick={setModal}>
@@ -148,6 +181,16 @@ export default function CodingTest() {
             </Modal>
             <Modal title={ans ? '정답입니다!' : '틀렸습니다!'} width="600px" open={ansModal} onClick={setAnsModal}>
                 <AnswerModalContent onClick={setAnsModal} answer={ans} questionId={params.questionId as string} />
+            </Modal>
+            <Modal title="테스트 케이스 추가" width="100%" open={testModal} onClick={setTestModal}>
+                <TestModalContent
+                    onClick={onClick}
+                    testCase={data.questionStatus.testCase}
+                    userTestCase={userTestCase}
+                    onAddUserTestCase={onAddUserTestCase}
+                    onDeleteUserTestCase={onDeleteUserTestCase}
+                    onChange={onChange}
+                />
             </Modal>
         </TestContainer>
     );

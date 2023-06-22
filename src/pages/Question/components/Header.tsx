@@ -19,7 +19,7 @@ export const Header = ({ email, userEmail, delQuestionMutate, questionId, id }: 
             </button>
             {email === userEmail && (
                 <button
-                    className="bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[500] mb-[32px] p-[5px_13px] md:p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"
+                    className="hidden bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[500] mb-[32px] p-[5px_13px] md:p-[7px_13px] sm:block rounded-[4px] hover:bg-[#0053f4]"
                     onClick={() => delQuestionMutate(questionId)}
                 >
                     <h5 className="mt-0.5">삭제</h5>

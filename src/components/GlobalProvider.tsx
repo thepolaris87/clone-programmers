@@ -6,10 +6,13 @@ import { useEffect } from 'react';
 export default function GlobalProvider({ children }: { children: React.ReactNode }) {
     const setName = useSetAtom(nameAtom);
     const setEmail = useSetAtom(emailAtom);
+    console.log('aa');
     useEffect(() => {
+        console.log('aa');
         if (window.localStorage.getItem('email')) setEmail(window.localStorage.getItem('email') ?? '');
         if (window.localStorage.getItem('name')) setName(window.localStorage.getItem('name') ?? '');
         if (window.localStorage.getItem('token')) axios.defaults.headers.common.Authorization = window.localStorage.getItem('token') ?? '';
     }, [setEmail, setName]);
+    // if (!emailAtom) return null;
     return <>{children}</>;
 }

@@ -52,7 +52,11 @@ export const ModalContent = ({ onClick, content, questionId, status }: ModalCont
                     )}
                     <hr className="border-[#d7e2eb] mt-[16px] mb-[16px]" />
                     <h5 className="text-[14px] text-[#263747] leading-[1.5] font-[400] mt-[4px]">이메일 알림 : {option.email ? '받음' : '받지 않음'}</h5>
-                    <h5 className="text-[14px] text-[#263747] leading-[1.5] font-[400] mt-[4px]">코드 첨부 여부 : {option.code ? '첨부' : '첨부하지 않음'}</h5>
+                    {status && (
+                        <h5 className="text-[14px] text-[#263747] leading-[1.5] font-[400] mt-[4px]">
+                            코드 첨부 여부 : {option.code ? '첨부' : '첨부하지 않음'}
+                        </h5>
+                    )}
                 </React.Fragment>
             ) : (
                 <React.Fragment>

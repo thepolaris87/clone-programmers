@@ -24,7 +24,7 @@ export const Detail = ({ question }: { question: DetailProps }) => {
                     </div>
                 </div>
                 <button
-                    className="bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[500] p-[5px_13px] md:p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"
+                    className="hidden bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[500] p-[5px_13px] md:p-[7px_13px] sm:block rounded-[4px] hover:bg-[#0053f4]"
                     onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                 >
                     <h5 className="mt-0.5">답변 작성</h5>
