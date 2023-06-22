@@ -24,7 +24,7 @@ export default function TopNavBar() {
                 {name ? (
                     <div className="flex gap-2 items-center">
                         <button>
-                            <div className="text-[#0084FF] text-[14px] pt-[0.125rem]">{name}님</div>
+                            <div className="text-[#0084FF] text-[14px] pt-[0.125rem]" onClick={()=> navigate('/my-page')}>{name}님</div>
                         </button>
                         <svg viewBox="0 0 20 21" className="w-[1.125rem]" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
