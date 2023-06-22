@@ -15,17 +15,17 @@ const queryClient = new QueryClient({
 function App() {
     return (
         <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-                <ErrorBoundary>
-                    <Suspense fallback={<Loading />}>
-                        <GlobalProvider>
+            <ErrorBoundary>
+                <GlobalProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <Suspense fallback={<Loading />}>
                             <ToastMessage>
                                 <Router />
                             </ToastMessage>
-                        </GlobalProvider>
-                    </Suspense>
-                </ErrorBoundary>
-            </QueryClientProvider>
+                        </Suspense>
+                    </QueryClientProvider>
+                </GlobalProvider>
+            </ErrorBoundary>
         </BrowserRouter>
     );
 }
