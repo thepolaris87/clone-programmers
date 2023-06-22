@@ -53,9 +53,8 @@ export default function Solution() {
     };
 
     useEffect(() => {
-        setDatas(data.solutions);
         onSetPage(0);
-    }, [data, onSetPage]);
+    }, [onSetPage]);
 
     return (
         <div className="min-h-[calc(100vh-50px-394px-80px)] tracking-wider">

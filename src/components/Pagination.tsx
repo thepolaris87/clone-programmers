@@ -11,7 +11,7 @@ const Button = styled.button`
     font-size: 13px;
 `;
 
-export default function Pagination({ onClickPage, totalNum }: { onClickPage: (value: number) => void; totalNum: number }) {
+export default function Pagination({ onClickPage, totalNum, number }: { onClickPage: (value: number) => void; totalNum: number; number?: number }) {
     const [pages, setPages] = useState<number[]>([]);
     const [page, setPage] = useState(1);
     const startPage = 1 === page || pages.length === 1;
@@ -23,7 +23,7 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
     };
 
     useEffect(() => {
-        const num = Math.ceil(totalNum / 20);
+        const num = Math.ceil(totalNum / (number ? number : 20));
         for (let index = 0; index < num; index++) {
             setPages((prev) => {
                 return [...prev, index];
@@ -32,7 +32,7 @@ export default function Pagination({ onClickPage, totalNum }: { onClickPage: (va
         return () => {
             setPages([]);
         };
-    }, [totalNum]);
+    }, [totalNum, number]);
 
     return (
         <React.Fragment>
