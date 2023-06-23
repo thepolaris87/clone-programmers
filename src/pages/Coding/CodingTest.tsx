@@ -151,6 +151,7 @@ export default function CodingTest() {
                                 <MarkDownTag />
                             </span>
                         </Resizable>
+                        <div className="border-[0.1px] border-[#172334]" />
                         <div className="w-[calc(60%-12px)] h-[100%]">
                             <div className="h-[calc(60%-7px)]">
                                 <div className="h-[100%]">
