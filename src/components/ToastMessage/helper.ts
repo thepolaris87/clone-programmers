@@ -4,7 +4,7 @@ export const createToastElement = (message = '') => {
     const container = document.createElement('div');
     const toastElement = document.createElement('div');
 
-    container.classList.add('fixed', 'transition-all', 'text-center', 'w-full', 'duration-300');
+    container.classList.add('fixed', 'transition-all', 'text-center', 'w-full', 'duration-300', 'z-[9999]', 'pointer-events-none');
     container.style.top = '-45px';
 
     toastElement.classList.add('w-fit', 'bg-[#0078ff]', 'm-auto', 'text-white', 'font-bold', 'pt-2', 'pb-1', 'px-4', 'rounded-lg', 'my-2', 'drop-shadow-lg');
@@ -19,7 +19,9 @@ export const createToastElement = (message = '') => {
 };
 
 export const removeToastElement = (toastElement: HTMLDivElement) => {
-    toastElement.parentNode?.removeChild(toastElement);
+    if (toastElement.parentNode) toastElement.parentNode.removeChild(toastElement);
+    else toastElement.remove();
+
     stack.delete(toastElement);
 };
 

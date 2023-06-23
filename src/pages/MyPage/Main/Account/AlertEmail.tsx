@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { ContentContainer, ContentSubTitle, Toggle } from '../../MyPage.styles';
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { toastAtom } from '@/atoms/toast';
 
 export default function AlertEmail() {
-    const [message, setMessage] = useAtom(toastAtom);
+    const setMessage = useSetAtom(toastAtom);
     const [checked, setChecked] = useState({ email: false, marketing: false });
 
     const onChange = (e: React.FormEvent<HTMLLabelElement>, type: 'email' | 'marketing') => {

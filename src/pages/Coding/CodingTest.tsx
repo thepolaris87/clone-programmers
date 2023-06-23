@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getQuestion, postSolution } from '@/apis/api';
@@ -9,10 +9,6 @@ import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
 import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent } from './components';
 
-export type ResultProps = {
-    input: string[] | number[];
-    output: number | string | string[] | number[];
-};
 export default function CodingTest() {
     const params = useParams();
     const { data } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
@@ -20,6 +16,7 @@ export default function CodingTest() {
     const [codeValue, setCodeValue] = useState('');
     const [results, setResults] = useState<{ [key: number]: number | string | null | string[] }>({});
     const [answers, setAnswers] = useState<{ [key: number]: number | string | null | string[] }>({});
+    const [error, setError] = useState('');
     const [ans, setAns] = useState(false);
     const [totalNum, setTotalNum] = useState('');
     const [modal, setModal] = useState(false);
@@ -27,7 +24,7 @@ export default function CodingTest() {
     const [loading, setLoading] = useState(false);
     const [checkLoading, setCheckLoading] = useState(false);
     const answerNum = 0;
-    const MarkDownTag = MarkDown[params.questionId];
+    const MarkDownTag = MarkDown[params.questionId as keyof typeof MarkDown];
 
     const onPostSolution = (status: string) => {
         mutate({ questionId: params.questionId as string, userCode: codeValue, status: status });
@@ -43,43 +40,72 @@ export default function CodingTest() {
             });
         }
     }, []);
+
     const runFunc = () => {
+        setError('');
         setCheckLoading(false);
         setLoading(true);
         onResetResult(data.questionStatus.testCase.length, setResults);
-        const execFunc = new Function('return ' + codeValue)();
-        data.questionStatus.testCase.forEach((result: ResultProps, index: number) => {
-            const answer = execFunc(...result.input);
+        try {
+            const execFunc = new Function('return ' + codeValue)();
+            data.questionStatus.testCase.forEach((result: ResultProps, index: number) => {
+                const answer = execFunc(...result.input);
+                setTimeout(() => {
+                    setResults((prev) => {
+                        return { ...prev, [index]: answer };
+                    });
+                }, 1500);
+            });
+        } catch (error) {
             setTimeout(() => {
-                setResults((prev) => {
-                    return { ...prev, [index]: answer };
-                });
+                if (error instanceof Error) {
+                    setError(error.message);
+                }
             }, 1500);
-        });
+        }
     };
     const onSubmit = async () => {
+        setError('');
         setTotalNum('0');
         if (!data.questionStatus.hiddenCase) return;
         setLoading(false);
         setCheckLoading(true);
         onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
         let score = 0;
-        const execFunc = new Function('return ' + codeValue)();
-        const promises = data.questionStatus.hiddenCase.map((result: ResultProps, index: number) => {
-            return () =>
-                new Promise<void>((resolve) => {
-                    const answer = execFunc(...result.input);
-                    const ans = answer === result.output ? '통과' : '실패';
-                    if (ans === '통과') score += 1;
-                    setTimeout(() => {
-                        setAnswers((prev) => {
-                            return { ...prev, [index]: ans };
+        try {
+            const execFunc = new Function('return ' + codeValue)();
+            const promises = data.questionStatus.hiddenCase.map((result: ResultProps, index: number) => {
+                return () =>
+                    new Promise<void>((resolve) => {
+                        const answer = execFunc(...result.input);
+                        const ans = answer === result.output ? '통과' : '실패';
+                        if (ans === '통과') score += 1;
+                        setTimeout(() => {
+                            setAnswers((prev) => {
+                                return { ...prev, [index]: ans };
+                            });
+                            resolve();
+                        }, 1000);
+                    });
+            });
+            await Promise.all(promises.map((promise: () => void) => promise()));
+        } catch (error) {
+            if (error instanceof Error) {
+                const errorPromises = data.questionStatus.hiddenCase.map((result: ResultProps, index: number) => {
+                    return () =>
+                        new Promise<void>((resolve) => {
+                            setTimeout(() => {
+                                setAnswers((prev) => {
+                                    return { ...prev, [index]: '시간초과' };
+                                });
+                                resolve();
+                            }, 3000);
                         });
-                        resolve();
-                    }, 1000);
                 });
-        });
-        await Promise.all(promises.map((promise: () => void) => promise()));
+                await Promise.all(errorPromises.map((promise: () => void) => promise()));
+            }
+        }
+
         const ans = score === data.questionStatus.hiddenCase.length;
         setTotalNum(((score / data.questionStatus.hiddenCase.length) * 100).toFixed(1));
         setTimeout(() => {
@@ -128,7 +154,7 @@ export default function CodingTest() {
                                     <div className="h-[100%] px-[16px] overflow-auto">
                                         <div className="text-[14px] leading-[24px] pt-[16px] bg-[#263747] text-[#78909c]">
                                             {loading ? (
-                                                <TestResult data={data.questionStatus.testCase} results={results} answerNum={answerNum} />
+                                                <TestResult data={data.questionStatus.testCase} results={results} answerNum={answerNum} error={error} />
                                             ) : checkLoading ? (
                                                 <HiddenResult data={data.questionStatus.hiddenCase} answers={answers} totalNum={totalNum} />
                                             ) : (

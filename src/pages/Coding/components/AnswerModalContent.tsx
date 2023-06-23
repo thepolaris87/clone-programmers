@@ -1,11 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type AnswerModalContentProps = {
-    onClick: (value: boolean) => void;
-    answer: boolean;
-    questionId: string;
-};
 export const AnswerModalContent = ({ onClick, answer, questionId }: AnswerModalContentProps) => {
     const navigate = useNavigate();
     return (

@@ -9,23 +9,26 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import GlobalProvider from './components/GlobalProvider';
 
 const queryClient = new QueryClient({
-    defaultOptions: { queries: { suspense: true } }
+    defaultOptions: {
+        queries: { suspense: true, refetchOnWindowFocus: false, retry: false },
+        mutations: { retry: false }
+    }
 });
 
 function App() {
     return (
         <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-                <ErrorBoundary>
-                    <Suspense fallback={<Loading />}>
-                        <GlobalProvider>
+            <ErrorBoundary>
+                <GlobalProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <Suspense fallback={<Loading />}>
                             <ToastMessage>
                                 <Router />
                             </ToastMessage>
-                        </GlobalProvider>
-                    </Suspense>
-                </ErrorBoundary>
-            </QueryClientProvider>
+                        </Suspense>
+                    </QueryClientProvider>
+                </GlobalProvider>
+            </ErrorBoundary>
         </BrowserRouter>
     );
 }

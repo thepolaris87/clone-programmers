@@ -5,7 +5,7 @@ type ModalProps = {
     children: ReactNode;
     title: string;
     width: string;
-    open: boolean;
+    open: boolean | undefined;
     onClick: (value: boolean) => void;
 };
 

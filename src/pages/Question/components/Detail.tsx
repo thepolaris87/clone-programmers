@@ -1,30 +1,20 @@
 import React from 'react';
 import { Code } from '@/components/Code';
+import profile from '@/assets/images/default_profile_img.jpeg';
 
-type DetailProps = {
-    date: string;
-    description: string;
-    showUserCode: string;
-    title: string;
-    userCode: string;
-    userEmail: string;
-};
 export const Detail = ({ question }: { question: DetailProps }) => {
     return (
         <React.Fragment>
             <div className="flex justify-between items-center">
                 <div className="flex">
-                    <img
-                        className="w-[44px] h-[44px] rounded-[4px]"
-                        src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
-                    ></img>
+                    <img className="w-[44px] h-[44px] rounded-[4px]" src={profile}></img>
                     <div className="ml-[10px]">
                         <h5 className="text-[16px] font-[700]">{question.userEmail}</h5>
                         <h5 className="text-[14px] text-[#B2C0CC]">{question.date}</h5>
                     </div>
                 </div>
                 <button
-                    className="bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[500] p-[5px_13px] md:p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"
+                    className="hidden bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[500] p-[5px_13px] md:p-[7px_13px] sm:block rounded-[4px] hover:bg-[#0053f4]"
                     onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}
                 >
                     <h5 className="mt-0.5">답변 작성</h5>

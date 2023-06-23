@@ -1,11 +1,6 @@
 import React from 'react';
-import { CommentProps } from '../Question';
+import profile from '@/assets/images/default_profile_img.jpeg';
 
-type CommentsProps = {
-    comments: CommentProps[];
-    email: string;
-    delCommentMutate: (value: number) => void;
-};
 export const Comments = ({ comments, email, delCommentMutate }: CommentsProps) => {
     return (
         <React.Fragment>
@@ -18,10 +13,7 @@ export const Comments = ({ comments, email, delCommentMutate }: CommentsProps) =
                         <React.Fragment key={idx}>
                             <div className="flex justify-between items-center">
                                 <div className="flex">
-                                    <img
-                                        className="w-[44px] h-[44px] rounded-[4px]"
-                                        src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
-                                    ></img>
+                                    <img className="w-[44px] h-[44px] rounded-[4px]" src={profile}></img>
                                     <div className="ml-[10px]">
                                         <h5 className="text-[16px] font-[700]">{comment.userEmail}</h5>
                                         <h5 className="text-[14px] text-[#B2C0CC]">{comment.date}</h5>
