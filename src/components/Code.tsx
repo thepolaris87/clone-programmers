@@ -2,16 +2,13 @@ import Editor, { Monaco } from '@monaco-editor/react';
 import { useCallback } from 'react';
 
 export const Code = ({ content, color, onChange }: { content?: string; color: string; onChange?: (value: string) => void }) => {
-    
     const beforeMount = useCallback(
         (monaco: Monaco) => {
             monaco?.editor.defineTheme('code-theme', {
                 base: color === '#e9ecf3' ? 'vs' : 'vs-dark',
                 inherit: true,
                 rules: [],
-                colors: {
-                    'editor.background': color
-                }
+                colors: { 'editor.background': color }
             });
             monaco?.editor.setTheme('code-theme');
         },
