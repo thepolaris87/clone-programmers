@@ -1,36 +1,36 @@
-import { listDataAtom } from '@/atoms/codingList';
 import { nameAtom } from '@/atoms/user';
+import { listDataAtom } from '@/pages/CodingList/atoms';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 
 export default function Top() {
     const navigate = useNavigate();
     const name = useAtomValue(nameAtom);
-    const listData = useSetAtom(listDataAtom)
+    const listData = useSetAtom(listDataAtom);
 
     const countSuccess = (object: any, property: any, value: any) => {
         let count = 0;
-        for (let i=0; i<object.length; i++){
-            if(object[i][property] === value){
+        for (let i = 0; i < object.length; i++) {
+            if (object[i][property] === value) {
                 count++;
             }
         }
         return count;
-    }
-    
-    const CompleteCount = countSuccess(listData,'isComplete', true);
+    };
+
+    const CompleteCount = countSuccess(listData, 'isComplete', true);
 
     return (
         <>
             {name ? (
                 <div className="p-[1.5rem] border-b border-list_border">
                     <div className="text-[#2189FF] text-[1.125rem] font-extrabold">{name}</div>
-                        <ul className="flex w-full my-[0.75rem] text-[0.875rem]">
-                           <li className="w-1/3">
+                    <ul className="flex w-full my-[0.75rem] text-[0.875rem]">
+                        <li className="w-1/3">
                             <div className="text-[#98A8B9]">해결한 문제</div>
                             <div className="font-extrabold text-[0.875rem]">{CompleteCount}개</div>
-                           </li>
-                        </ul>
+                        </li>
+                    </ul>
                 </div>
             ) : (
                 <div className="border-b border-list_border text-center items-center py-[2rem]">

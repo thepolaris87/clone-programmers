@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import Dropdown from './Dropdown';
 import { useQueryClient } from 'react-query';
 import { useAtom } from 'jotai';
-import { filterAtom } from '@/atoms/codingList';
+import { filterAtom } from '@/pages/CodingList/atoms';
 
 const initialDropdown = { level: false, test: false };
 
@@ -27,35 +27,40 @@ export default function DropDown() {
         else setFilters(filters.filter((f) => f !== name));
     };
 
-
     return (
         <>
-        <div className="block lg:flex gap-[0.5rem]">
-            <div className="flex">{/* <Dropdown /> */}</div>
-            <div className="flex gap-[0.5rem] mb-[0.5rem]">
-                <div className="dropdown-menu w-full lg:w-auto min-w-[8.75rem]">
-                    <Dropdown
-                        visibility={dropdown.level}
-                        array={filterList.level}
-                        onClick={() => onDropDownClick('level')}
-                        title="난이도"
-                        style="w-[140px]"
-                        onChange={onChange}
-                    />
+            <div className="block lg:flex gap-[0.5rem]">
+                <div className="flex">{/* <Dropdown /> */}</div>
+                <div className="flex gap-[0.5rem] mb-[0.5rem]">
+                    <div className="dropdown-menu w-full lg:w-auto min-w-[8.75rem]">
+                        <Dropdown
+                            visibility={dropdown.level}
+                            array={filterList.level}
+                            onClick={() => onDropDownClick('level')}
+                            title="난이도"
+                            style="w-[140px]"
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div className="w-full lg:w-auto min-w-[8.75rem]">
+                        <Dropdown
+                            visibility={dropdown.test}
+                            array={filterList.test}
+                            onClick={() => onDropDownClick('test')}
+                            title="기출문제 모음"
+                            style="min-w-[159px] max-w-[249x]"
+                            onChange={onChange}
+                        />
+                    </div>
                 </div>
-                <div className="w-full lg:w-auto min-w-[8.75rem]">
-                    <Dropdown
-                        visibility={dropdown.test}
-                        array={filterList.test}
-                        onClick={() => onDropDownClick('test')}
-                        title="기출문제 모음"
-                        style="min-w-[159px] max-w-[249x]"
-                        onChange={onChange}
-                    />
-                </div>
-            </div>            
-        </div>
-        <div className='flex flex-wrap gap-1'>{filters.map(f=> <button key={f} className='border rounded bg-[#44576c] px-2 pt-1 pb-0.5 text-white text-xs'>{f}</button>)}</div>
+            </div>
+            <div className="flex flex-wrap gap-1">
+                {filters.map((f) => (
+                    <button key={f} className="border rounded bg-[#44576c] px-2 pt-1 pb-0.5 text-white text-xs">
+                        {f}
+                    </button>
+                ))}
+            </div>
         </>
     );
 }

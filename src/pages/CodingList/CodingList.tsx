@@ -3,12 +3,13 @@ import Footer from '../../components/Footer';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Modal from './components/Main/Modal';
-import { userModalAtom } from '@/atoms/codingList';
-import { emailAtom } from '@/atoms/user';
-import { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { getChallenges } from '@/apis/api';
+import { userModalAtom } from './atoms';
 
 export default function CodingList() {
     const userModalOpen = useAtomValue(userModalAtom);
+    useQuery(['questions'], getChallenges);
 
     return (
         <>

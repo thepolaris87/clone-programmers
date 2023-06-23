@@ -10,9 +10,8 @@ import main from '@assets/images/signin/main.png';
 import { useMutation } from 'react-query';
 import { postSignIn, postSignUp } from '@apis/api';
 import { useSetAtom } from 'jotai';
-import { emailAtom, nameAtom } from '@/atoms/user';
+import { accessTokenAtom, emailAtom, nameAtom } from '@/atoms/user';
 import Check from './components/Check';
-import axios from 'axios';
 
 export default function SignIn() {
     const [signIn, setSignIn] = useState<boolean>(true);
@@ -40,12 +39,14 @@ export default function SignIn() {
     const navigate = useNavigate();
     const setName = useSetAtom(nameAtom);
     const setEmail = useSetAtom(emailAtom);
+    const setToken = useSetAtom(accessTokenAtom);
 
     const signInMutation = useMutation(['sign-in'], postSignIn, {
         onSuccess: (data) => {
             navigate('/learn/challenges');
             setName(data.name);
-            axios.defaults.headers.common.Authorization = data.accessToken;
+            window.localStorage.setItem('name', data.name);
+            setToken(data.accessToken);
         },
         onError: (error: any) => {
             setCheckPw('');

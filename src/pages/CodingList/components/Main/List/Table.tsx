@@ -1,4 +1,3 @@
-import { filterAtom } from '@/atoms/codingList';
 import check from '@assets/images/codingList/check.svg';
 import { useAtomValue } from 'jotai';
 import { useEffect, useMemo, useState } from 'react';
@@ -6,6 +5,7 @@ import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Sort from './Sort';
 import Pagination from '@/components/Pagination';
+import { filterAtom } from '@/pages/CodingList/atoms';
 
 type filteredData = {
     category: string;
@@ -37,8 +37,6 @@ export default function Table() {
         return level;
     }, [listData, filters]);
 
-    console.log('listData', listData)
-
     const [page, setPage] = useState<filteredData>([]);
 
     const onClick = (idx: number) => {
@@ -54,7 +52,7 @@ export default function Table() {
 
     useEffect(() => {
         setPage([]);
-        if(!filteredData) return;
+        if (!filteredData) return;
         for (let index = 0; index < 20; index++) {
             if (!filteredData[index]) return;
             setPage((prev) => {
@@ -62,7 +60,6 @@ export default function Table() {
             });
         }
     }, [filteredData]);
-
 
     return (
         <>
@@ -120,7 +117,7 @@ export default function Table() {
                 </table>
             </div>
             <div className="flex justify-center itmes-center gap-[0.5625rem] mt-[5rem] pb-[12.825rem]">
-                <Pagination onClickPage={onClick} totalNum={page.length} />
+                <Pagination onClickPage={onClick} totalNum={filteredData!.length} />
             </div>
         </>
     );
