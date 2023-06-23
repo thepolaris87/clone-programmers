@@ -27,14 +27,6 @@ export default function Top() {
                     <div className="text-[#2189FF] text-[1.125rem] font-extrabold">{name}</div>
                         <ul className="flex w-full my-[0.75rem] text-[0.875rem]">
                            <li className="w-1/3">
-                            <div className="text-[#98A8B9]">순위</div>
-                            <div className="font-extrabold">200,000위</div>
-                           </li>
-                           <li className="w-1/3">
-                            <div className="text-[#98A8B9]">점수</div>
-                            <div className="font-extrabold">1,000점</div>
-                           </li>
-                           <li className="w-1/3">
                             <div className="text-[#98A8B9]">해결한 문제</div>
                             <div className="font-extrabold text-[0.875rem]">{CompleteCount}개</div>
                            </li>

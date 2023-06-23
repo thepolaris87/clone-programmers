@@ -46,8 +46,6 @@ export default function SignIn() {
             navigate('/learn/challenges');
             setName(data.name);
             axios.defaults.headers.common.Authorization = data.accessToken;
-            window.localStorage.setItem('name', data.name);
-            window.localStorage.setItem('token', data.accessToken);
         },
         onError: (error: any) => {
             setCheckPw('');
@@ -57,12 +55,10 @@ export default function SignIn() {
 
     const signUpMutation = useMutation(['sign-up'], postSignUp, {
         onSuccess: () => {
-            alert('회원가입이 완료되었습니다.');
             navigate('/sign-in');
             setSuccessSignUp(true);
         },
         onError: () => {
-            alert('회원가입에 실패하였습니다.');
             setCheckEmail3('');
         }
     });
@@ -123,7 +119,6 @@ export default function SignIn() {
 
         if (!name || !email || !password1 || !password2) return;
         if (password1 !== password2) return;
-        setSuccessSignUp(true);
         signUpMutation.mutate({ name: name, email: email, password: password1 });
     };
 
@@ -177,6 +172,24 @@ export default function SignIn() {
         }
     }, [useCheck, personalCheck, ageCheck, marketingCheck]);
 
+    const initSignInPage = () => {
+        setCheckEmail('hidden');
+        setCheckPw('hidden');
+    };
+
+    const initSignUpPage = () => {
+        setCheckName('hidden');
+        setCheckEmail2('hidden');
+        setCheckEmail3('hidden');
+        setCheckPw2('hidden');
+        setCheckPw3('hidden');
+        setCheckPw4('hidden');
+        setUseCheck(false);
+        setPersonalCheck(false);
+        setMarketingCheck(false);
+        setAgeCheck(false);
+    };
+
     return (
         <div className={`bg-signin_bg min-h-screen`}>
             <div className="flex h-16 w-full bg-signin_bg fixed top-0 left-0 z-50 justify-center">
@@ -184,7 +197,6 @@ export default function SignIn() {
                     <div className="px-5 w-30">
                         <img className="w-44 h-full object-contain cursor-pointer" src={title} onClick={goToMain}></img>
                     </div>
-                    <div className="px-10 w-30 h-full text-white mt-5 text-[14px] cursor-pointer">기업서비스</div>
                 </div>
             </div>
             <div className="w-full h-full px-5 flex justify-center">
@@ -225,7 +237,7 @@ export default function SignIn() {
                                                     className={'w-[50%] text-center h-[48px] rounded-t-2xl cursor-pointer' + (signIn ? ' bg-white ' : ' ')}
                                                     onClick={() => {
                                                         setSignIn(true);
-                                                        // history.replaceState("", "", "/sign-in");
+                                                        initSignInPage();
                                                     }}
                                                 >
                                                     <div className={'h-full pt-3 text-[16px] ' + (signIn ? ' text-signin_font font-bold' : ' text-black')}>
@@ -237,7 +249,7 @@ export default function SignIn() {
                                                     onClick={() => {
                                                         setSignIn(false);
                                                         setInitText('');
-                                                        // history.replaceState("", "", "/sign-up");
+                                                        initSignUpPage();
                                                     }}
                                                 >
                                                     <div className={'h-full pt-3 text-[16px]' + (signIn ? ' text-black' : ' text-signin_font font-bold')}>
@@ -267,7 +279,6 @@ export default function SignIn() {
                                                         <Check text={'이메일을 입력해주세요.'} hidden={checkEmail} />
                                                         <div className="flex justify-between mt-[2.25rem] mb-[0.5rem]">
                                                             <div className="font-bold">비밀번호</div>
-                                                            <div className="text-signin_font">비밀번호 재설정</div>
                                                         </div>
                                                         <InputPw placeholder={'비밀번호를 입력해주세요'} name={'password'} />
                                                         <div className={`flex gap-2 items-center mt-2 ${checkPw} text-[#f90]`}>
@@ -358,13 +369,6 @@ export default function SignIn() {
                                                     </form>
                                                 </div>
                                             )}
-                                        </div>
-                                        <div className="flex space-x-5 text-white justify-center mt-[2rem] mb-[3.75rem] items-center">
-                                            <div>이용약관</div>
-                                            <div className="border h-3 text-center"></div>
-                                            <div className="font-bold">개인정보 처리방침</div>
-                                            <div className="border h-3 text-center"></div>
-                                            <div>FAQ/문의</div>
                                         </div>
                                     </>
                                 )}
