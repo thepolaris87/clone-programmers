@@ -8,13 +8,6 @@ import TopNavBar from '../../components/TopNavBar';
 import { Navbar } from '@/components/Navbar';
 import { NavLink, Header, Detail, Comments, Input } from './components';
 
-export type CommentProps = {
-    date: string;
-    description: string;
-    idx: number;
-    userEmail: string;
-    userName: string;
-};
 export default function Question() {
     const navigate = useNavigate();
     const params = useParams();

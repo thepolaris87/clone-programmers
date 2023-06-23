@@ -6,21 +6,13 @@ import { Modal } from '@/components/Modal';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ModalContent, List } from './components';
 import Pagination from '@/components/Pagination';
+import profile from '@/assets/images/default_profile_img.jpeg';
 
-type questionProps = {
-    date: string;
-    description: string;
-    idx: number;
-    title: string;
-    userEmail: string;
-    userName: string;
-    commentCount: number;
-};
 export default function QuestionList() {
     const params = useParams();
     const navigate = useNavigate();
     const { data } = useQuery(['questionList', params.questionId], () => getQuestionList(params.questionId as string));
-    const [datas, setDatas] = useState<questionProps[]>([]);
+    const [datas, setDatas] = useState<questionListProps[]>([]);
     const [modal, setModal] = useState(false);
 
     const onSetPage = useCallback(
@@ -53,10 +45,7 @@ export default function QuestionList() {
                             <h5 className="mt-1">&#60;&nbsp; 강의로 돌아가기</h5>
                         </button>
                         <div className="pb-[16px] border-dashed border-[#d7e2eb] border-b-[1px]">
-                            <img
-                                className="inline-block w-[44px] h-[44px] bg-[#e9ecf3] rounded-[4px] align-top"
-                                src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
-                            />
+                            <img className="inline-block w-[44px] h-[44px] bg-[#e9ecf3] rounded-[4px] align-top" src={profile} />
                             <div className="inline-block align-top w-[calc(100%-44px)] pl-[16px] cursor-pointer" onClick={() => setModal(true)}>
                                 <h5 className="m-[1px_0_0_1px] leading-[1.6] p-[8px] text-[16px] text-[#b2c0cc] font-[400] border-[1px] border-[#d7e2eb] rounded-[4px] hover:shadow-[0_0_0_2px_#0078FF]">
                                     질문을 작성하세요.
@@ -64,7 +53,7 @@ export default function QuestionList() {
                             </div>
                         </div>
                         <div className="p-[6px_0_16px_0]">
-                            {datas.map((question: questionProps) => {
+                            {datas.map((question: questionListProps) => {
                                 return <List key={question.idx} question={question} />;
                             })}
                             <div className="mt-[40px]">

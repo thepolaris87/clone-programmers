@@ -9,11 +9,6 @@ import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
 import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent } from './components';
 
-export type ResultProps = {
-    input: string[] | number[];
-    output: number | string | string[] | number[];
-};
-
 export default function CodingTest() {
     const params = useParams();
     const { data } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));

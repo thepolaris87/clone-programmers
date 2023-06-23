@@ -1,14 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Spinner } from '@/components/Spinner';
-import { ResultProps } from '../CodingTest';
 
-type TestResultProps = {
-    data: ResultProps[];
-    results: { [key: number]: number | string | null | string[] };
-    answerNum: number;
-    error: string;
-};
 export const TestResult = ({ data, results, answerNum, error }: TestResultProps) => {
     return (
         <React.Fragment>
@@ -44,7 +37,9 @@ export const TestResult = ({ data, results, answerNum, error }: TestResultProps)
                                             기댓값&nbsp;
                                             <span className="text-[#44576c] text-[14px]">&#62;</span>
                                         </td>
-                                        <td className="bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[24px]">{result.output}</td>
+                                        <td className="bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[24px]">
+                                            {typeof result.output === 'object' ? '[' + String(result.output) + ']' : String(result.output)}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td className="bg-[#202b3d] text-[#44576c] w-[160px] text-[14px] p-[2px_8px] leading-[24px]" align="right">

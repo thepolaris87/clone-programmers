@@ -1,23 +1,14 @@
-type ListProps = {
-    question: {
-        idx: number;
-        title: string;
-        userName: string;
-        date: string;
-        commentCount: number;
-    };
-};
+import { Link } from 'react-router-dom';
+import profile from '@/assets/images/default_profile_img.jpeg';
+
 export const List = ({ question }: ListProps) => {
     return (
         <div key={question.idx} className="flex py-[10px]">
-            <img
-                className="inline-block w-[44px] h-[44px] rounded-[4px] align-top"
-                src="https://res.cloudinary.com/eightcruz/image/upload/c_lfill,h_44,w_44/default_profile_img2_h16rrd"
-            />
+            <img className="inline-block w-[44px] h-[44px] rounded-[4px] align-top" src={profile} />
             <div className="w-[calc(100%-44px)] pl-[16px] text-[16px] align-top">
-                <a className="block text-[rgb(38, 55, 71)] hover:text-[#0078ff] hover:underline" href={`/questions/${question.idx}`}>
+                <Link className="block text-[rgb(38, 55, 71)] hover:text-[#0078ff] hover:underline" to={`/questions/${question.idx}`}>
                     {question.title}
-                </a>
+                </Link>
                 <div className="text-[#98a8b9] text-[14px]">
                     <div className="inline-flex mr-[16px]">
                         <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">

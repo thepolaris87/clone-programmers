@@ -1,10 +1,5 @@
 import { Code } from '@/components/Code';
-import { SolutionProps } from '../Solution';
 
-type CodeItemProps = {
-    solution: SolutionProps;
-    onLike: (value: string) => void;
-};
 export const CodeItem = ({ solution, onLike }: CodeItemProps) => {
     return (
         <div className="p-[40px_0]">

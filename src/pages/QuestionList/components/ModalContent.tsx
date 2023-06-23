@@ -5,12 +5,6 @@ import { postQuestion } from '@/apis/api';
 import classNames from 'classnames';
 import { Code } from '../../../components/Code';
 
-type ModalContentProps = {
-    onClick: (value: boolean) => void;
-    content?: string;
-    questionId: string;
-    status: string | undefined;
-};
 export const ModalContent = ({ onClick, content, questionId, status }: ModalContentProps) => {
     const navigate = useNavigate();
     const [form, setForm] = useState({ title: '', description: '' });
@@ -89,13 +83,7 @@ export const ModalContent = ({ onClick, content, questionId, status }: ModalCont
                     </div>
                     <h5 className="p-[8px_12px] mt-0 mb-[16px] border-[1px] border-t-0 border-[#d7e2eb] text-[#b2c0cc] text-[12px] leading-[18px] rounded-[0_0_3px_3px]">
                         이 입력폼은 마크다운 문법을 지원합니다.
-                        <a
-                            className="text-[#0078ff] font-[700]"
-                            href="https://qna.programmers.co.kr/questions/1772/%EB%A7%88%ED%81%AC%EB%8B%A4%EC%9A%B4-%EB%AC%B8%EB%B2%95-%EC%9E%91%EC%84%B1-%ED%8C%81"
-                        >
-                            &nbsp;마크다운 가이드
-                        </a>
-                        를 참고하세요.
+                        <span className="text-[#0078ff] font-[700]">&nbsp;마크다운 가이드</span>를 참고하세요.
                     </h5>
                     <div className="mt-[16px]">
                         <input

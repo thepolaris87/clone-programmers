@@ -1,13 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Spinner } from '@/components/Spinner';
-import { ResultProps } from '../CodingTest';
 
-type HiddenResultProps = {
-    data: ResultProps[];
-    answers: { [key: number]: number | string | null | string[] };
-    totalNum: string;
-};
 export const HiddenResult = ({ data, answers, totalNum }: HiddenResultProps) => {
     return (
         <div className="mb-[21px] p-0 bc-[#263747] whitespace-pre-wrap break-words">
