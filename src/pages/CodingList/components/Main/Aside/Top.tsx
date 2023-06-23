@@ -1,10 +1,24 @@
+import { listDataAtom } from '@/atoms/codingList';
 import { nameAtom } from '@/atoms/user';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 
 export default function Top() {
     const navigate = useNavigate();
     const name = useAtomValue(nameAtom);
+    const listData = useSetAtom(listDataAtom)
+
+    const countSuccess = (object: any, property: any, value: any) => {
+        let count = 0;
+        for (let i=0; i<object.length; i++){
+            if(object[i][property] === value){
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    const CompleteCount = countSuccess(listData,'isComplete', true);
 
     return (
         <>
@@ -13,16 +27,8 @@ export default function Top() {
                     <div className="text-[#2189FF] text-[1.125rem] font-extrabold">{name}</div>
                         <ul className="flex w-full my-[0.75rem] text-[0.875rem]">
                            <li className="w-1/3">
-                            <div className="text-[#98A8B9]">순위</div>
-                            <div className="font-bold">--위</div>
-                           </li>
-                           <li className="w-1/3">
-                            <div className="text-[#98A8B9]">점수</div>
-                            <div className="font-bold">--점</div>
-                           </li>
-                           <li className="w-1/3">
                             <div className="text-[#98A8B9]">해결한 문제</div>
-                            <div className="font-bol text-[0.875rem]">--개</div>
+                            <div className="font-extrabold text-[0.875rem]">{CompleteCount}개</div>
                            </li>
                         </ul>
                 </div>
