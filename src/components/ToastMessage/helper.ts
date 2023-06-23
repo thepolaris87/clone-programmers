@@ -21,10 +21,10 @@ export const createToastElement = (message = '') => {
 export const removeToastElement = (toastElement: HTMLDivElement) => {
     if (toastElement.parentNode) toastElement.parentNode.removeChild(toastElement);
     else toastElement.remove();
-    
+
     stack.delete(toastElement);
 };
 
 export const transitionToast = () => {
-    stack.forEach((t) => (t.style.top = `${parseInt(t.style.top) + 45}px`));
+    stack.forEach((t) => ((t.style.top = `${parseInt(t.style.top) + 45}px`), (t.style.zIndex = '1000')));
 };
