@@ -3,7 +3,7 @@ import { useAtomValue } from 'jotai';
 import { useEffect } from 'react';
 import { createToastElement, removeToastElement, transitionToast } from './helper';
 
-export default function ToastMessage({ children }) {
+export default function ToastMessage({ children }: { children: React.ReactNode }) {
     const toast = useAtomValue(toastAtom);
 
     useEffect(() => {
