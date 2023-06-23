@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { getQuestionList } from '@/apis/api';
 import { Navbar } from '../Coding/components/Navbar';

@@ -18,32 +18,23 @@ export const Navbar = ({ setModal, title, category, id, children }: NavbarProps)
                     <a className="hidden text-[#98a8b9] text-[14px] mr-[4px] hover:text-white md:block" href="/learn/challenges">
                         코딩테스트 연습
                     </a>
-                    <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block" href="#">
-                        {'>'}
-                    </a>
-                    <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] hover:text-white md:block" href="#">
-                        {category}
-                    </a>
-                    <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block" href="#">
-                        {'>'}
-                    </a>
+                    <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block">{'>'}</a>
+                    <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block">{category}</a>
+                    <a className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block">{'>'}</a>
                     <a
                         className={classNames(
                             setModal ? 'text-[#ffffff] font-[600] hover:text-white' : 'text-[#98a8b9] font-[400] cursor-pointer hover:text-white',
+                            id ? 'cursor-pointer' : 'cursor-text',
                             'text-[14px] mx-[4px]'
                         )}
-                        href={`/learn/courses/${id}`}
+                        href={id && `/learn/courses/${id}`}
                     >
                         {title}
                     </a>
                     {children && (
                         <React.Fragment>
-                            <a className="text-[#98a8b9] text-[14px] mx-[4px]" href="#">
-                                {'>'}
-                            </a>
-                            <a className="text-[#ffffff] text-[14px] mx-[4px] font-[600] cursor-text" href="#">
-                                {children}
-                            </a>
+                            <a className="text-[#98a8b9] text-[14px] mx-[4px]">{'>'}</a>
+                            <a className="text-[#ffffff] text-[14px] mx-[4px] font-[600] cursor-text">{children}</a>
                         </React.Fragment>
                     )}
                 </span>
@@ -60,7 +51,10 @@ export const Navbar = ({ setModal, title, category, id, children }: NavbarProps)
             )}
             {setModal && (
                 <span className="whitespace-nowrap">
-                    <a className="hidden text-[#b2c0cc] text-[16px] font-[500] p-[4px_8px] hover:text-white md:block" href="#" onClick={() => setModal(true)}>
+                    <a
+                        className="hidden text-[#b2c0cc] text-[16px] font-[500] p-[4px_8px] hover:text-white md:block cursor-pointer"
+                        onClick={() => setModal(true)}
+                    >
                         컴파일 옵션
                     </a>
                 </span>
