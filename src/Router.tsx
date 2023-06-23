@@ -17,7 +17,7 @@ export default function Router() {
             <Route path="/learn/courses/:questionId/questions" element={<QuestionList />}></Route>
             <Route path="/questions/:questionId" element={<Question />}></Route>
             <Route path="/learn/solution/:questionId" element={<Solution />}></Route>
-            <Route path="/*" element={<Navigate to={'/sign-in'} />}></Route>
+            <Route path="/*" element={<Navigate to="/sign-in" />}></Route>
         </Routes>
     );
 }

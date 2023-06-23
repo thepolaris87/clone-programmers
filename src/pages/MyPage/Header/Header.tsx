@@ -1,14 +1,7 @@
 import { ReactComponent as ProgrammersIcon } from '@assets/images/myPgae/programmers.svg';
-
 import { HeaderContainer } from '../MyPage.styles';
-import { useAtom } from 'jotai';
-import { userInfo } from '../atoms';
 
 export default function Header() {
-    const [user] = useAtom(userInfo);
-
-    
-
     return (
         <HeaderContainer className="flex h-16">
             <ProgrammersIcon className="flex-1" />
