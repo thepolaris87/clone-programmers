@@ -147,7 +147,7 @@ export default function CodingTest() {
                                 bottomLeft: false,
                                 topLeft: false
                             }}
-                            onResizeStop={(e, direction, ref, d) => {
+                            onResizeStop={(_e, _direction, _ref, d) => {
                                 setWidth(width + d.width);
                             }}
                             style={{ display: 'flex', padding: '20px 15px', overflowY: 'scroll', overflowX: 'hidden' }}
