@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import arrow from '@assets/images/codingList/arrow.svg';
 import { useSetAtom } from 'jotai';
-import { sortAtom } from '@/atoms/codingList';
+import { sortAtom } from '@/pages/CodingList/atoms';
 
 export default function Sort() {
     const [visibility, setVisibility] = useState(false);
     const [title, setTitle] = useState('최신순');
     const array = ['정답률 높은 문제', '정답률 낮은 문제', '최신순'];
     const setSort = useSetAtom(sortAtom);
-    
+
     const onClick = () => setVisibility(!visibility);
 
     const onSortClick = (title: string) => {
@@ -17,14 +17,14 @@ export default function Sort() {
     };
 
     useEffect(() => {
-        setSort(title)
-    }, [title])
+        setSort(title);
+    }, [title]);
     return (
         <div className="relative">
             <div onClick={onClick} className="flex gap-1 cursor-pointer">
                 <div>{title}</div>
-                <div className='pt-0.5'>
-                    <img src={arrow} className='w-[1rem] h-[1rem]'/>
+                <div className="pt-0.5">
+                    <img src={arrow} className="w-[1rem] h-[1rem]" />
                 </div>
             </div>
             {visibility && (

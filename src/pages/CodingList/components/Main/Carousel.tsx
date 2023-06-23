@@ -178,7 +178,7 @@ export default function Carousel() {
                                 </div>
                                 <div className="text-white text-[1.75rem] font-extrabold">{el.title}</div>
                                 <div className="text-white text-[1rem]">{el.description}</div>
-                                <div className="h-[0.75rem] pl-[0.7rem] flex gap-2 absolute bottom-7 left-0">
+                                <div className="h-[0.75rem] pl-[0.7rem] flex gap-2 absolute bottom-7 left-0 items-center">
                                     <button
                                         onClick={() => {
                                             onPrevClick();
@@ -193,9 +193,9 @@ export default function Carousel() {
                                             ></path>
                                         </svg>
                                     </button>
-                                    <span className="text-white font-extrabold">0{i === 6 ? 1 : i === 0 ? 5 : i}</span>
-                                    <span className="border w-0 border-white"></span>
-                                    <span className="text-white">05</span>
+                                    <span className="text-white font-extrabold mt-1">0{i === 6 ? 1 : i === 0 ? 5 : i}</span>
+                                    <span className="border w-0 h-3 border-white"></span>
+                                    <span className="text-white mt-1">05</span>
                                     <button
                                         onClick={() => {
                                             onNextClick();

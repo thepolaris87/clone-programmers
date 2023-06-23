@@ -1,33 +1,66 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Dropdown from './Dropdown';
-import { level, lang, test } from '@/pages/CodingList/data';
+import { useQueryClient } from 'react-query';
+import { useAtom } from 'jotai';
+import { filterAtom } from '@/pages/CodingList/atoms';
+
+const initialDropdown = { level: false, test: false };
 
 export default function DropDown() {
-    const [levelDropdown, setLevelDropdown] = useState<boolean>(false);
-    const [langDropdown, setLangDropdown] = useState<boolean>(false);
-    const [testDropdown, setTestDropdown] = useState<boolean>(false);
+    const queryClinet = useQueryClient();
+    const listData = queryClinet.getQueryData<TListData>(['questions']);
+    const [dropdown, setDropDown] = useState(initialDropdown);
+    const [filters, setFilters] = useAtom(filterAtom);
+    const filterList = useMemo(() => {
+        const list = listData?.questions;
+        const level = Array.from(new Set(list?.map((q) => `LV.${q.difficulty}`).sort()));
+        const test = Array.from(new Set(list?.map((q) => q.category)));
+        return { level, test };
+    }, [listData]);
 
-    useEffect(() => {}, []);
+    const onDropDownClick = (type: 'level' | 'test') => {
+        setDropDown({ ...initialDropdown, [type]: !dropdown[type] });
+    };
+
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
+        if (e.target.checked) setFilters([...filters, name]);
+        else setFilters(filters.filter((f) => f !== name));
+    };
 
     return (
-        <div className="block lg:flex gap-[0.5rem]">
-            <div className="flex gap-[0.5rem] mb-[0.5rem]">
-                <div className="w-full lg:w-auto min-w-[8.75rem]">
-                    <Dropdown visibility={levelDropdown} array={level} onClick={() => setLevelDropdown(!levelDropdown)} title="난이도" style="w-[140px]" />
-                </div>
-                <div className="w-full lg:w-auto min-w-[8.75rem]">
-                    <Dropdown visibility={langDropdown} array={lang} onClick={() => setLangDropdown(!langDropdown)} title="언어" style="w-[140px]" />
+        <>
+            <div className="block lg:flex gap-[0.5rem]">
+                <div className="flex">{/* <Dropdown /> */}</div>
+                <div className="flex gap-[0.5rem] mb-[0.5rem]">
+                    <div className="dropdown-menu w-full lg:w-auto min-w-[8.75rem]">
+                        <Dropdown
+                            visibility={dropdown.level}
+                            array={filterList.level}
+                            onClick={() => onDropDownClick('level')}
+                            title="난이도"
+                            style="w-[140px]"
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div className="w-full lg:w-auto min-w-[8.75rem]">
+                        <Dropdown
+                            visibility={dropdown.test}
+                            array={filterList.test}
+                            onClick={() => onDropDownClick('test')}
+                            title="기출문제 모음"
+                            style="min-w-[159px] max-w-[249x]"
+                            onChange={onChange}
+                        />
+                    </div>
                 </div>
             </div>
-            <div className="w-full lg:w-auto min-w-[8.75rem]">
-                <Dropdown
-                    visibility={testDropdown}
-                    array={test}
-                    onClick={() => setTestDropdown(!testDropdown)}
-                    title="기출문제 모음"
-                    style="min-w-[159px] max-w-[249x]"
-                />
+            <div className="flex flex-wrap gap-1">
+                {filters.map((f) => (
+                    <button key={f} className="border rounded bg-[#44576c] px-2 pt-1 pb-0.5 text-white text-xs">
+                        {f}
+                    </button>
+                ))}
             </div>
-        </div>
+        </>
     );
 }

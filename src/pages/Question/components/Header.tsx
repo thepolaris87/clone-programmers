@@ -1,12 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-type HeaderProps = {
-    email: string;
-    userEmail: string;
-    delQuestionMutate: (value: string) => void;
-    questionId: string;
-    id: string;
-};
 export const Header = ({ email, userEmail, delQuestionMutate, questionId, id }: HeaderProps) => {
     const navigate = useNavigate();
     return (

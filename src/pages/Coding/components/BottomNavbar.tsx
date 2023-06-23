@@ -1,9 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-type BottomNavbarProps = {
-    functions: ((value?: boolean) => void)[];
-    questionId: string;
-};
 export const BottomNavbar = ({ functions, questionId }: BottomNavbarProps) => {
     const [onReset, runFunc, onSubmit] = functions;
     const navigate = useNavigate();

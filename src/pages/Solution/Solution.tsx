@@ -8,13 +8,6 @@ import { Navbar } from '../Coding/components';
 import { Header, CodeItem } from './components';
 import Pagination from '@/components/Pagination';
 
-export type SolutionProps = {
-    isAlreadyLike: boolean;
-    userEmail: string;
-    userName: string;
-    likeCount: number;
-    userCode: string;
-};
 export default function Solution() {
     const params = useParams();
     const { data, refetch } = useQuery(['solution', params.questionId], () => getSolutions(params.questionId as string));

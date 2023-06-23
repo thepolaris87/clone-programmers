@@ -8,7 +8,7 @@ export default function BottomNavBar() {
       <div className="flex flex-wrap w-[100%] max-w-[75rem] h-[2.5rem] items-center overflow-x-auto whitespace-nowrap box-border justify-between text-[0.875rem]">
         <div className="flex items-center font-nomal">
           {menu.map((el, i) => {
-            return <div key={i} className={`mr-[2rem] ${selectMenu === el ? 'text-black' : 'text-navbar_gray1'}`} onClick={() => setSelectMenu(el)}>{el}</div>
+            return <div key={i} className={`mr-[2rem] cursor-pointer ${selectMenu === el ? 'text-black' : 'text-navbar_gray1'}`} onClick={() => setSelectMenu(el)}>{el}</div>
           })}
         </div>
       </div>
