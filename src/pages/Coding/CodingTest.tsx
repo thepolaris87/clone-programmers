@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { getQuestion, postSolution } from '@/apis/api';
-import { verticalButton, horizonButton } from '@/assets/images/codingTest';
 import * as MarkDown from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
+import { Resizable } from 're-resizable';
 import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent } from './components';
 
 export default function CodingTest() {
@@ -23,6 +23,7 @@ export default function CodingTest() {
     const [ansModal, setAnsModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [checkLoading, setCheckLoading] = useState(false);
+    const [width, setWidth] = useState('45%');
     const answerNum = 0;
     const MarkDownTag = MarkDown[params.questionId as keyof typeof MarkDown];
 
@@ -127,13 +128,29 @@ export default function CodingTest() {
                 <Navbar setModal={setModal} title={data.questionStatus.title} category={data.questionStatus.category} />
                 <Header title={data.questionStatus.title} />
                 <div className="min-h-[500px] h-[100%] bg-[#263747]">
-                    <section className="flex flex-wrap h-[calc(100vh-(47px+56px+57px))]">
-                        <span className="w-[calc(40%-12px)] h-[100%] overflow-y-auto leading-7 px-[20px] py-[15px]">
-                            <MarkDownTag />
-                        </span>
-                        <div className="flex justify-end items-center w-[24px] border-r-[1px] border-[#172334]">
-                            <img className="h-[35px] cursor-ew-resize" src={verticalButton} />
-                        </div>
+                    <section className="flex h-[calc(100vh-(47px+56px+57px))]">
+                        <Resizable
+                            size={{ width, height: '100%' }}
+                            enable={{
+                                top: false,
+                                right: true,
+                                bottom: false,
+                                left: true,
+                                topRight: false,
+                                bottomRight: false,
+                                bottomLeft: false,
+                                topLeft: false
+                            }}
+                            onResizeStop={(e, direction, ref, d) => {
+                                setWidth(width + d.width);
+                            }}
+                            style={{ display: 'flex', padding: '20px 15px', overflowY: 'scroll', overflowX: 'hidden' }}
+                            ref={(c) => console.log(c)}
+                        >
+                            <span className="overflow-y-auto leading-7">
+                                <MarkDownTag />
+                            </span>
+                        </Resizable>
                         <div className="w-[calc(60%-12px)] h-[100%]">
                             <div className="h-[calc(60%-7px)]">
                                 <div className="h-[100%]">
@@ -143,9 +160,6 @@ export default function CodingTest() {
                                     <div className="h-[calc(100%-54px)] pt-[16px]">
                                         <Code content={codeValue} color="#263747" onChange={setCodeValue} />
                                     </div>
-                                </div>
-                                <div className="flex justify-center border-t-[1px] border-[#172334]">
-                                    <img className="w-[35px] cursor-ns-resize" src={horizonButton} />
                                 </div>
                                 <div className="h-[calc(53%-7px)]">
                                     <div className="h-[41px] p-[0_16px] border-b-[1px] border-[#172334]">
