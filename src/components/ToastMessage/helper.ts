@@ -19,7 +19,9 @@ export const createToastElement = (message = '') => {
 };
 
 export const removeToastElement = (toastElement: HTMLDivElement) => {
-    toastElement.parentNode?.removeChild(toastElement);
+    if (toastElement.parentNode) toastElement.parentNode.removeChild(toastElement);
+    else toastElement.remove();
+    
     stack.delete(toastElement);
 };
 

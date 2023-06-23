@@ -9,7 +9,10 @@ import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import GlobalProvider from './components/GlobalProvider';
 
 const queryClient = new QueryClient({
-    defaultOptions: { queries: { suspense: true } }
+    defaultOptions: {
+        queries: { suspense: true, refetchOnWindowFocus: false, retry: false },
+        mutations: { retry: false }
+    }
 });
 
 function App() {
