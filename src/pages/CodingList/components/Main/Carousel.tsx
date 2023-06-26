@@ -176,8 +176,8 @@ export default function Carousel() {
                                 <div className="text-white font-bold bg-banner_classification text-[0.75rem] p-[0.3rem] rounded w-fit items-center">
                                     {el.class}
                                 </div>
-                                <div className="text-white text-[1.75rem] font-extrabold">{el.title}</div>
-                                <div className="text-white text-[1rem]">{el.description}</div>
+                                <div className="text-white text-[1.3rem] sm:text-[1.5rem] md:text-[1.75rem] font-extrabold">{el.title}</div>
+                                <div className="text-white text-[0.8rem] sm:text-[1rem]">{el.description}</div>
                                 <div className="h-[0.75rem] pl-[0.7rem] flex gap-2 absolute bottom-7 left-0 items-center">
                                     <button
                                         onClick={() => {
