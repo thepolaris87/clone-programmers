@@ -99,7 +99,7 @@ export default function CodingTest() {
             await Promise.all(promises.map((promise: () => void) => promise()));
         } catch (error) {
             if (error instanceof Error) {
-                const errorPromises = data.questionStatus.hiddenCase.map((result: ResultProps, index: number) => {
+                const errorPromises = data.questionStatus.hiddenCase.map((_result: ResultProps, index: number) => {
                     return () =>
                         new Promise<void>((resolve) => {
                             setTimeout(() => {
