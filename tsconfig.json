@@ -28,7 +28,7 @@
         "noFallthroughCasesInSwitch": true,
         "strictNullChecks": true
     },
-    "include": ["src"],
+    "includes": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }],
-    "typeRoots": ["src"]
+    // "typeRoots": ["src"]
 }
