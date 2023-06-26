@@ -4,7 +4,7 @@ import Main from './components/Main/Main';
 export default function CodingList() {
     return (
         <>
-            <div className="hidden sm:block">
+            <div>
                 <Header />
                 <Main />
             </div>
