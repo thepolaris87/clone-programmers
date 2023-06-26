@@ -7,7 +7,7 @@ export const emailAtom = atom('');
 
 export const accessTokenAtom = atom(
     (get) => get(tokenAtom),
-    (get, set, update: string) => {
+    (_get, set, update: string) => {
         window.localStorage.setItem('token', update);
         axios.defaults.headers.common.Authorization = update;
         set(tokenAtom, update);

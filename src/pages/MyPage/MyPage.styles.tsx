@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import classNames from 'classnames';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom } from 'jotai';
 import { modal } from './atoms';
 import { useEffect } from 'react';
 
@@ -102,7 +102,7 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
             _setModal({ message: '' });
         }, 1000);
     }, [_setModal, _modal.message]);
-    
+
     return (
         <>
             {children}
