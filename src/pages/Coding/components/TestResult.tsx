@@ -10,7 +10,7 @@ export const TestResult = ({ data, results, answerNum, error }: TestResultProps)
             ) : (
                 <React.Fragment>
                     {data.map((result: ResultProps, index: number) => {
-                        const answer = result.output === results[index];
+                        const answer = result.output.toString() === results[index]?.toString();
                         if (answer) answerNum += 1;
                         return (
                             <table key={index} className="w-[calc(100%-16px)] pr-[16px] border-[#172334] border-[1px]">
@@ -57,7 +57,9 @@ export const TestResult = ({ data, results, answerNum, error }: TestResultProps)
                                             ) : answer ? (
                                                 '테스트를 통과하였습니다.'
                                             ) : (
-                                                `실행한 결과 값 ${results[index]}이 기댓값 ${result.output}과 다릅니다.`
+                                                `실행한 결과 값 ${typeof results[index] === 'object' ? '[' + results[index] + ']' : results[index]}이 기댓값 ${
+                                                    typeof result.output === 'object' ? '[' + result.output + ']' : result.output
+                                                }과 다릅니다.`
                                             )}
                                         </td>
                                     </tr>
