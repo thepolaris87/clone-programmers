@@ -23,7 +23,7 @@ export default function Modal() {
     };
 
     return (
-        <div className="absolute w-full sm:w-[334px] top-[3.2rem] right-2 bg-white sm:shadow-xl rounded-2xl">
+        <div className="absolute w-full sm:w-[334px] top-0 right-0 bg-white sm:shadow-xl rounded-2xl z-10">
             <div className="flex h-[60px] items-center px-[34px] border-b border-[#DCDCDC]">
                 <div className="font-bold text-[14px]">내 프로필</div>
             </div>

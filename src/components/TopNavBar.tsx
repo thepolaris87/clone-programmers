@@ -1,9 +1,12 @@
 import { toastAtom } from '@/atoms/toast';
 import { emailAtom, nameAtom } from '@/atoms/user';
 import { userModalAtom } from '@/pages/CodingList/atoms';
+import Modal from '@/pages/CodingList/components/Main/Modal';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getChallenges } from '@/apis/api';
 
 export default function TopNavBar() {
     const [selectMenu, setSelectMenu] = useState<string>('스쿨');
@@ -13,6 +16,7 @@ export default function TopNavBar() {
     const navigate = useNavigate();
     const [userModalOpen, setUserModalOpen] = useState(false);
     const setUserModalAtom = useSetAtom(userModalAtom);
+    useQuery(['questions'], getChallenges);
 
     useEffect(() => {
         setUserModalAtom(userModalOpen);
@@ -27,7 +31,7 @@ export default function TopNavBar() {
         setMessage({ message: msg });
     };
     return (
-        <div className="flex w-[100%] justify-center items-center box-border border-b border-slate-100 px-[1rem]">
+        <div className="flex flex-col w-[100%] justify-center items-center box-border border-b border-slate-100 px-[1rem]">
             <div className="flex flex-wrap w-[100%] px-[20px] max-w-[75rem] h-[2.5rem] items-center overflow-x-auto whitespace-nowrap box-border justify-between text-[0.875rem]">
                 <div className="flex items-center font-bold">
                     {menu.map((el, i) => {
@@ -83,6 +87,9 @@ export default function TopNavBar() {
                         </span>
                     </div>
                 )}
+            </div>
+            <div className="flex flex-wrap relative w-[100%] max-w-[75rem] items-center">
+                <div>{userModalOpen && <Modal />}</div>
             </div>
         </div>
     );

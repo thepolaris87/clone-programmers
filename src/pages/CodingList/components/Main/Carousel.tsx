@@ -173,7 +173,7 @@ export default function Carousel() {
                     <div key={i} className={`slideCard flex-none w-full justify-center flex ${el.bg} ${style}`}>
                         <div className="flex flex-wrap max-w-[75rem] relative">
                             <div className="w-2/5 pt-[2.375rem] px-[1rem] relative">
-                                <div className="text-white font-bold bg-banner_classification text-[0.75rem] p-[0.4rem] rounded w-fit items-center">
+                                <div className="text-white font-bold bg-banner_classification text-[0.75rem] p-[0.3rem] rounded w-fit items-center">
                                     {el.class}
                                 </div>
                                 <div className="text-white text-[1.75rem] font-extrabold">{el.title}</div>
