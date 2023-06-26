@@ -5,8 +5,8 @@ import { sortAtom } from '@/pages/CodingList/atoms';
 
 export default function Sort() {
     const [visibility, setVisibility] = useState(false);
-    const [title, setTitle] = useState('최신순');
-    const array = ['정답률 높은 문제', '정답률 낮은 문제', '최신순'];
+    const [title, setTitle] = useState('제목순');
+    const array = ['정답률 높은 문제', '정답률 낮은 문제', '제목순'];
     const setSort = useSetAtom(sortAtom);
 
     const onClick = () => setVisibility(!visibility);

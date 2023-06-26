@@ -41,12 +41,6 @@ export default function Modal() {
             </div>
             <div className="flex flex-col self-center bg-center">
                 <div
-                    className="h-[84px] text-[18px] font-semibold leading-[24px] mx-[20px] justify-center cursor-pointer pt-7"
-                    onClick={() => navigate('/my-page')}
-                >
-                    마이페이지
-                </div>
-                <div
                     className="h-[84px] text-[18px] font-semibold leading-[24px] mx-[20px] justify-center border-t border-[#efefef] cursor-pointer pt-7"
                     onClick={onLogout}
                 >

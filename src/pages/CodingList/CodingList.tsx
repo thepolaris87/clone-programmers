@@ -1,5 +1,4 @@
 import { useAtomValue } from 'jotai';
-import Footer from '../../components/Footer';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Modal from './components/Main/Modal';
@@ -16,7 +15,6 @@ export default function CodingList() {
             <div className="hidden sm:block">
                 <Header />
                 <Main />
-                <Footer />
             </div>
             <div>{userModalOpen && <Modal />}</div>
         </>
