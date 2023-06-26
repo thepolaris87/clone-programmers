@@ -35,7 +35,7 @@ export const test = [
     '코딩 기초 트레이닝'
 ];
 
-export const position = [
+export const position : position[] = [
     { logo: logo1, title: '매쓰플랫 프론트엔드 개발자', company: '프리윌린', response: '평균 2주 이내 응답', career: '3 ~ 10년', region: '서울시 서초구' },
     { logo: logo2, title: '[JOYCITY] FreeStyle 클라이언트 개발자', company: '조이시티', response: '평균 1주 이내 응답', career: '7 ~ 15년', region: '서울시 강남구' },
     { logo: logo3, title: 'IOS Developer', company: '노머스', response: '평균 1주 이내 응답', career: '3 ~ 15년', region: '서울시 성동구' },

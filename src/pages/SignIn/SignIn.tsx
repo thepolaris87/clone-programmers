@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Input from '../../components/Input';
 import { ReactComponent as Email } from '@assets/images/signin/email.svg';
 import { ReactComponent as Smile } from '@assets/images/signin/smile.svg';
@@ -36,6 +36,9 @@ export default function SignIn() {
     const [SuccessSignUp, setSuccessSignUp] = useState<boolean>(false);
     const [initText, setInitText] = useState<string>('');
 
+    // const [e_mail, setE_mail] = useState<email>({ email: 'hidden', email2: 'hidden', email3: 'hidden' });
+    // const [password, setPassword] = useState<password>({ pw: 'hidden', pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
+
     const navigate = useNavigate();
     const setName = useSetAtom(nameAtom);
     const setEmail = useSetAtom(emailAtom);
@@ -48,7 +51,7 @@ export default function SignIn() {
             window.localStorage.setItem('name', data.name);
             setToken(data.accessToken);
         },
-        onError: (error: any) => {
+        onError: () => {
             setCheckPw('');
             setText('이메일 또는 비밀번호를 다시 확인하세요.');
         }
@@ -78,7 +81,7 @@ export default function SignIn() {
         }
         if (!email || !password) return;
         // signInMutation.mutate({ email: email, password: password });
-        const data = await signInMutation.mutateAsync({ email: email, password: password });
+        await signInMutation.mutateAsync({ email: email, password: password });
         setEmail(email);
         window.localStorage.setItem('email', email);
     };
@@ -179,6 +182,8 @@ export default function SignIn() {
     };
 
     const initSignUpPage = () => {
+        // setE_mail({ email: 'hidden', email2: 'hidden', email3: 'hidden' });
+        // setPassword({ pw: 'hidden', pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
         setCheckName('hidden');
         setCheckEmail2('hidden');
         setCheckEmail3('hidden');

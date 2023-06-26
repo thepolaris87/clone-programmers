@@ -1,6 +1,6 @@
 import { filterAtom } from '@/pages/CodingList/atoms';
 import { useAtomValue } from 'jotai';
-import React, { Children } from 'react';
+import React from 'react';
 interface props {
     visibility: boolean;
     onClick: any;

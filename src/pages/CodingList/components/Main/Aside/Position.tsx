@@ -7,9 +7,9 @@ import { useEffect, useState } from 'react';
 
 export default function Position() {
     const [count, setCount] = useState(0);
-    const pages = [];
+    const pages: position[][] = [];
     for (let i = 0; i < position.length; i += 3) {
-        const page = position.slice(i, i + 3);
+        const page: position[] = position.slice(i, i + 3);
         pages.push(page);
     }
 

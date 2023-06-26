@@ -1,6 +1,6 @@
 import { toastAtom } from '@/atoms/toast';
 import { useSetAtom } from 'jotai';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function BottomNavBar() {
     const [selectMenu, setSelectMenu] = useState<string>('모든 문제');

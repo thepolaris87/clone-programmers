@@ -3,13 +3,13 @@ import { emailAtom, nameAtom } from '@/atoms/user';
 import userProfile from '@assets/images/codingList/profile.jpeg';
 import axios from 'axios';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { useNavigate } from 'react-router-dom';
 
 export default function Modal() {
     const name = useAtomValue(nameAtom);
-    const navigate = useNavigate();
     const setEmail = useSetAtom(emailAtom);
     const setName = useSetAtom(nameAtom);
+    const setMessage = useSetAtom(toastAtom);
+
     const onLogout = () => {
         axios.defaults.headers.common.Authorization = null;
         setEmail('');
@@ -17,7 +17,6 @@ export default function Modal() {
         window.localStorage.setItem('token', '');
     };
 
-    const setMessage = useSetAtom(toastAtom);
     const toastMessage = () => {
         setMessage({ message: '준비 중입니다.' });
     };

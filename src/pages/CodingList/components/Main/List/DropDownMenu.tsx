@@ -6,7 +6,7 @@ import { filterAtom } from '@/pages/CodingList/atoms';
 
 const initialDropdown = { level: false, test: false };
 
-export default function DropDown() {
+export default function DropDownMenu() {
     const queryClinet = useQueryClient();
     const listData = queryClinet.getQueryData<TListData>(['questions']);
     const [dropdown, setDropDown] = useState(initialDropdown);
