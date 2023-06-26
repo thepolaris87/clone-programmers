@@ -5,7 +5,7 @@ import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Sort from './Sort';
 import Pagination from '@/components/Pagination';
-import { filterAtom } from '@/pages/CodingList/atoms';
+import { filterAtom, sortAtom } from '@/pages/CodingList/atoms';
 
 type filteredData = {
     category: string;
@@ -22,6 +22,7 @@ export default function Table() {
     const listData = queryClinet.getQueryData<TListData>(['questions']);
     const navigate = useNavigate();
     const filters = useAtomValue(filterAtom);
+    const sort = useAtomValue(sortAtom);
 
     const filteredData = useMemo(() => {
         const levelFilter = filters.filter((f) => ['LV.1', 'LV.2', 'LV.3'].includes(f));
@@ -51,6 +52,16 @@ export default function Table() {
     };
 
     useEffect(() => {
+        if (sort === '제목순') {
+            filteredData?.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (sort === '정답률 높은 문제') {
+            filteredData?.sort((a, b) => b.correct_rate - a.correct_rate);
+            console.log('ggll');
+        } else if (sort === '정답률 낮은 문제') {
+            filteredData?.sort((a, b) => a.correct_rate - b.correct_rate);
+            console.log('gg');
+        }
+
         setPage([]);
         if (!filteredData) return;
         for (let index = 0; index < 20; index++) {
@@ -59,8 +70,9 @@ export default function Table() {
                 return [...prev, filteredData[index]];
             });
         }
-    }, [filteredData]);
+    }, [filteredData, sort]);
 
+    console.log(filteredData);
     return (
         <>
             <div className="flex justify-between">

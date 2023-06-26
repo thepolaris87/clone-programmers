@@ -1,12 +1,14 @@
 import { nameAtom } from '@/atoms/user';
-import { listDataAtom } from '@/pages/CodingList/atoms';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 export default function Top() {
     const navigate = useNavigate();
     const name = useAtomValue(nameAtom);
-    const listData = useSetAtom(listDataAtom);
+    const queryClinet = useQueryClient();
+    const listData = queryClinet.getQueryData<TListData>(['questions']);
+    const list = listData?.questions;
 
     const countSuccess = (object: any, property: any, value: any) => {
         let count = 0;
@@ -18,7 +20,7 @@ export default function Top() {
         return count;
     };
 
-    const CompleteCount = countSuccess(listData, 'isComplete', true);
+    const CompleteCount = countSuccess(list, 'isComplete', true);
 
     return (
         <>
