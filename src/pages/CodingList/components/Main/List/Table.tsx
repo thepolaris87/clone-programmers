@@ -1,11 +1,12 @@
 import check from '@assets/images/codingList/check.svg';
 import { useAtomValue } from 'jotai';
 import { useEffect, useMemo, useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Sort from './Sort';
 import Pagination from '@/components/Pagination';
 import { filterAtom, sortAtom } from '@/pages/CodingList/atoms';
+import { getChallenges } from '@/apis/api';
 
 type filteredData = {
     category: string;
@@ -15,11 +16,14 @@ type filteredData = {
     isComplete: boolean;
     question_id: string;
     title: string;
-}[];
+};
 
 export default function Table() {
-    const queryClinet = useQueryClient();
-    const listData = queryClinet.getQueryData<TListData>(['questions']);
+    const data = useQuery(['questions'], getChallenges, {
+        staleTime: 100
+      });
+
+    const listData = data.data;
     const navigate = useNavigate();
     const filters = useAtomValue(filterAtom);
     const sort = useAtomValue(sortAtom);
@@ -28,7 +32,7 @@ export default function Table() {
         const levelFilter = filters.filter((f) => ['LV.1', 'LV.2', 'LV.3'].includes(f));
         const testFilter = filters.filter((f) => !['LV.1', 'LV.2', 'LV.3'].includes(f));
 
-        const level = listData?.questions.filter((q) => {
+        const level = listData?.questions.filter((q: filteredData) => {
             if (filters.length === 0) return true;
             const condi1 = levelFilter.length === 0 || levelFilter.includes(`LV.${q.difficulty}`);
             const condi2 = testFilter.length === 0 || testFilter.includes(q.category);
@@ -38,7 +42,7 @@ export default function Table() {
         return level;
     }, [listData, filters]);
 
-    const [page, setPage] = useState<filteredData>([]);
+    const [page, setPage] = useState<filteredData[]>([]);
 
     const onClick = (idx: number) => {
         if (!filteredData) return;
@@ -53,11 +57,11 @@ export default function Table() {
 
     useEffect(() => {
         if (sort === '제목순') {
-            filteredData?.sort((a, b) => a.title.localeCompare(b.title));
+            filteredData?.sort((a: {title: string}, b: {title: string}) => a.title.localeCompare(b.title));
         } else if (sort === '정답률 높은 문제') {
-            filteredData?.sort((a, b) => b.correct_rate - a.correct_rate);
+            filteredData?.sort((a: {correct_rate: number}, b: {correct_rate: number}) => b.correct_rate - a.correct_rate);
         } else if (sort === '정답률 낮은 문제') {
-            filteredData?.sort((a, b) => a.correct_rate - b.correct_rate);
+            filteredData?.sort((a: {correct_rate: number}, b: {correct_rate: number}) => a.correct_rate - b.correct_rate);
         }
 
         setPage([]);
