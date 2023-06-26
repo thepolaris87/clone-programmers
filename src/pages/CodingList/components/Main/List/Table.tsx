@@ -56,10 +56,8 @@ export default function Table() {
             filteredData?.sort((a, b) => a.title.localeCompare(b.title));
         } else if (sort === '정답률 높은 문제') {
             filteredData?.sort((a, b) => b.correct_rate - a.correct_rate);
-            console.log('ggll');
         } else if (sort === '정답률 낮은 문제') {
             filteredData?.sort((a, b) => a.correct_rate - b.correct_rate);
-            console.log('gg');
         }
 
         setPage([]);
@@ -72,7 +70,6 @@ export default function Table() {
         }
     }, [filteredData, sort]);
 
-    console.log(filteredData);
     return (
         <>
             <div className="flex justify-between">
@@ -129,7 +126,7 @@ export default function Table() {
                 </table>
             </div>
             <div className="flex justify-center itmes-center gap-[0.5625rem] mt-[5rem] pb-[12.825rem]">
-                <Pagination onClickPage={onClick} totalNum={filteredData!.length} />
+                <Pagination onClickPage={onClick} totalNum={(filteredData) ? filteredData.length : 0} />
             </div>
         </>
     );

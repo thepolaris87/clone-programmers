@@ -12,6 +12,7 @@ export default function Top() {
 
     const countSuccess = (object: any, property: any, value: any) => {
         let count = 0;
+        if(!object) return;
         for (let i = 0; i < object.length; i++) {
             if (object[i][property] === value) {
                 count++;
