@@ -7,15 +7,18 @@ import { TestContainer } from './css/CodingTest.styles';
 import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
 import { Resizable } from 're-resizable';
+import { toastAtom } from '@/atoms/toast';
+import { useSetAtom } from 'jotai';
 import { TestResult, HiddenResult, Navbar, BottomNavbar, Header, ModalContent, AnswerModalContent } from './components';
 
 export default function CodingTest() {
     const params = useParams();
+    const toastMessage = useSetAtom(toastAtom);
     const { data } = useQuery(['question', params.questionId], () => getQuestion(params.questionId as string));
     const { mutate } = useMutation(postSolution);
     const [codeValue, setCodeValue] = useState('');
-    const [results, setResults] = useState<{ [key: number]: number | string | null | string[] }>({});
-    const [answers, setAnswers] = useState<{ [key: number]: number | string | null | string[] }>({});
+    const [results, setResults] = useState({});
+    const [answers, setAnswers] = useState({});
     const [error, setError] = useState('');
     const [ans, setAns] = useState(false);
     const [totalNum, setTotalNum] = useState('');
@@ -47,10 +50,13 @@ export default function CodingTest() {
         setCheckLoading(false);
         setLoading(true);
         onResetResult(data.questionStatus.testCase.length, setResults);
+        onPostSolution('1');
         try {
             const execFunc = new Function('return ' + codeValue)();
             data.questionStatus.testCase.forEach((result: ResultProps, index: number) => {
-                const answer = execFunc(...result.input);
+                const answer = execFunc(
+                    ...(result.input.length === 1 ? JSON.parse(JSON.stringify(result)).input[0] : JSON.parse(JSON.stringify(result)).input)
+                );
                 setTimeout(() => {
                     setResults((prev) => {
                         return { ...prev, [index]: answer };
@@ -68,7 +74,10 @@ export default function CodingTest() {
     const onSubmit = async () => {
         setError('');
         setTotalNum('0');
-        if (!data.questionStatus.hiddenCase) return;
+        if (!data.questionStatus.hiddenCase) {
+            toastMessage({ message: '테스트 케이스를 준비중입니다.' });
+            return;
+        }
         setLoading(false);
         setCheckLoading(true);
         onResetResult(data.questionStatus.hiddenCase.length, setAnswers);
@@ -78,8 +87,10 @@ export default function CodingTest() {
             const promises = data.questionStatus.hiddenCase.map((result: ResultProps, index: number) => {
                 return () =>
                     new Promise<void>((resolve) => {
-                        const answer = execFunc(...result.input);
-                        const ans = answer === result.output ? '통과' : '실패';
+                        const answer = execFunc(
+                            ...(result.input.length === 1 ? JSON.parse(JSON.stringify(result)).input[0] : JSON.parse(JSON.stringify(result)).input)
+                        );
+                        const ans = answer.toString() === result.output.toString() ? '통과' : '실패';
                         if (ans === '통과') score += 1;
                         setTimeout(() => {
                             setAnswers((prev) => {
@@ -141,16 +152,16 @@ export default function CodingTest() {
                                 bottomLeft: false,
                                 topLeft: false
                             }}
-                            onResizeStop={(e, direction, ref, d) => {
+                            onResizeStop={(_e, _direction, _ref, d) => {
                                 setWidth(width + d.width);
                             }}
                             style={{ display: 'flex', padding: '20px 15px', overflowY: 'scroll', overflowX: 'hidden' }}
-                            ref={(c) => console.log(c)}
                         >
                             <span className="overflow-y-auto leading-7">
                                 <MarkDownTag />
                             </span>
                         </Resizable>
+                        <div className="border-[0.1px] border-[#172334]" />
                         <div className="w-[calc(60%-12px)] h-[100%]">
                             <div className="h-[calc(60%-7px)]">
                                 <div className="h-[100%]">
@@ -170,7 +181,7 @@ export default function CodingTest() {
                                             {loading ? (
                                                 <TestResult data={data.questionStatus.testCase} results={results} answerNum={answerNum} error={error} />
                                             ) : checkLoading ? (
-                                                <HiddenResult data={data.questionStatus.hiddenCase} answers={answers} totalNum={totalNum} />
+                                                <HiddenResult answers={answers} totalNum={totalNum} />
                                             ) : (
                                                 <div className="text-[#78909C] text-[14px]">실행 결과가 여기에 표시됩니다.</div>
                                             )}

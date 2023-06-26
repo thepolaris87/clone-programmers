@@ -26,6 +26,7 @@ export const Code = ({ content, color, onChange }: { content?: string; color: st
                 fontSize: onChange ? 16 : 14,
                 readOnly: onChange ? false : true,
                 minimap: { enabled: false },
+                scrollBeyondLastLine: false,
                 scrollbar: { vertical: 'auto', horizontal: 'auto' }
             }}
         />

@@ -2,11 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import { Spinner } from '@/components/Spinner';
 
-export const HiddenResult = ({ data, answers, totalNum }: HiddenResultProps) => {
+export const HiddenResult = ({ answers, totalNum }: HiddenResultProps) => {
     return (
         <div className="mb-[21px] p-0 bc-[#263747] whitespace-pre-wrap break-words">
             <div className="text-[#5f7f90] text-[12.25px] m-[4px_0] leading-5">정확성&nbsp;&nbsp;&nbsp;&nbsp;테스트</div>
-            {data.map((result: ResultProps, index: number) => {
+            {Object.keys(answers).map((answer, index) => {
                 return (
                     <table key={index} className="w-[calc(100%-16px)] pr-[16px] border-[#172334] border-[1px]">
                         <tbody>
@@ -20,7 +20,7 @@ export const HiddenResult = ({ data, answers, totalNum }: HiddenResultProps) => 
                                         'bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[1.5]'
                                     )}
                                 >
-                                    {answers[index] === null ? <Spinner /> : answers[index]}
+                                    {answers[Number(answer)] === null ? <Spinner /> : answers[Number(answer)]}
                                 </td>
                             </tr>
                         </tbody>

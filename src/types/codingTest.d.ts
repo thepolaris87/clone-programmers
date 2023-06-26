@@ -2,7 +2,7 @@ type AnswerModalContentProps = { onClick: (value: boolean) => void; answer: bool
 
 type BottomNavbarProps = { functions: ((value?: boolean) => void)[]; questionId: string };
 
-type HiddenResultProps = { data: ResultProps[]; answers: { [key: number]: number | string | null | string[] }; totalNum: string };
+type HiddenResultProps = { answers: { [key: number]: number | string | null | string[] }; totalNum: string };
 
 type NavbarProps = { setModal?: (modal: boolean) => void; title: string; category: string; id?: string; children?: string };
 
