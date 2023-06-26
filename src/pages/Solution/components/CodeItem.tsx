@@ -1,4 +1,5 @@
 import { Code } from '@/components/Code';
+import classNames from 'classnames';
 
 export const CodeItem = ({ solution, onLike }: CodeItemProps) => {
     return (
@@ -20,7 +21,10 @@ export const CodeItem = ({ solution, onLike }: CodeItemProps) => {
             </div>
             <div className="bg-[#263747] border-t-[1px] border-[#172334] align-middle p-[16px] rounded-[0_0_4px_4px]">
                 <button
-                    className="flex items-center bg-[#44576c] text-[white] text-[12px] p-[2px_8px_2px_8px] align-middle text-center rounded-[4px] cursor-pointer hover:bg-[#343a40]"
+                    className={classNames(
+                        solution.isAlreadyLike ? 'bg-[#0078ff] hover:bg-[#0053f4]' : 'bg-[#44576c] hover:bg-[#343a40]',
+                        'flex items-center text-[white] text-[12px] p-[2px_8px_2px_8px] align-middle text-center rounded-[4px] cursor-pointer'
+                    )}
                     onClick={() => onLike(solution.userEmail)}
                 >
                     <h5 className="mt-0.5">좋아요&nbsp;</h5>

@@ -50,10 +50,13 @@ export default function CodingTest() {
         setCheckLoading(false);
         setLoading(true);
         onResetResult(data.questionStatus.testCase.length, setResults);
+        onPostSolution('1');
         try {
             const execFunc = new Function('return ' + codeValue)();
             data.questionStatus.testCase.forEach((result: ResultProps, index: number) => {
-                const answer = execFunc(...result.input);
+                const answer = execFunc(
+                    ...(result.input.length === 1 ? JSON.parse(JSON.stringify(result)).input[0] : JSON.parse(JSON.stringify(result)).input)
+                );
                 setTimeout(() => {
                     setResults((prev) => {
                         return { ...prev, [index]: answer };
@@ -84,8 +87,10 @@ export default function CodingTest() {
             const promises = data.questionStatus.hiddenCase.map((result: ResultProps, index: number) => {
                 return () =>
                     new Promise<void>((resolve) => {
-                        const answer = execFunc(...result.input);
-                        const ans = answer === result.output ? '통과' : '실패';
+                        const answer = execFunc(
+                            ...(result.input.length === 1 ? JSON.parse(JSON.stringify(result)).input[0] : JSON.parse(JSON.stringify(result)).input)
+                        );
+                        const ans = answer.toString() === result.output.toString() ? '통과' : '실패';
                         if (ans === '통과') score += 1;
                         setTimeout(() => {
                             setAnswers((prev) => {
