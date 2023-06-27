@@ -72,7 +72,7 @@ export const TestResult = ({ data, results, answerNum, error }: TestResultProps)
                             <div className="text-[#98a8b9] text-[12.25px] m-[24px_0_8px_0]">테스트 결과 (~˘▾˘)~</div>
                             <div
                                 className={classNames(
-                                    'text-[16px] font-[500] m-[4px_0_24px_0]',
+                                    'text-[16px] font-[NotoSansKRMedium] m-[4px_0_24px_0]',
                                     answerNum === Object.keys(results).length ? 'text-[#0078ff]' : 'text-[#d32f2f]'
                                 )}
                             >

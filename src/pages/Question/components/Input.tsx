@@ -4,7 +4,7 @@ export const Input = ({ onClick, value, setValue }: InputProps) => {
     return (
         <React.Fragment>
             <div className="m-[40px_0_8px_0]">
-                <h5 className="text-[16px] font-[700]">답변 쓰기</h5>
+                <h5 className="text-[16px] font-[NotoSansKRBold]">답변 쓰기</h5>
             </div>
             <div className="mb-[8px]">
                 <textarea
@@ -19,10 +19,10 @@ export const Input = ({ onClick, value, setValue }: InputProps) => {
                     <span className="text-[#0078ff]">&nbsp;마크다운 가이드&nbsp;</span>를 참고하세요.
                 </h5>
                 <button
-                    className="mt-[20px] bg-[#0078ff] text-[14px] md:text-[16px] font-[500] p-[5px_13px] md:p-[7px_13px] hover:bg-[#0053f4] rounded-[4px]"
+                    className="mt-[20px] bg-[#0078ff] text-[14px] md:text-[16px] font-[NotoSansKRMedium] p-[5px_13px] md:p-[7px_13px] hover:bg-[#0053f4] rounded-[4px]"
                     onClick={onClick}
                 >
-                    <h5 className="mt-0.5 text-[white]">작성하기</h5>
+                    <h5 className="mb-0.5 text-[white]">작성하기</h5>
                 </button>
             </div>
         </React.Fragment>

@@ -5,9 +5,8 @@ export const List = styled.li`
     font-size: 14px;
     margin-right: 4px;
     line-height: 1.6;
+    color: #263747;
     div {
-        color: #263747;
-        font-weight: 400;
         padding: 0 2px 0 2px;
         cursor: pointer;
         :hover {
@@ -15,7 +14,6 @@ export const List = styled.li`
         }
     }
     p {
-        color: #263747;
-        font-weight: 700;
+        font-family: NotoSansKRBold;
     }
 `;
