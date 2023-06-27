@@ -39,7 +39,7 @@ export default function QuestionList() {
                 <div className="max-w-[1200px] px-[16px] mx-auto">
                     <div className="mt-[40px]">
                         <button
-                            className="w-[147px] bg-[#EEEBFF] border-[#EEEBFF] border-[1px] rounded-[4px] text-[#0078FF] text-[16px] font-[NotoSansKRMedium] mb-[24px] p-[7px] hover:bg-[#D8DDFF]"
+                            className="w-[147px] bg-[#EEEBFF] border-[#EEEBFF] border-[1px] rounded-[4px] text-[#0078FF] text-[14px] md:text-[16px] font-[NotoSansKRMedium] mb-[24px] p-[5px_9px] md:p-[7px] hover:bg-[#D8DDFF]"
                             onClick={() => navigate(`/learn/courses/${data.questionId}`)}
                         >
                             <h5 className="mb-0.5">&#60;&nbsp; 강의로 돌아가기</h5>
