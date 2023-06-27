@@ -26,11 +26,9 @@ export default function DropDownMenu() {
         if (e.target.checked) setFilters([...filters, name]);
         else setFilters(filters.filter((f) => f !== name));
     };
-
     return (
         <>
             <div className="block lg:flex">
-                <div className="flex">{/* <Dropdown /> */}</div>
                 <div className="flex gap-[0.5rem] mb-[0.5rem]">
                     <div className="dropdown-menu w-full lg:w-auto min-w-[8.75rem]">
                         <Dropdown

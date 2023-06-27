@@ -4,11 +4,12 @@ import classNames from 'classnames';
 import { toastAtom } from '@/atoms/toast';
 import { useSetAtom } from 'jotai';
 
+const navbars = ['강의', '국비지원', '코딩테스트 연습', 'MY 스쿨', '강사되기', '캠퍼스'];
+
 export const Navbar = () => {
     const navigate = useNavigate();
     const toastMessage = useSetAtom(toastAtom);
     const [value, setValue] = useState('');
-    const navbars = ['강의', '국비지원', '코딩테스트 연습', 'MY 스쿨', '강사되기', '캠퍼스'];
 
     const onClick = (value: string) => {
         setValue(value);

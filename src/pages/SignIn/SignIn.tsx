@@ -12,6 +12,7 @@ import { postSignIn, postSignUp } from '@apis/api';
 import { useSetAtom } from 'jotai';
 import { accessTokenAtom, emailAtom, nameAtom } from '@/atoms/user';
 import Check from './components/Check';
+import { ReactComponent as Caution } from '@assets/images/signin/caution.svg';
 
 export default function SignIn() {
     const [signIn, setSignIn] = useState<boolean>(true);
@@ -292,14 +293,11 @@ export default function SignIn() {
                                                             <div className="font-bold">비밀번호</div>
                                                         </div>
                                                         <InputPw placeholder={'비밀번호를 입력해주세요'} name={'password'} />
-                                                        <div className={`flex gap-2 items-center mt-2 ${checkPw} text-[#f90]`}>
-                                                            <svg viewBox="0 0 12 12" fill="none" className="w-3" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M6 12A6 6 0 116 0a6 6 0 010 12zm-.6-9.6v4.8h1.2V2.4H5.4zm0 6v1.2h1.2V8.4H5.4z"
-                                                                    fill="#f90"
-                                                                ></path>
-                                                            </svg>
-                                                            {text}
+                                                        <div className={`flex gap-2 items-center mt-0 ${checkPw} text-[#f90]`}>
+                                                            <div className="pt-4">
+                                                                <Caution />
+                                                            </div>
+                                                            <div>{text}</div>
                                                         </div>
                                                         <button
                                                             className="bg-signin_btn text-center w-full py-2 text-white my-[2.75rem] h-[2.75rem] text-[20px] font-bold rounded-md cursor-pointer"
@@ -321,23 +319,13 @@ export default function SignIn() {
                                                         <div className="mb-[0.625rem] font-bold">이름</div>
                                                         <Input svg={<Smile />} type={'text'} name={'name'} placeholder={'이름을 입력해 주세요'} />
                                                         <div className={`flex gap-1 mt-2 text-[#f90] ${checkName}`}>
-                                                            <svg viewBox="0 0 12 12" fill="none" className="w-3 mb-5" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M6 12A6 6 0 116 0a6 6 0 010 12zm-.6-9.6v4.8h1.2V2.4H5.4zm0 6v1.2h1.2V8.4H5.4z"
-                                                                    fill="#f90"
-                                                                ></path>
-                                                            </svg>
+                                                            <Caution />
                                                             이름을 입력해주세요.
                                                         </div>
                                                         <div className="mt-[2.25rem] mb-[0.625rem] font-bold">이메일</div>
                                                         <Input svg={<Email />} type={'text'} name={'email'} placeholder={'이메일을 입력해 주세요'} />
                                                         <div className={`flex gap-1 mt-2 text-[#f90] ${checkEmail3}`}>
-                                                            <svg viewBox="0 0 12 12" fill="none" className="w-3 mb-5" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M6 12A6 6 0 116 0a6 6 0 010 12zm-.6-9.6v4.8h1.2V2.4H5.4zm0 6v1.2h1.2V8.4H5.4z"
-                                                                    fill="#f90"
-                                                                ></path>
-                                                            </svg>
+                                                            <Caution />
                                                             이미 사용중이거나 올바르지 않은 이메일입니다. <br /> 다른 이메일을 입력해주세요.
                                                         </div>
                                                         <Check text={'이메일을 입력해주세요.'} hidden={checkEmail2} />

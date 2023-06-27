@@ -5,13 +5,14 @@ import region from '@assets/images/codingList/region.svg';
 import { useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
+const pages: position[][] = [];
+for (let i = 0; i < position.length; i += 3) {
+    const page: position[] = position.slice(i, i + 3);
+    pages.push(page);
+}
+
 export default function Position() {
     const [count, setCount] = useState(0);
-    const pages: position[][] = [];
-    for (let i = 0; i < position.length; i += 3) {
-        const page: position[] = position.slice(i, i + 3);
-        pages.push(page);
-    }
 
     useEffect(() => {
         if (pages.length < 3) return;
