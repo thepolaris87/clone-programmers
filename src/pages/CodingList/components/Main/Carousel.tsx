@@ -174,11 +174,11 @@ export default function Carousel() {
                     <div key={i} className={`slideCard flex-none w-full justify-center flex ${el.bg} ${style}`}>
                         <div className="flex flex-wrap max-w-[75rem] relative">
                             <div className="w-2/5 pt-[2.375rem] px-[1rem] relative">
-                                <div className="text-white font-bold bg-banner_classification text-[0.75rem] p-[0.3rem] rounded w-fit items-center">
+                                <div className="text-white font-[NotoSansKRBold] bg-banner_classification text-[0.75rem] p-[0.3rem] rounded w-fit items-center">
                                     {el.class}
                                 </div>
-                                <div className="text-white text-[1.3rem] sm:text-[1.5rem] md:text-[1.75rem] font-extrabold">{el.title}</div>
-                                <div className="text-white text-[0.8rem] sm:text-[1rem]">{el.description}</div>
+                                <div className="text-white text-[1.3rem] sm:text-[1.5rem] md:text-[1.75rem] font-[NotoSansKRBold]">{el.title}</div>
+                                <div className="text-white text-[0.8rem] sm:text-[1rem] font-[NotoSansKRReqular] pt-2">{el.description}</div>
                                 <div className="h-[0.75rem] pl-[0.7rem] flex gap-2 absolute bottom-7 left-0 items-center">
                                     <button
                                         onClick={() => {
@@ -187,9 +187,9 @@ export default function Carousel() {
                                     >
                                         <LeftBtn />
                                     </button>
-                                    <span className="text-white font-extrabold mt-1">0{i === 6 ? 1 : i === 0 ? 5 : i}</span>
+                                    <span className="text-white font-[NotoSansKRBold]">0{i === 6 ? 1 : i === 0 ? 5 : i}</span>
                                     <span className="border w-0 h-3 border-white"></span>
-                                    <span className="text-white mt-1">05</span>
+                                    <span className="text-white">05</span>
                                     <button
                                         onClick={() => {
                                             onNextClick();

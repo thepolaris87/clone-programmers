@@ -24,7 +24,7 @@ export default function Sort() {
         <div className="relative">
             <div onClick={onClick} className="flex gap-1 cursor-pointer">
                 <div>{title}</div>
-                <div className="pt-0.5">
+                <div className="pt-[0.4rem]">
                     <img src={arrow} className="w-[1rem] h-[1rem]" />
                 </div>
             </div>

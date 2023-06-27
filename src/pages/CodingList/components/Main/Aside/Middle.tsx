@@ -14,7 +14,7 @@ export default function Middle() {
     return (
         <div className="">
             <div className="flex items-center p-[1.5rem]">
-                <div className="font-extrabold text-[1rem]">내 실력 향상을 위한 추천 코스</div>
+                <div className="font-[NotoSansKRBold] text-[1rem]">내 실력 향상을 위한 추천 코스</div>
                 <div>
                     <BannerBtn />
                 </div>
