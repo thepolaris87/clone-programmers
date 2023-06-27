@@ -19,9 +19,7 @@ type filteredData = {
 };
 
 export default function Table() {
-    const data = useQuery(['questions'], getChallenges, {
-        staleTime: 100
-      });
+    const data = useQuery(['questions'], getChallenges);
 
     const listData = data.data;
     const navigate = useNavigate();
@@ -57,11 +55,11 @@ export default function Table() {
 
     useEffect(() => {
         if (sort === '제목순') {
-            filteredData?.sort((a: {title: string}, b: {title: string}) => a.title.localeCompare(b.title));
+            filteredData?.sort((a: { title: string }, b: { title: string }) => a.title.localeCompare(b.title));
         } else if (sort === '정답률 높은 문제') {
-            filteredData?.sort((a: {correct_rate: number}, b: {correct_rate: number}) => b.correct_rate - a.correct_rate);
+            filteredData?.sort((a: { correct_rate: number }, b: { correct_rate: number }) => b.correct_rate - a.correct_rate);
         } else if (sort === '정답률 낮은 문제') {
-            filteredData?.sort((a: {correct_rate: number}, b: {correct_rate: number}) => a.correct_rate - b.correct_rate);
+            filteredData?.sort((a: { correct_rate: number }, b: { correct_rate: number }) => a.correct_rate - b.correct_rate);
         }
 
         setPage([]);
@@ -92,7 +90,7 @@ export default function Table() {
                         </tr>
                     </thead>
                     <tbody>
-                        {page?.map((el: any, i: number) => {
+                        {page?.map((el: filteredData, i: number) => {
                             return (
                                 <tr key={i} className="items-center border-b border-list_border p-[0.5625rem] ">
                                     <td className="text-center w-[3.75rem] p-[0.5625rem] flex justify-center items-center mt-2">
@@ -130,7 +128,7 @@ export default function Table() {
                 </table>
             </div>
             <div className="flex justify-center itmes-center gap-[0.5625rem] mt-[5rem] pb-[12.825rem]">
-                <Pagination onClickPage={onClick} totalNum={(filteredData) ? filteredData.length : 0} />
+                <Pagination onClickPage={onClick} totalNum={filteredData ? filteredData.length : 0} />
             </div>
         </>
     );

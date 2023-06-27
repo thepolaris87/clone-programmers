@@ -4,6 +4,8 @@ import banner3 from '@assets/images/codingList/banner3.png';
 import banner4 from '@assets/images/codingList/banner4.png';
 import banner5 from '@assets/images/codingList/banner5.png';
 import banner6 from '@assets/images/codingList/banner6.png';
+import { ReactComponent as LeftBtn } from '@assets/images/codingList/leftbtn.svg';
+import { ReactComponent as RightBtn } from '@assets/images/codingList/rightbtn.svg';
 
 const slideItems = [
     {
@@ -154,7 +156,6 @@ export default function Carousel() {
 
     useEffect(() => {
         setStyle(`transition duration-300 ease-in-out transform ${translate[1]}`);
-        // requestAnimationFrame(onNextClick)
     }, []);
 
     useEffect(() => {
@@ -184,14 +185,7 @@ export default function Carousel() {
                                             onPrevClick();
                                         }}
                                     >
-                                        <svg viewBox="0 0 8 13" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="0.75rem" height="0.75rem">
-                                            <path
-                                                opacity="1"
-                                                fillRule="evenodd"
-                                                clipRule="evenodd"
-                                                d="M2.24575 6.15321L7.35274 11.6458L6.64705 12.3543L0.859131 6.12938L6.85747 0.106934L7.5384 0.839281L2.24575 6.15321Z"
-                                            ></path>
-                                        </svg>
+                                        <LeftBtn />
                                     </button>
                                     <span className="text-white font-extrabold mt-1">0{i === 6 ? 1 : i === 0 ? 5 : i}</span>
                                     <span className="border w-0 h-3 border-white"></span>
@@ -201,13 +195,7 @@ export default function Carousel() {
                                             onNextClick();
                                         }}
                                     >
-                                        <svg viewBox="0 0 8 13" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" width="0.75rem" height="0.75rem">
-                                            <path
-                                                fillRule="evenodd"
-                                                clipRule="evenodd"
-                                                d="M5.75408 6.15321L0.647092 11.6458L1.35278 12.3543L7.1407 6.12938L1.14236 0.106934L0.461426 0.839281L5.75408 6.15321Z"
-                                            ></path>
-                                        </svg>
+                                        <RightBtn />
                                     </button>
                                 </div>
                             </div>

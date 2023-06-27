@@ -2,6 +2,7 @@ import { nameAtom } from '@/atoms/user';
 import { useAtomValue } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
+import { useMemo } from 'react';
 
 export default function Top() {
     const navigate = useNavigate();
@@ -10,18 +11,7 @@ export default function Top() {
     const listData = queryClinet.getQueryData<TListData>(['questions']);
     const list = listData?.questions;
 
-    const countSuccess = (object: any, property: any, value: any) => {
-        let count = 0;
-        if(!object) return;
-        for (let i = 0; i < object.length; i++) {
-            if (object[i][property] === value) {
-                count++;
-            }
-        }
-        return count;
-    };
-
-    const CompleteCount = countSuccess(list, 'isComplete', true);
+    const CompleteCount = useMemo(() => list?.reduce((p, c) => (c.isComplete ? (p += 1) : p), 0), [list]);
 
     return (
         <>
