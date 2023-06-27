@@ -6,7 +6,6 @@
     body {
         overflow-x: hidden;
         font-family: 'NotoSansKRRegular';
-        font-weight: 400;
     }
     * {
         word-break: keep-all;

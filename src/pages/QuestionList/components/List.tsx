@@ -10,7 +10,7 @@ export const List = ({ question }: ListProps) => {
                     {question.title}
                 </Link>
                 <div className="text-[#98a8b9] text-[14px]">
-                    <div className="inline-flex mr-[16px]">
+                    <div className="inline-flex mr-[16px] items-center">
                         <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">
                             <path
                                 fillRule="evenodd"
@@ -19,7 +19,7 @@ export const List = ({ question }: ListProps) => {
                         </svg>
                         <h5 className="ml-[4px] leading-[1.5]">{question.userName}</h5>
                     </div>
-                    <div className="inline-flex mr-[16px]">
+                    <div className="inline-flex mr-[16px] items-center">
                         <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">
                             <path
                                 fillRule="evenodd"
@@ -28,7 +28,7 @@ export const List = ({ question }: ListProps) => {
                         </svg>
                         <h5 className="ml-[4px] leading-[1.5]">{question.date}</h5>
                     </div>
-                    <div className="inline-flex mr-[16px]">
+                    <div className="inline-flex mr-[16px] items-center">
                         <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">
                             <path
                                 fillRule="evenodd"

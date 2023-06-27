@@ -7,7 +7,7 @@ export const createToastElement = (message = '') => {
     container.classList.add('fixed', 'transition-all', 'text-center', 'w-full', 'duration-300', 'z-[9999]', 'pointer-events-none');
     container.style.top = '-45px';
 
-    toastElement.classList.add('w-fit', 'bg-[#0078ff]', 'm-auto', 'text-white', 'font-bold', 'pt-2', 'pb-1', 'px-4', 'rounded-lg', 'my-2', 'drop-shadow-lg');
+    toastElement.classList.add('w-fit', 'bg-[#0078ff]', 'm-auto', 'text-white', 'font-bold', 'pt-1', 'pb-1', 'px-4', 'rounded-lg', 'my-2', 'drop-shadow-lg');
     toastElement.innerText = message;
 
     stack.add(container);

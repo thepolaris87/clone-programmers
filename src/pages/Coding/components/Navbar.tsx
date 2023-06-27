@@ -17,7 +17,7 @@ export const Navbar = ({ setModal, title, category, id, children }: NavbarProps)
                     <div className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block">{'>'}</div>
                     <Link
                         className={classNames(
-                            setModal ? 'text-[#ffffff] font-[600] hover:text-white' : 'text-[#98a8b9] font-[400] cursor-pointer hover:text-white',
+                            setModal ? 'text-[#ffffff] font-[NotoSansKRMedium] hover:text-white' : 'text-[#98a8b9] cursor-pointer hover:text-white',
                             id ? 'cursor-pointer' : 'cursor-text',
                             'text-[14px] mx-[4px]'
                         )}
@@ -29,7 +29,7 @@ export const Navbar = ({ setModal, title, category, id, children }: NavbarProps)
                     {children && (
                         <React.Fragment>
                             <div className="text-[#98a8b9] text-[14px] mx-[4px]">{'>'}</div>
-                            <div className="text-[#ffffff] text-[14px] mx-[4px] font-[600] cursor-text">{children}</div>
+                            <div className="text-[#ffffff] text-[14px] mx-[4px] font-[NotoSansKRMedium] cursor-text">{children}</div>
                         </React.Fragment>
                     )}
                 </span>
@@ -37,17 +37,17 @@ export const Navbar = ({ setModal, title, category, id, children }: NavbarProps)
             {children === '다른 사람의 풀이' && (
                 <span className="whitespace-nowrap">
                     <Link
-                        className="hidden bg-[#44576c] text-[white] text-[12px] font-[500] p-[2px_6px] rounded-[4px] hover:bg-[#343a40] md:block"
+                        className="hidden bg-[#44576c] text-[white] text-[12px] font-[NotoSansKRMedium] p-[2px_6px] rounded-[4px] hover:bg-[#343a40] md:block"
                         to={`/learn/courses/${id}`}
                     >
-                        <h5 className="mt-0.5">다시 풀기</h5>
+                        <h5>다시 풀기</h5>
                     </Link>
                 </span>
             )}
             {setModal && (
                 <span className="whitespace-nowrap">
                     <button
-                        className="hidden text-[#b2c0cc] text-[16px] font-[500] p-[4px_8px] hover:text-white md:block cursor-pointer"
+                        className="hidden text-[#b2c0cc] text-[16px] font-[NotoSansKRMedium] p-[4px_8px] hover:text-white md:block cursor-pointer"
                         onClick={() => setModal(true)}
                     >
                         컴파일 옵션

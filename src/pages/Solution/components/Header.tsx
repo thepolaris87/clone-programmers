@@ -7,24 +7,24 @@ export const Header = ({ value, setValue }: SolutionHeaderProps) => {
                 <button
                     className={classNames(
                         value ? 'bg-[#d7e2eb]' : 'bg-[#e9ecf3]',
-                        ' text-[#263747] p-[7px_13px] leading-[1.5] font-[600] rounded-[4px_0_0_4px] hover:bg-[#d7e2eb]'
+                        ' text-[#263747] p-[7px_13px] leading-[1.5] font-[NotoSansKRMedium] rounded-[4px_0_0_4px] hover:bg-[#d7e2eb]'
                     )}
                     onClick={() => setValue(true)}
                 >
-                    <h5 className="mt-0.5">모든 풀이</h5>
+                    <h5 className="mb-0.5">모든 풀이</h5>
                 </button>
                 <button
                     className={classNames(
                         value ? 'bg-[#e9ecf3]' : 'bg-[#d7e2eb]',
-                        'text-[#263747] p-[7px_13px] leading-[1.5] font-[600] rounded-[0_4px_4px_0] ml-[-1px] hover:bg-[#d7e2eb]'
+                        'text-[#263747] p-[7px_13px] leading-[1.5] font-[NotoSansKRMedium] rounded-[0_4px_4px_0] ml-[-1px] hover:bg-[#d7e2eb]'
                     )}
                     onClick={() => setValue(false)}
                 >
-                    <h5 className="mt-0.5">나의 풀이</h5>
+                    <h5 className="mb-0.5">나의 풀이</h5>
                 </button>
             </div>
-            <button className="bg-[#e9ecf3] text-[#263747] p-[7px_13px] leading-[1.5] font-[600] rounded-[4px]">
-                <h5 className="mt-0.5">JavaScript</h5>
+            <button className="bg-[#e9ecf3] text-[#263747] p-[7px_13px] leading-[1.5] font-[NotoSansKRMedium] rounded-[4px]">
+                <h5 className="mb-0.5">JavaScript</h5>
             </button>
         </div>
     );
