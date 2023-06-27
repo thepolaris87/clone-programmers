@@ -4,7 +4,7 @@ import { ReactComponent as Email } from '@assets/images/signin/email.svg';
 import { ReactComponent as Smile } from '@assets/images/signin/smile.svg';
 import SocialLogin from './components/SocialLogin';
 import InputPw from './components/InputPw';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import title from '@assets/images/signin/title.png';
 import main from '@assets/images/signin/main.png';
 import { useMutation } from 'react-query';
@@ -43,6 +43,11 @@ export default function SignIn() {
     const setName = useSetAtom(nameAtom);
     const setEmail = useSetAtom(emailAtom);
     const setToken = useSetAtom(accessTokenAtom);
+    const { state } = useLocation();
+
+    useEffect(() => {
+        state === 'sign-up' && setSignIn(false);
+    }, []);
 
     const signInMutation = useMutation(['sign-in'], postSignIn, {
         onSuccess: (data) => {
