@@ -1,11 +1,12 @@
 import { filterAtom } from '@/pages/CodingList/atoms';
 import { useAtomValue } from 'jotai';
 import React from 'react';
+import { ReactComponent as Down } from '@assets/images/codingList/down.svg';
 interface props {
     visibility: boolean;
-    onClick: any;
+    onClick: () => void;
     title: string;
-    array: any;
+    array: string[];
     style: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>, name: string) => void;
 }
@@ -16,19 +17,11 @@ export default function Dropdown({ visibility, onClick, title, array, style, onC
         <div className="bg-white">
             <button
                 onClick={onClick}
-                className={`flex w-full items-center py-[0.6875rem] px-[1.25rem] border border-[rgb(255, 255, 255)] justify-between h-[40px] font-bold rounded-[0.25rem] ${style}`}
+                className={`flex w-full items-center py-[0.6875rem] px-[1.25rem] border border-[rgb(255, 255, 255)] justify-between h-[40px] font-[NotoSansKRBold] rounded-[0.25rem] ${style}`}
             >
                 {title}
-                <svg
-                    width="1.875rem"
-                    height="1.875rem"
-                    viewBox="0 0 9 6"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-[0.5625rem] h-[0.4375rem]"
-                >
-                    <path d="M4.5 6L8.39711 0.75H0.602886L4.5 6Z" fill="currentColor"></path>
-                </svg>
+                
+                <Down className='w-3'/>
             </button>
             <article className="absolute z-10">
                 {visibility ? (

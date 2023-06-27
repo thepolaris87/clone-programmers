@@ -41,14 +41,14 @@ export default function Pagination({ onClickPage, totalNum, number }: { onClickP
                 onClick={() => onClick(0)}
                 disabled={startPage}
             >
-                |&#60;
+                <h5 className="text-[1px]">|&#60;</h5>
             </Button>
             <Button
                 className={classNames(startPage ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[28px] w-[28px]')}
                 onClick={() => onClick(page - 2)}
                 disabled={startPage}
             >
-                &#60;
+                <h5>&#60;</h5>
             </Button>
             <span className="flex justify-center items-center flex-wrap">
                 {pages.map((pageId, index) => {
@@ -58,17 +58,17 @@ export default function Pagination({ onClickPage, totalNum, number }: { onClickP
                             className={classNames(
                                 page === pageId + 1 ? 'bg-[black] text-[white] shadow-[rgba(0,0,0,0.4)] shadow-[0_4px_10px]' : 'bg-[rgba(215,226,235,0.5)]',
                                 pages.length === 1
-                                    ? 'rounded-[10px]'
+                                    ? 'rounded-[6px]'
                                     : pageId + 1 === 1
-                                    ? 'rounded-[10px_0_0_10px]'
+                                    ? 'rounded-[6px_0_0_6px]'
                                     : pageId + 1 === pages.length
-                                    ? 'rounded-[0_10px_10px_0]'
+                                    ? 'rounded-[0_6px_6px_0]'
                                     : 'rounded-none',
-                                'flex justify-center items-center h-[28px] w-[28px] p-[5px_6px] text-[13px] font-[700]'
+                                'flex justify-center items-center h-[28px] w-[28px] p-[5px_6px] text-[13px] font-[NotoSansKRBold]'
                             )}
                             onClick={() => onClick(pageId)}
                         >
-                            <h5 className="mt-[2px]">{pageId + 1}</h5>
+                            <h5 className="mb-[2px]">{pageId + 1}</h5>
                         </button>
                     );
                 })}
@@ -78,14 +78,14 @@ export default function Pagination({ onClickPage, totalNum, number }: { onClickP
                 onClick={() => onClick(page)}
                 disabled={endPage ? true : false}
             >
-                &#62;
+                <h5>&#62;</h5>
             </Button>
             <Button
                 className={classNames(endPage ? 'text-[rgb(38,55,71,0.3)]' : 'text-[black]', 'h-[22px] w-[22px]')}
                 onClick={() => onClick(pages.length - 1)}
                 disabled={endPage ? true : false}
             >
-                &#62;|
+                <h5 className="text-[1px]">&#62;|</h5>
             </Button>
         </div>
     );

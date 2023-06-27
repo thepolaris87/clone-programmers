@@ -25,7 +25,7 @@ export const NavLink = ({ question }: { question: questionProps }) => {
                     <div>&#62;</div>
                 </List>
                 <List onClick={() => navigate(`/learn/courses/${question.id}/questions`)}>
-                    <div>질문 목록</div>
+                    <div>질문목록</div>
                 </List>
                 <List>
                     <div>&#62;</div>

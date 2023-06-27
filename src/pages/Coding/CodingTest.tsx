@@ -131,7 +131,7 @@ export default function CodingTest() {
 
     return (
         <TestContainer>
-            <div className="codingTest break-words break-keep shadow-[#172334] tracking-wider">
+            <div className="codingTest break-words break-keep shadow-[#172334]">
                 <Navbar setModal={setModal} title={data.questionStatus.title} category={data.questionStatus.category} />
                 <Header title={data.questionStatus.title} />
                 <div className="min-h-[500px] h-[100%] bg-[#263747]">
@@ -161,16 +161,16 @@ export default function CodingTest() {
                         <div className="w-[calc(60%-12px)] h-[100%]">
                             <div className="h-[calc(60%-7px)]">
                                 <div className="h-[100%]">
-                                    <div className="p-[16px] w-[100%] h-[54px] text-[15px] text-[white] font-[700] border-b-[1px] border-[#172334]">
+                                    <div className="p-[16px] w-[100%] h-[54px] text-[14px] text-[white] font-[NotoSansKRBold] border-b-[1px] border-[#172334]">
                                         <h5>solution.js</h5>
                                     </div>
-                                    <div className="h-[calc(100%-54px)] pt-[16px]">
+                                    <div className="h-[calc(100%-54px)] pt-[16px] border-b-[1px] border-[#172334]">
                                         <Code content={codeValue} color="#263747" onChange={setCodeValue} />
                                     </div>
                                 </div>
                                 <div className="h-[calc(53%-7px)]">
-                                    <div className="h-[41px] p-[0_16px] border-b-[1px] border-[#172334]">
-                                        <h5 className="text-[#4F6B81] text-[14px] font-[700] pt-1">실행 결과</h5>
+                                    <div className="h-[55px] p-[0_16px] border-b-[1px] border-[#172334] flex items-center">
+                                        <h5 className="text-[#4F6B81] text-[14px] font-[NotoSansKRBold]">실행 결과</h5>
                                     </div>
                                     <div className="h-[100%] px-[16px] overflow-auto">
                                         <div className="text-[14px] leading-[24px] pt-[16px] bg-[#263747] text-[#78909c]">

@@ -11,6 +11,18 @@ type TListData = {
     }[];
 };
 
+type questions = {
+          localeCompare: any;
+          category: string;
+          correct_rate: number;
+          difficulty: string;
+          finished_count: number;
+          isComplete: boolean;
+          question_id: string;
+          title: string;
+      }[]
+    | undefined;
+
 type email = {
     email: string;
     email2: string;

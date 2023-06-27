@@ -36,12 +36,12 @@ export const Modal = ({ children, title, width, open, onClick }: ModalProps) => 
                 <div className={'rounded-[4px] bg-[white]'}>
                     <div className="p-[16px_16px_0_16px] lg:p-[32px_40px_0] md:p-[24px_24px_0]">
                         <button
-                            className="float-right text-[24px] text-[#000] opacity-[0.16] leading-1 font-[700] hover:opacity-[0.5]"
+                            className="float-right text-[24px] text-[#000] opacity-[0.16] leading-1 font-[NotoSansKRBold] hover:opacity-[0.5]"
                             onClick={() => onClick(false)}
                         >
                             x
                         </button>
-                        <h3 className="text-[#263747] text-[26px] font-[700] leading-[1.5]">{title}</h3>
+                        <h3 className="text-[#263747] text-[26px] font-[NotoSansKRBold] leading-[1.5]">{title}</h3>
                     </div>
                     <div className="p-[16px] lg:p-[40px] md:p-[24px]">{children}</div>
                 </div>

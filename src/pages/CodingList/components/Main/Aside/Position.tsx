@@ -5,13 +5,14 @@ import region from '@assets/images/codingList/region.svg';
 import { useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 
+const pages: position[][] = [];
+for (let i = 0; i < position.length; i += 3) {
+    const page: position[] = position.slice(i, i + 3);
+    pages.push(page);
+}
+
 export default function Position() {
     const [count, setCount] = useState(0);
-    const pages: position[][] = [];
-    for (let i = 0; i < position.length; i += 3) {
-        const page: position[] = position.slice(i, i + 3);
-        pages.push(page);
-    }
 
     useEffect(() => {
         if (pages.length < 3) return;
@@ -42,14 +43,14 @@ export default function Position() {
                             <img className="object-contain" onClick={onBannerClick} src={el.logo}></img>
                         </div>
                         <div>
-                            <div className="text-[0.875rem] font-bold cursor-pointer" onClick={onBannerClick}>
+                            <div className="text-[0.875rem] font-[NotoSansKRMedium] cursor-pointer" onClick={onBannerClick}>
                                 {el.title}
                             </div>
                             <div className="flex text-[0.75rem] gap-3 mt-[0.3125rem]">
-                                <div className="text-[#7890A0] cursor-pointer" onClick={onBannerClick}>
+                                <div className="text-[#7890A0] cursor-pointer font-[NotoSansKRMedium]" onClick={onBannerClick}>
                                     {el.company}
                                 </div>
-                                {el.response && <div className="bg-[#F0F5FA] text-[0.625rem] pt-0.5 text-[#0078FF] font-bold px-2 rounded">{el.response}</div>}
+                                {el.response && <div className="bg-[#F0F5FA] text-[0.625rem] pt-0.5 text-[#0078FF] font-[NotoSansKRBold] px-2 rounded">{el.response}</div>}
                             </div>
                             <div className="flex items-center text-[0.75rem] text-[#98A8B9] gap-[0.375rem] mt-[0.375rem]">
                                 <img className="w-[1.25rem] h-[1.25rem]" src={career} />
@@ -57,7 +58,7 @@ export default function Position() {
                             </div>
                             <div className="flex text-[0.75rem] text-[#98A8B9] gap-[0.375rem] mt-[0.375rem]">
                                 <img className="w-[1.25rem] h-[1.25rem]" src={region} />
-                                <div className="pt-0.5">{el.region}</div>
+                                <div className="pt-[0.05rem]">{el.region}</div>
                             </div>
                         </div>
                     </div>

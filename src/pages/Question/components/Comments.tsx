@@ -5,7 +5,7 @@ export const Comments = ({ comments, email, delCommentMutate }: CommentsProps) =
     return (
         <React.Fragment>
             <div className="m-[40px_0_8px_0] flex justify-between items-center">
-                <h5 className="text-[16px] leading-[1.6] font-[700]">{comments.length}개의 답변</h5>
+                <h5 className="text-[16px] leading-[1.6] font-[NotoSansKRBold]">{comments.length}개의 답변</h5>
             </div>
             {comments &&
                 comments.map((comment: CommentProps, idx: number) => {
@@ -15,16 +15,16 @@ export const Comments = ({ comments, email, delCommentMutate }: CommentsProps) =
                                 <div className="flex">
                                     <img className="w-[44px] h-[44px] rounded-[4px]" src={profile}></img>
                                     <div className="ml-[10px]">
-                                        <h5 className="text-[16px] font-[700]">{comment.userEmail}</h5>
+                                        <h5 className="text-[16px] font-[NotoSansKRBold]">{comment.userEmail}</h5>
                                         <h5 className="text-[14px] text-[#B2C0CC]">{comment.date}</h5>
                                     </div>
                                 </div>
                                 {email === comment.userEmail && (
                                     <button
-                                        className="bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[500] p-[5px_13px] md:p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"
+                                        className="bg-[#0078ff] text-[white] text-[14px] md:text-[16px] font-[NotoSansKRMedium] p-[5px_13px] md:p-[7px_13px] rounded-[4px] hover:bg-[#0053f4]"
                                         onClick={() => delCommentMutate(comment.idx)}
                                     >
-                                        <h5 className="mt-0.5">삭제</h5>
+                                        <h5 className="mb-0.5">삭제</h5>
                                     </button>
                                 )}
                             </div>

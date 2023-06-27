@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" width="16px" height="16px" fill="rgb(178,192,204)">
+    <path
+        fillRule="evenodd"
+        d="M7 11v2h2v-2H7Zm4 0v2h2v-2h-2Zm4 0v2h2v-2h-2Zm3-7V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 18a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-1ZM5 18V9h14v9H5Z"
+    ></path>
+</svg>
