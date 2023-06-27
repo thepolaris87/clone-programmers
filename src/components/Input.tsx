@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface MyProps {
-  svg: any,
+  svg: ReactNode,
   type: string,
   name: string,
   placeholder: string | undefined
