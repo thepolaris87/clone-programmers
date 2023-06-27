@@ -92,8 +92,8 @@ export default function CodingTest() {
                             setAnswers((prev) => {
                                 return { ...prev, [index]: ans };
                             });
-                            resolve();
-                        }, Math.random() * 2000 + 3000);
+                            resolve();                            
+                        }, Math.random() * 2000 + 1000);
                     });
             });
             await Promise.all(promises.map((promise: () => void) => promise()));
