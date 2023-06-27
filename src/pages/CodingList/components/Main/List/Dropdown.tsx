@@ -20,7 +20,8 @@ export default function Dropdown({ visibility, onClick, title, array, style, onC
                 className={`flex w-full items-center py-[0.6875rem] px-[1.25rem] border border-[rgb(255, 255, 255)] justify-between h-[40px] font-bold rounded-[0.25rem] ${style}`}
             >
                 {title}
-                <Down />
+                
+                <Down className='w-3'/>
             </button>
             <article className="absolute z-10">
                 {visibility ? (
