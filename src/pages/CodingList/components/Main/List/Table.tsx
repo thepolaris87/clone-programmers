@@ -75,18 +75,18 @@ export default function Table() {
     return (
         <>
             <div className="flex justify-between">
-                <div className="font-extrabold">{filteredData?.length + '문제'}</div>
+                <div className="font-[NotoSansKRBold]">{filteredData?.length + '문제'}</div>
                 <Sort />
             </div>
             <div className="border border-list_border rounded-md mt-[1rem]">
                 <table className=" w-full bg-white rounded-md ">
                     <thead className="">
                         <tr className="text-[0.75rem] text-[#98A8B9] p-[0.5625rem] border-b border-list_border">
-                            <th className="w-[3.75rem] text-center p-[0.5625rem]">상태</th>
-                            <th className="text-center p-[0.5625rem]">제목</th>
-                            <th className="w-[5rem] text-center p-[0.5625rem]">난이도</th>
-                            <th className="w-[6.25rem] text-right p-[0.5625rem]">완료한 사람</th>
-                            <th className="w-[5rem] text-right p-[0.5625rem]">정답률</th>
+                            <th className="w-[3.75rem] text-center p-[0.5625rem] font-[NotoSansKRBold]">상태</th>
+                            <th className="text-center p-[0.5625rem] font-[NotoSansKRBold]">제목</th>
+                            <th className="w-[5rem] text-center p-[0.5625rem] font-[NotoSansKRBold]">난이도</th>
+                            <th className="w-[6.25rem] text-right p-[0.5625rem] font-[NotoSansKRBold]">완료한 사람</th>
+                            <th className="w-[5rem] text-right p-[0.5625rem] font-[NotoSansKRBold]">정답률</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +103,7 @@ export default function Table() {
                                         <div className="mt-[0.0625rem] text-[0.75rem] overflow-hidden text-[#7890A0]">{el.category}</div>
                                     </td>
                                     <td
-                                        className="text-center font-bold w-[5rem] p-[0.5625rem] text-[0.875rem]"
+                                        className="text-center font-[NotoSansKRBold] w-[5rem] p-[0.5625rem] text-[0.875rem]"
                                         style={{
                                             color:
                                                 el.difficulty === '0'

@@ -17,7 +17,7 @@ export default function Dropdown({ visibility, onClick, title, array, style, onC
         <div className="bg-white">
             <button
                 onClick={onClick}
-                className={`flex w-full items-center py-[0.6875rem] px-[1.25rem] border border-[rgb(255, 255, 255)] justify-between h-[40px] font-bold rounded-[0.25rem] ${style}`}
+                className={`flex w-full items-center py-[0.6875rem] px-[1.25rem] border border-[rgb(255, 255, 255)] justify-between h-[40px] font-[NotoSansKRBold] rounded-[0.25rem] ${style}`}
             >
                 {title}
                 
