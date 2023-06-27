@@ -1,6 +1,6 @@
-                        <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[rgb(178,192,204)]">
-                            <path
-                                fillRule="evenodd"
-                                d="M20.01 3C21.108 3 22 3.897 22 5.006v9.988A2.003 2.003 0 0 1 20.01 17H18l-5 5v-5H3.99C2.892 17 2 16.103 2 14.994V5.006C2 3.898 2.898 3 3.99 3h16.02ZM9 9H7v2h2V9Zm4 0h-2v2h2V9Zm4 0h-2v2h2V9Z"
-                            ></path>
-                        </svg>
+<svg viewBox="0 0 24 24" width="16px" height="16px" fill="rgb(178,192,204)">
+    <path
+        fillRule="evenodd"
+        d="M20.01 3C21.108 3 22 3.897 22 5.006v9.988A2.003 2.003 0 0 1 20.01 17H18l-5 5v-5H3.99C2.892 17 2 16.103 2 14.994V5.006C2 3.898 2.898 3 3.99 3h16.02ZM9 9H7v2h2V9Zm4 0h-2v2h2V9Zm4 0h-2v2h2V9Z"
+    ></path>
+</svg>
