@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { toastAtom } from '@/atoms/toast';
 import { useSetAtom } from 'jotai';
-import { ReactComponent as ProgrammersLogo } from '@/assets/images/codingTest/programmers.svg';
+import { ProgrammersLogo } from '@/assets/images/codingTest';
 
 const navbars = ['강의', '국비지원', '코딩테스트 연습', 'MY 스쿨', '강사되기', '캠퍼스'];
 

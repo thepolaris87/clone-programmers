@@ -1,6 +1,6 @@
 import { Code } from '@/components/Code';
 import classNames from 'classnames';
-import { ReactComponent as Profile } from '@/assets/images/codingTest/profile.svg';
+import { Profile } from '@/assets/images/codingTest';
 
 export const CodeItem = ({ solution, onLike }: CodeItemProps) => {
     return (
