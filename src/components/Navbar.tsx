@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { toastAtom } from '@/atoms/toast';
 import { useSetAtom } from 'jotai';
-import { ReactComponent as ProgrammersLogo } from '@/assets/images/codingTest/programmers.svg';
+import { ProgrammersLogo } from '@/assets/images/codingTest';
 
 export const Navbar = () => {
     const navigate = useNavigate();
