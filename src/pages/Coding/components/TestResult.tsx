@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Spinner } from '@/components/Spinner';
 
-export const TestResult = ({ data, results, answerNum, error }: TestResultProps) => {
+export const TestResult = ({ data, results, answerNum, error, mode }: TestResultProps) => {
     return (
         <React.Fragment>
             {error ? (
@@ -13,19 +13,43 @@ export const TestResult = ({ data, results, answerNum, error }: TestResultProps)
                         const answer = result.output.toString() === results[index]?.toString();
                         if (answer) answerNum += 1;
                         return (
-                            <table key={index} className="w-[calc(100%-16px)] pr-[16px] border-[#172334] border-[1px]">
+                            <table
+                                key={index}
+                                className={classNames(
+                                    mode ? 'border-[#172334]' : 'border-[#cdd8dd]',
+                                    index !== 0 && 'border-t-0',
+                                    'w-[calc(100%-16px)] pr-[16px] border-[1px]'
+                                )}
+                            >
                                 <tbody>
                                     <tr>
-                                        <td className="bg-[#202b3d] text-[#b2c0cc] text-[14px] p-[4px_16px] leading-[24px]" colSpan={2}>
+                                        <td
+                                            className={classNames(
+                                                mode ? 'bg-[#202b3d] text-[#b2c0cc]' : 'bg-[rgba(50,50,144,0.02)] text-[#44576c]',
+                                                'text-[14px] p-[4px_16px] leading-[24px]'
+                                            )}
+                                            colSpan={2}
+                                        >
                                             테스트 &nbsp; {index + 1}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="bg-[#202b3d] text-[#44576c] w-[160px] text-[14px] p-[2px_8px] leading-[24px]" align="right">
+                                        <td
+                                            className={classNames(
+                                                mode ? 'bg-[#202b3d]' : 'bg-[rgba(50,50,144,0.02)] border-t-[1px] border-[#cdd8dd]',
+                                                'w-[160px] text-[#44576c] text-[14px] p-[2px_8px] leading-[24px]'
+                                            )}
+                                            align="right"
+                                        >
                                             입력값&nbsp;
-                                            <span className="text-[#44576c] text-[14px]">&#62;</span>
+                                            <span>&#62;</span>
                                         </td>
-                                        <td className="bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[24px]">
+                                        <td
+                                            className={classNames(
+                                                mode ? 'bg-[#202b3d]' : 'bg-[rgba(50,50,144,0.02)] border-t-[1px] border-[#cdd8dd]',
+                                                'text-[#44576c] text-[14px] p-[2px_8px_2px_0] leading-[24px]'
+                                            )}
+                                        >
                                             {typeof result.input[0] === 'object' ? '[' + String(result.input[0]) + ']' : String(result.input[0])}
                                             {result.input[1] && typeof result.input[1] === 'object'
                                                 ? ', [' + String(result.input[1]) + ']'
@@ -33,23 +57,41 @@ export const TestResult = ({ data, results, answerNum, error }: TestResultProps)
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="bg-[#202b3d] text-[#44576c] w-[160px] text-[14px] p-[2px_8px] leading-[24px]" align="right">
+                                        <td
+                                            className={classNames(
+                                                mode ? 'bg-[#202b3d]' : 'bg-[rgba(50,50,144,0.02)] border-t-[1px] border-[#cdd8dd]',
+                                                'text-[#44576c] w-[160px] text-[14px] p-[2px_8px] leading-[24px]'
+                                            )}
+                                            align="right"
+                                        >
                                             기댓값&nbsp;
-                                            <span className="text-[#44576c] text-[14px]">&#62;</span>
+                                            <span>&#62;</span>
                                         </td>
-                                        <td className="bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[24px]">
+                                        <td
+                                            className={classNames(
+                                                mode ? 'bg-[#202b3d]' : 'bg-[rgba(50,50,144,0.02)] border-t-[1px] border-[#cdd8dd]',
+                                                'text-[#44576c] text-[14px] p-[2px_8px_2px_0] leading-[24px]'
+                                            )}
+                                        >
                                             {typeof result.output === 'object' ? '[' + String(result.output) + ']' : String(result.output)}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="bg-[#202b3d] text-[#44576c] w-[160px] text-[14px] p-[2px_8px] leading-[24px]" align="right">
+                                        <td
+                                            className={classNames(
+                                                mode ? 'bg-[#202b3d]' : 'bg-[rgba(50,50,144,0.02)] border-t-[1px] border-[#cdd8dd]',
+                                                'text-[#44576c] w-[160px] text-[14px] p-[2px_8px] leading-[24px]'
+                                            )}
+                                            align="right"
+                                        >
                                             실행 결과&nbsp;
-                                            <span className="text-[#44576c] text-[14px]">&#62;</span>
+                                            <span>&#62;</span>
                                         </td>
                                         <td
                                             className={classNames(
-                                                'bg-[#202b3d] text-[14px] p-[2px_8px_2px_0] leading-[24px]',
-                                                answer ? 'text-[#0078ff]' : 'text-[#d32f2f]'
+                                                'text-[14px] p-[2px_8px_2px_0] leading-[24px]',
+                                                answer ? 'text-[#0078ff]' : 'text-[#d32f2f]',
+                                                mode ? 'bg-[#202b3d]' : 'bg-[rgba(50,50,144,0.02)] border-t-[1px] border-[#cdd8dd]'
                                             )}
                                         >
                                             {results[index] === null ? (
@@ -69,7 +111,7 @@ export const TestResult = ({ data, results, answerNum, error }: TestResultProps)
                     })}
                     {Object.keys(results).every((result) => results[Number(result)] !== null) && (
                         <React.Fragment>
-                            <div className="text-[#98a8b9] text-[12.25px] m-[24px_0_8px_0]">테스트 결과 (~˘▾˘)~</div>
+                            <div className={classNames(mode ? 'text-[#98a8b9]' : 'text-[black]', 'text-[12.25px] m-[24px_0_8px_0]')}>테스트 결과 (~˘▾˘)~</div>
                             <div
                                 className={classNames(
                                     'text-[16px] font-[NotoSansKRMedium] m-[4px_0_24px_0]',

@@ -1,69 +1,69 @@
 import styled from '@emotion/styled';
-
-export const TestContainer = styled.div`
+// ${(props) => (props.mode ? 'white' : '#263747')};
+export const TestContainer = styled.div<{ mode: number }>`
     .title {
-        color: white;
+        color: ${(props) => (props.mode ? 'white' : '#263747')};
         font-size: 15px;
     }
     .textBox {
-        color: #b2c0cc;
+        color: ${(props) => (props.mode ? '#b2c0cc' : '#263747')};
         font-size: 16px;
         margin-top: 16px;
         line-height: 28.8px;
     }
     .codeBox {
         padding: 16px;
-        background-color: #202b3d;
-        color: white;
+        background-color: ${(props) => (props.mode ? '#202b3d' : '#f1f4f7')};
+        color: ${(props) => (props.mode ? 'white' : '#263747')};
         font-size: 16px;
         margin-top: 16px;
     }
     .restriction {
-        color: #b2c0cc;
+        color: ${(props) => (props.mode ? '#b2c0cc' : '#263747')};
         font-size: 16px;
         margin-top: 4px;
         margin-left: 16px;
     }
     .restriction2 {
-        color: #b2c0cc;
+        color: ${(props) => (props.mode ? '#b2c0cc' : '#263747')};
         font-size: 16px;
         margin-top: 4px;
         margin-left: 36px;
     }
     .example {
-        color: #b2c0cc;
+        color: ${(props) => (props.mode ? '#b2c0cc' : '#263747')};
         font-size: 16px;
         font-weight: 400;
         margin-top: 12px;
     }
     .description {
-        color: #b2c0cc;
+        color: ${(props) => (props.mode ? '#b2c0cc' : '#263747')};
         font-size: 16px;
         margin-top: 16px;
         margin-left: 16px;
     }
     .line {
         width: 100%;
-        border: 0.5px solid #172334;
+        border-bottom: ${(props) => (props.mode ? '0.1px solid #172334' : '0.1px solid #d7e2eb')};
     }
     .table {
-        background-color: #202b3d;
-        color: white;
+        background-color: ${(props) => (props.mode ? '#202b3d' : '#f1f4f7')};
+        color: ${(props) => (props.mode ? 'white' : '#263747')};
         margin-top: 10px;
         text-align: center;
-        border: 0.5px solid rgb(23, 35, 52);
+        border: ${(props) => (props.mode ? '0.5px solid rgb(23, 35, 52)' : '0.5px solid #d7e2eb')};
         th {
             height: 32px;
             font-weight: 400;
-            color: white;
-            border: 0.5px solid rgb(23, 35, 52);
+            color: ${(props) => (props.mode ? 'white' : '#263747')};
+            border: ${(props) => (props.mode ? '0.5px solid rgb(23, 35, 52)' : '0.5px solid #d7e2eb')};
         }
         td {
             height: 32px;
             min-width: 64px;
             text-align: center;
-            color: #b2c0cc;
-            border: 1px solid rgb(23, 35, 52);
+            color: ${(props) => (props.mode ? '#b2c0cc' : '#263747')};
+            border: ${(props) => (props.mode ? '0.5px solid rgb(23, 35, 52)' : '0.5px solid #d7e2eb')};
         }
     }
 `;

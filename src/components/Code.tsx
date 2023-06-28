@@ -1,19 +1,27 @@
 import Editor, { Monaco } from '@monaco-editor/react';
-import { useCallback } from 'react';
+import { useCallback, useRef, useEffect, useMemo } from 'react';
 
 export const Code = ({ content, color, onChange }: { content?: string; color: string; onChange?: (value: string) => void }) => {
+    const monacoRef = useRef<Monaco>();
+    const colors = useMemo(() => ['#e9ecf3', '#ffffff'], []);
+
     const beforeMount = useCallback(
         (monaco: Monaco) => {
             monaco?.editor.defineTheme('code-theme', {
-                base: color === '#e9ecf3' ? 'vs' : 'vs-dark',
+                base: colors.includes(color) ? 'vs' : 'vs-dark',
                 inherit: true,
                 rules: [],
                 colors: { 'editor.background': color }
             });
             monaco?.editor.setTheme('code-theme');
+            monacoRef.current = monaco;
         },
-        [color]
+        [color, colors]
     );
+
+    useEffect(() => {
+        if (monacoRef.current) beforeMount(monacoRef.current);
+    }, [beforeMount, color]);
 
     return (
         <Editor

@@ -1,20 +1,35 @@
 import { toastAtom } from '@/atoms/toast';
 import { useSetAtom } from 'jotai';
+import classNames from 'classnames';
 
-export const Header = ({ title }: { title: string }) => {
+export const Header = ({ title, onSetMode, mode }: { title: string; onSetMode: (value: boolean) => void; mode: boolean }) => {
     const toastMessage = useSetAtom(toastAtom);
     return (
-        <section className="h-[56px] flex relative bg-[#263747] px-[16px] justify-between shadow-[0_1px_#172334]">
-            <h5 className="text-[white] pt-[15px]">{title}</h5>
+        <section
+            className={classNames(
+                mode ? 'bg-[#263747] shadow-[0_1px_#172334]' : 'bg-[#f1f4f7] shadow-[0_1px_#cdd8dd]',
+                'h-[56px] flex relative px-[16px] justify-between'
+            )}
+        >
+            <h5 className={classNames(mode ? 'text-[white]' : 'text-[#263747]', 'pt-[15px]')}>{title}</h5>
             <span className="flex items-center justify-end h-[48px]">
-                <button className="hidden w-[40px] h-[24px] text-[12px] text-[white] rounded-[3.2px_0_0_3.2px] bg-[#44576c] md:block">
+                <button
+                    className={classNames(
+                        mode ? 'bg-[#44576c] text-[white]' : 'bg-[#f1f4f7] text-[#44576c] border-[1px] border-[#44576c] hover:text-[white] hover:bg-[#44576c] ',
+                        'hidden w-[40px] h-[24px] text-[12px] rounded-[3.2px_0_0_3.2px] md:block'
+                    )}
+                    onClick={() => onSetMode(true)}
+                >
                     <h5>dark</h5>
                 </button>
                 <button
-                    className="hidden w-[40px] h-[24px] text-[12px] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] rounded-[0_3.2px_3.2px_0] mr-[-1px] border-[#44576c] border-[1px] md:block"
-                    onClick={() => {
-                        toastMessage({ message: 'light 모드 준비 중입니다.' });
-                    }}
+                    className={classNames(
+                        mode
+                            ? 'text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] border-[#44576c]'
+                            : 'bg-[#44576c] text-[white] border-[#44576c]',
+                        'hidden w-[40px] h-[24px] text-[12px] rounded-[0_3.2px_3.2px_0] mr-[-1px] border-[1px] md:block'
+                    )}
+                    onClick={() => onSetMode(false)}
                 >
                     <h5>light</h5>
                 </button>
@@ -27,7 +42,10 @@ export const Header = ({ title }: { title: string }) => {
                     <h5>sublime</h5>
                 </button>
                 <button
-                    className="hidden w-[34px] h-[24px] text-[12px] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] mr-[-1px] border-[#44576c] border-[1px] md:block"
+                    className={classNames(
+                        mode ? 'text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c]' : 'text-[#44576c] hover:text-[white] hover:bg-[#44576c]',
+                        'hidden w-[34px] h-[24px] text-[12px] mr-[-1px] border-[#44576c] border-[1px] md:block'
+                    )}
                     onClick={() => {
                         toastMessage({ message: 'vim 모드 준비 중입니다.' });
                     }}
@@ -35,7 +53,10 @@ export const Header = ({ title }: { title: string }) => {
                     <h5>vim</h5>
                 </button>
                 <button
-                    className="hidden w-[51px] h-[24px] text-[12px] text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c] rounded-[0_3.2px_3.2px_0] mr-[-1px] border-[#44576c] border-[1px] md:block"
+                    className={classNames(
+                        mode ? 'text-[#44576c] hover:text-[white] bg-[#263747] hover:bg-[#44576c]' : 'text-[#44576c] hover:text-[white] hover:bg-[#44576c]',
+                        'hidden w-[51px] h-[24px] text-[12px] mr-[-1px] border-[#44576c] border-[1px] md:block rounded-[0_3.2px_3.2px_0]'
+                    )}
                     onClick={() => {
                         toastMessage({ message: 'emacs 모드 준비 중입니다.' });
                     }}
