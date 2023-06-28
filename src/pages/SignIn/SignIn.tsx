@@ -92,7 +92,6 @@ export default function SignIn() {
         const email = (event.target as HTMLFormElement).email.value;
         const password1 = (event.target as HTMLFormElement).pw1.value;
         const password2 = (event.target as HTMLFormElement).pw2.value;
-        console.log(name);
         if (!name) {
             setCheckName('');
         } else {
