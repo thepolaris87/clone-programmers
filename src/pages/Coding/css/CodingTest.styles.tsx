@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-// ${(props) => (props.mode ? 'white' : '#263747')};
+
 export const TestContainer = styled.div<{ mode: number }>`
     .title {
         color: ${(props) => (props.mode ? 'white' : '#263747')};
