@@ -10,4 +10,4 @@ type TestResultProps = { data: ResultProps[]; results: { [key: number]: number |
 
 type ResultProps = { input: string[] | number[]; output: number | string | string[] | number[] };
 
-type HeaderProps = { title: string; onSetMode: (value: boolean) => void; mode: boolean };
+type CodingHeaderProps = { title: string; onSetMode: (value: boolean) => void; mode: boolean };
