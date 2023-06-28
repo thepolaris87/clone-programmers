@@ -17,6 +17,7 @@ export default function DropDownMenu() {
         const test = Array.from(new Set(list?.map((q) => q.category)));
         return { level, test };
     }, [listData]);
+    console.log(listData);
 
     const onDropDownClick = (type: 'level' | 'test') => {
         setDropDown({ ...initialDropdown, [type]: !dropdown[type] });

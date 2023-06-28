@@ -187,7 +187,9 @@ export default function Carousel() {
                                     >
                                         <LeftBtn />
                                     </button>
-                                    <span className="text-white font-[NotoSansKRBold]">0{i === 6 ? 1 : i === 0 ? 5 : i}</span>
+                                    <span className="text-white font-[NotoSansKRBold]">
+                                        0{i === slideItems.length - 1 ? 1 : i === 0 ? slideItems.length - 2 : i}
+                                    </span>
                                     <span className="border w-0 h-3 border-white"></span>
                                     <span className="text-white">05</span>
                                     <button

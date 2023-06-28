@@ -21,7 +21,6 @@ export default function SignIn() {
     const [signUpBtn, setSignUpBtn] = useState<string>('bg-[#C8C8C8]');
     const [SuccessSignUp, setSuccessSignUp] = useState<boolean>(false);
     const [initText, setInitText] = useState<string>('');
-
     const [e_mail, setE_mail] = useState<email>({ email: 'hidden', email2: 'hidden', email3: 'hidden' });
     const [password, setPassword] = useState<password>({ pw: 'hidden', pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
     const [check, setCheck] = useState<check>({
