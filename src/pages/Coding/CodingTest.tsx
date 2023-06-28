@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getQuestion, postSolution } from '@/apis/api';
 import * as MarkDown from '@/assets/programmers/index';
 import { TestContainer } from './css/CodingTest.styles';
+import classNames from 'classnames';
 import { Modal } from '@/components/Modal';
 import { Code } from '../../components/Code';
 import { Resizable } from 're-resizable';
@@ -27,6 +28,7 @@ export default function CodingTest() {
     const [loading, setLoading] = useState(false);
     const [checkLoading, setCheckLoading] = useState(false);
     const [width, setWidth] = useState('45%');
+    const [mode, setMode] = useState(true);
     const answerNum = 0;
     const MarkDownTag = MarkDown[params.questionId as keyof typeof MarkDown];
 
@@ -44,7 +46,9 @@ export default function CodingTest() {
         }
         setValue(obj);
     }, []);
-
+    const onSetMode = (value: boolean) => {
+        setMode(value);
+    };
     const runFunc = () => {
         setError('');
         setCheckLoading(false);
@@ -92,7 +96,7 @@ export default function CodingTest() {
                             setAnswers((prev) => {
                                 return { ...prev, [index]: ans };
                             });
-                            resolve();                            
+                            resolve();
                         }, Math.random() * 2000 + 1000);
                     });
             });
@@ -130,11 +134,11 @@ export default function CodingTest() {
     }, [data, onResetResult]);
 
     return (
-        <TestContainer>
+        <TestContainer mode={mode ? 1 : 0}>
             <div className="codingTest break-words break-keep shadow-[#172334]">
                 <Navbar setModal={setModal} title={data.questionStatus.title} category={data.questionStatus.category} />
-                <Header title={data.questionStatus.title} />
-                <div className="min-h-[500px] h-[100%] bg-[#263747]">
+                <Header title={data.questionStatus.title} onSetMode={onSetMode} mode={mode} />
+                <div className={classNames(mode ? 'bg-[#263747]' : 'bg-[white]', 'min-h-[500px] h-[100%]')}>
                     <section className="flex h-[calc(100vh-(47px+56px+57px))]">
                         <Resizable
                             size={{ width, height: '100%' }}
@@ -153,31 +157,49 @@ export default function CodingTest() {
                             }}
                             style={{ display: 'flex', padding: '20px 15px', overflowY: 'scroll', overflowX: 'hidden' }}
                         >
-                            <span className="overflow-y-auto leading-7">
+                            <span className="overflow-y-auto leading-7 pr-4">
                                 <MarkDownTag />
                             </span>
                         </Resizable>
-                        <div className="border-[0.1px] border-[#172334]" />
+                        <div className={classNames(mode ? 'border-[#172334]' : 'border-[#cdd8dd]', 'border-r-[0.1px]')} />
                         <div className="w-[calc(60%-12px)] h-[100%]">
                             <div className="h-[calc(60%-7px)]">
                                 <div className="h-[100%]">
-                                    <div className="p-[16px] w-[100%] h-[54px] text-[14px] text-[white] font-[NotoSansKRBold] border-b-[1px] border-[#172334]">
+                                    <div
+                                        className={classNames(
+                                            mode ? 'text-[white] border-[#172334]' : 'text-[#263747] border-[#cdd8dd]',
+                                            'p-[16px] w-[100%] h-[54px] text-[14px] font-[NotoSansKRBold] border-b-[1px]'
+                                        )}
+                                    >
                                         <h5>solution.js</h5>
                                     </div>
-                                    <div className="h-[calc(100%-54px)] pt-[16px] border-b-[1px] border-[#172334]">
-                                        <Code content={codeValue} color="#263747" onChange={setCodeValue} />
+                                    <div className={classNames(mode ? 'border-[#172334]' : 'border-[#cdd8dd]', 'h-[calc(100%-54px)] pt-[16px] border-b-[1px]')}>
+                                        <Code content={codeValue} color={mode ? '#263747' : '#ffffff'} onChange={setCodeValue} />
                                     </div>
                                 </div>
                                 <div className="h-[calc(53%-7px)]">
-                                    <div className="h-[55px] p-[0_16px] border-b-[1px] border-[#172334] flex items-center">
-                                        <h5 className="text-[#4F6B81] text-[14px] font-[NotoSansKRBold]">실행 결과</h5>
+                                    <div
+                                        className={classNames(
+                                            mode ? 'border-[#172334]' : 'border-[#cdd8dd] bg-[white]',
+                                            'h-[55px] p-[0_16px] border-b-[1px] flex items-center'
+                                        )}
+                                    >
+                                        <h5 className={classNames(mode ? 'text-[#4F6B81]' : 'black', 'text-[14px] font-[NotoSansKRBold]')}>실행 결과</h5>
                                     </div>
                                     <div className="h-[100%] px-[16px] overflow-auto">
-                                        <div className="text-[14px] leading-[24px] pt-[16px] bg-[#263747] text-[#78909c]">
+                                        <div
+                                            className={classNames(mode ? 'bg-[#263747]' : 'bg-[white]', 'text-[14px] leading-[24px] pt-[16px] text-[#78909c]')}
+                                        >
                                             {loading ? (
-                                                <TestResult data={data.questionStatus.testCase} results={results} answerNum={answerNum} error={error} />
+                                                <TestResult
+                                                    data={data.questionStatus.testCase}
+                                                    results={results}
+                                                    answerNum={answerNum}
+                                                    error={error}
+                                                    mode={mode}
+                                                />
                                             ) : checkLoading ? (
-                                                <HiddenResult answers={answers} totalNum={totalNum} />
+                                                <HiddenResult answers={answers} totalNum={totalNum} mode={mode} />
                                             ) : (
                                                 <div className="text-[#78909C] text-[14px]">실행 결과가 여기에 표시됩니다.</div>
                                             )}
@@ -187,7 +209,7 @@ export default function CodingTest() {
                             </div>
                         </div>
                     </section>
-                    <BottomNavbar functions={[onReset, runFunc, onSubmit]} questionId={params.questionId as string} />
+                    <BottomNavbar functions={[onReset, runFunc, onSubmit]} questionId={params.questionId as string} mode={mode} />
                 </div>
             </div>
             <Modal title="컴파일 옵션" width="700px" open={modal} onClick={setModal}>

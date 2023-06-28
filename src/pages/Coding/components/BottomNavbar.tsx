@@ -1,11 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
-export const BottomNavbar = ({ functions, questionId }: BottomNavbarProps) => {
+export const BottomNavbar = ({ functions, questionId, mode }: BottomNavbarProps) => {
     const [onReset, runFunc, onSubmit] = functions;
     const navigate = useNavigate();
 
     return (
-        <section className="flex justify-between h-[57px] bg-[#263747] border-t-[1px] border-[#172334] px-[16px] py-[8px] font-[NotoSansKRMedium]">
+        <section
+            className={classNames(
+                mode ? 'bg-[#263747] border-[#172334]' : 'bg-[#f1f4f7] border-[#cdd8dd]',
+                'flex justify-between h-[57px] border-t-[1px] px-[16px] py-[8px] font-[NotoSansKRMedium]'
+            )}
+        >
             <span className="hidden md:flex">
                 <button
                     className="w-[113px] h-[40px] bg-[#44576c] hover:bg-[#37485D] text-[white] rounded-[4px] mx-[4px]"
