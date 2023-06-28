@@ -27,11 +27,11 @@ export default function Table() {
     const sort = useAtomValue(sortAtom);
 
     const filteredData = useMemo(() => {
-        const levelFilter = filters.filter((f) => ['LV.1', 'LV.2', 'LV.3'].includes(f));
-        const testFilter = filters.filter((f) => !['LV.1', 'LV.2', 'LV.3'].includes(f));
+        const levelFilter = filters.level;
+        const testFilter = filters.test;
 
         const level = listData?.questions.filter((q: filteredData) => {
-            if (filters.length === 0) return true;
+            if (filters.test.length === 0 && filters.test.length === 0) return true;
             const condi1 = levelFilter.length === 0 || levelFilter.includes(`LV.${q.difficulty}`);
             const condi2 = testFilter.length === 0 || testFilter.includes(q.category);
             return condi1 && condi2;
