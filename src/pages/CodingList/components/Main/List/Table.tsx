@@ -80,7 +80,7 @@ export default function Table() {
             </div>
             <div className="border border-list_border rounded-md mt-[1rem]">
                 <table className=" w-full bg-white rounded-md ">
-                    <thead className="">
+                    <thead>
                         <tr className="text-[0.75rem] text-[#98A8B9] p-[0.5625rem] border-b border-list_border">
                             <th className="w-[3.75rem] text-center p-[0.5625rem] font-[NotoSansKRBold]">상태</th>
                             <th className="text-center p-[0.5625rem] font-[NotoSansKRBold]">제목</th>

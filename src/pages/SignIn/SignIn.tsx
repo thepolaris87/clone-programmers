@@ -202,7 +202,7 @@ export default function SignIn() {
                             <img className="max-w-lg w-[100%] md:block hidden" src={main}></img>
                         </div>
                         <div className="justify-center w-full sm:w-auto ">
-                            <div className="">
+                            <div>
                                 {SuccessSignUp ? (
                                     <div className="bg-white w-full sm:w-[468px] md:w-[378px] items-center lg:w-[468px] min-w-[232px] rounded-2xl mt-10 md:mt-40 h-[30rem] flex justify-center">
                                         <div>
@@ -315,7 +315,7 @@ export default function SignIn() {
                                                         <Check text={'비밀번호 확인을 입력해주세요.'} hidden={password.pw3} />
                                                         <Check text={'입력하신 비밀번호와 다릅니다.'} hidden={password.pw4} />
                                                         <div className="mt-[2.625rem] flex flex-col">
-                                                            <span className="">
+                                                            <span>
                                                                 <input type="checkbox" className="mr-2" checked={check.allCheck} onChange={allBtnEvent} />
                                                                 <span>전체동의</span>
                                                             </span>
