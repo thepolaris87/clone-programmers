@@ -23,19 +23,6 @@ type questions = {
       }[]
     | undefined;
 
-type email = {
-    email: string;
-    email2: string;
-    email3: string;
-};
-
-type password = {
-    pw: string;
-    pw2: string;
-    pw3: string;
-    pw4: string;
-};
-
 type position = {
     logo: string;
     title: string;

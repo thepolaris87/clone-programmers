@@ -16,29 +16,15 @@ import { ReactComponent as Caution } from '@assets/images/signin/caution.svg';
 
 export default function SignIn() {
     const [signIn, setSignIn] = useState<boolean>(true);
-
-    //약관
-    const [allCheck, setAllCheck] = useState<boolean>(false);
-    const [useCheck, setUseCheck] = useState<boolean>(false);
-    const [personalCheck, setPersonalCheck] = useState<boolean>(false);
-    const [ageCheck, setAgeCheck] = useState<boolean>(false);
-    const [marketingCheck, setMarketingCheck] = useState<boolean>(false);
-    const [mustCheck, setMustCheck] = useState<boolean>(false);
     const [checkName, setCheckName] = useState<string>('hidden');
-    const [checkPw, setCheckPw] = useState<string>('hidden');
-    const [checkEmail, setCheckEmail] = useState<string>('hidden');
-    const [checkPw2, setCheckPw2] = useState<string>('hidden');
-    const [checkEmail2, setCheckEmail2] = useState<string>('hidden');
-    const [checkEmail3, setCheckEmail3] = useState<string>('hidden');
-    const [checkPw3, setCheckPw3] = useState<string>('hidden');
-    const [checkPw4, setCheckPw4] = useState<string>('hidden');
     const [text, setText] = useState<string>('');
     const [signUpBtn, setSignUpBtn] = useState<string>('bg-[#C8C8C8]');
     const [SuccessSignUp, setSuccessSignUp] = useState<boolean>(false);
     const [initText, setInitText] = useState<string>('');
 
-    // const [e_mail, setE_mail] = useState<email>({ email: 'hidden', email2: 'hidden', email3: 'hidden' });
-    // const [password, setPassword] = useState<password>({ pw: 'hidden', pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
+    const [e_mail, setE_mail] = useState<email>({ email: 'hidden', email2: 'hidden', email3: 'hidden' });
+    const [password, setPassword] = useState<password>({ pw: 'hidden', pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
+    const [check, setCheck] = useState<check>({allCheck: false, useCheck: false, personalCheck: false, ageCheck: false, marketingCheck: false, mustCheck: false})
 
     const navigate = useNavigate();
     const setName = useSetAtom(nameAtom);
@@ -58,7 +44,7 @@ export default function SignIn() {
             setToken(data.accessToken);
         },
         onError: () => {
-            setCheckPw('');
+            setPassword({ ...password, pw: '' });
             setText('이메일 또는 비밀번호를 다시 확인하세요.');
         }
     });
@@ -69,7 +55,7 @@ export default function SignIn() {
             setSuccessSignUp(true);
         },
         onError: () => {
-            setCheckEmail3('');
+            setE_mail({ ...e_mail, email3: '' });
         }
     });
 
@@ -78,12 +64,12 @@ export default function SignIn() {
         event?.preventDefault();
         const email = (event.target as HTMLFormElement).email.value;
         const password = (event.target as HTMLFormElement).password.value;
-        !email ? setCheckEmail('') : setCheckEmail('hidden');
+        !email ? setE_mail({ ...e_mail, email: '' }) : setE_mail({ ...e_mail, email: 'hidden' });
         if (!password) {
-            setCheckPw('');
+            setPassword({ ...password, pw: '' });
             setText('비밀번호를 입력해주세요.');
         } else {
-            setCheckPw('hidden');
+            setPassword({ ...password, pw: 'hidden' });
         }
         if (!email || !password) return;
         // signInMutation.mutate({ email: email, password: password });
@@ -95,7 +81,7 @@ export default function SignIn() {
     //회원가입
     const onSignUpClick = async (event: React.FormEvent<HTMLFormElement>) => {
         event?.preventDefault();
-        if (!mustCheck) return;
+        if (!check.mustCheck) return;
         const name = ((event.target as HTMLFormElement).name as any).value;
         const email = (event.target as HTMLFormElement).email.value;
         const password1 = (event.target as HTMLFormElement).pw1.value;
@@ -106,25 +92,25 @@ export default function SignIn() {
             setCheckName('hidden');
         }
         if (!email) {
-            setCheckEmail3('hidden');
-            setCheckEmail2('');
+            setE_mail({ ...e_mail, email3: 'hidden' });
+            setE_mail({ ...e_mail, email2: '' });
         } else {
-            setCheckEmail2('hidden');
+            setE_mail({ ...e_mail, email2: '' });
         }
         if (!password1) {
-            setCheckPw2('');
+            setPassword({ ...password, pw2: '' });
         } else {
-            setCheckPw2('hidden');
+            setPassword({ ...password, pw2: 'hidden' });
         }
         if (!password2) {
-            setCheckPw3('');
+            setPassword({ ...password, pw3: '' });
         } else {
-            setCheckPw3('hidden');
+            setPassword({ ...password, pw3: 'hidden' });
         }
         if (password1 && password2 && password1 !== password2) {
-            setCheckPw4('');
+            setPassword({ ...password, pw4: '' });
         } else {
-            setCheckPw4('hidden');
+            setPassword({ ...password, pw4: 'hidden' });
         }
 
         if (!name || !email || !password1 || !password2) return;
@@ -138,68 +124,54 @@ export default function SignIn() {
 
     //약관동의
     const allBtnEvent = () => {
-        setAllCheck(!allCheck);
-        if (allCheck) {
-            setUseCheck(false);
-            setPersonalCheck(false);
-            setAgeCheck(false);
-            setMarketingCheck(false);
+        setCheck({...check, allCheck: !check.allCheck})
+        if (check.allCheck) {
+            setCheck({...check, useCheck: false, personalCheck: false, ageCheck: false, marketingCheck: false})
         } else {
-            setUseCheck(true);
-            setPersonalCheck(true);
-            setAgeCheck(true);
-            setMarketingCheck(true);
+            setCheck({...check, useCheck: true, personalCheck: true, ageCheck: true, marketingCheck: true})
         }
     };
     const useBtnEvent = () => {
-        setUseCheck(!useCheck);
+        setCheck({...check, useCheck: !check.useCheck});
     };
     const personalBtnEvent = () => {
-        setPersonalCheck(!personalCheck);
+        setCheck({...check, personalCheck: !check.personalCheck});
     };
     const ageBtnEvent = () => {
-        setAgeCheck(!ageCheck);
+        setCheck({...check, ageCheck: !check.ageCheck});
     };
     const marketingBtnEvent = () => {
-        setMarketingCheck(!marketingCheck);
+        setCheck({...check, marketingCheck: !check.marketingCheck});
     };
 
     useEffect(() => {
         //약관 전체 동의
-        if (!useCheck || !personalCheck || !ageCheck || !marketingCheck) {
-            setAllCheck(false);
-        } else if (useCheck && personalCheck && ageCheck && marketingCheck) {
-            setAllCheck(true);
+        if (!check.useCheck || !check.personalCheck || !check.ageCheck || !check.marketingCheck) {
+            setCheck({...check, allCheck: false});
+        } else if (check.useCheck && check.personalCheck && check.ageCheck && check.marketingCheck) {
+            setCheck({...check, allCheck: true});
         }
 
         //필수 약관 동의
-        if (useCheck && personalCheck) {
-            setMustCheck(true);
+        if (check.useCheck && check.personalCheck) {
+            setCheck({...check, mustCheck: true});
             setSignUpBtn('bg-signin_btn cursor-pointer');
         } else {
-            setMustCheck(false);
+            setCheck({...check, mustCheck: false});
             setSignUpBtn('bg-[#C8C8C8]');
         }
-    }, [useCheck, personalCheck, ageCheck, marketingCheck]);
+    }, [check.useCheck, check.personalCheck, check.ageCheck, check.marketingCheck]);
 
     const initSignInPage = () => {
-        setCheckEmail('hidden');
-        setCheckPw('hidden');
+        setE_mail({ ...e_mail, email: 'hidden' });
+        setPassword({ ...password, pw: 'hidden' });
     };
 
     const initSignUpPage = () => {
-        // setE_mail({ email: 'hidden', email2: 'hidden', email3: 'hidden' });
-        // setPassword({ pw: 'hidden', pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
+        setE_mail({ ...e_mail, email2: 'hidden', email3: 'hidden' });
+        setPassword({ ...password, pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
         setCheckName('hidden');
-        setCheckEmail2('hidden');
-        setCheckEmail3('hidden');
-        setCheckPw2('hidden');
-        setCheckPw3('hidden');
-        setCheckPw4('hidden');
-        setUseCheck(false);
-        setPersonalCheck(false);
-        setMarketingCheck(false);
-        setAgeCheck(false);
+        setCheck({...check, useCheck: false, personalCheck: false, ageCheck: false, marketingCheck: false})
     };
 
     return (
@@ -288,12 +260,12 @@ export default function SignIn() {
                                                                 onChange={(e) => setInitText(e.target.value)}
                                                             ></input>
                                                         </div>
-                                                        <Check text={'이메일을 입력해주세요.'} hidden={checkEmail} />
+                                                        <Check text={'이메일을 입력해주세요.'} hidden={e_mail.email} />
                                                         <div className="flex justify-between mt-[2.25rem] mb-[0.5rem]">
                                                             <div className="font-bold">비밀번호</div>
                                                         </div>
                                                         <InputPw placeholder={'비밀번호를 입력해주세요'} name={'password'} />
-                                                        <div className={`flex gap-2 items-center pt-2 ${checkPw} text-[#f90]`}>
+                                                        <div className={`flex gap-2 items-center pt-2 ${password.pw} text-[#f90]`}>
                                                             <div className="pt-[0.1rem]">
                                                                 <Caution />
                                                             </div>
@@ -324,38 +296,38 @@ export default function SignIn() {
                                                         </div>
                                                         <div className="mt-[2.25rem] mb-[0.625rem] font-bold">이메일</div>
                                                         <Input svg={<Email />} type={'text'} name={'email'} placeholder={'이메일을 입력해 주세요'} />
-                                                        <div className={`flex gap-1 mt-2 text-[#f90] ${checkEmail3}`}>
+                                                        <div className={`flex gap-1 mt-2 text-[#f90] ${e_mail.email3}`}>
                                                             <Caution />
                                                             이미 사용중이거나 올바르지 않은 이메일입니다. <br /> 다른 이메일을 입력해주세요.
                                                         </div>
-                                                        <Check text={'이메일을 입력해주세요.'} hidden={checkEmail2} />
+                                                        <Check text={'이메일을 입력해주세요.'} hidden={e_mail.email2} />
                                                         <div className="mt-[2.25rem] mb-[0.625rem] font-bold">비밀번호</div>
                                                         <InputPw placeholder={'영문자, 숫자, 특수문자 포함 최소 8~20자'} name={'pw1'} />
-                                                        <Check text={'비밀번호를 입력해주세요.'} hidden={checkPw2} />
+                                                        <Check text={'비밀번호를 입력해주세요.'} hidden={password.pw2} />
                                                         <div className="mb-[0.625rem]"></div>
                                                         <InputPw placeholder={'비밀번호를 확인해 주세요'} name={'pw2'} />
-                                                        <Check text={'비밀번호 확인을 입력해주세요.'} hidden={checkPw3} />
-                                                        <Check text={'입력하신 비밀번호와 다릅니다.'} hidden={checkPw4} />
+                                                        <Check text={'비밀번호 확인을 입력해주세요.'} hidden={password.pw3} />
+                                                        <Check text={'입력하신 비밀번호와 다릅니다.'} hidden={password.pw4} />
                                                         <div className="mt-[2.625rem] flex flex-col">
                                                             <span className="">
-                                                                <input type="checkbox" className="mr-2" checked={allCheck} onChange={allBtnEvent} />
+                                                                <input type="checkbox" className="mr-2" checked={check.allCheck} onChange={allBtnEvent} />
                                                                 <span>전체동의</span>
                                                             </span>
                                                             <span className="w-full border h-0 my-3"></span>
                                                             <span className="mb-2">
-                                                                <input type="checkbox" className="mr-2" checked={useCheck} onChange={useBtnEvent} />
+                                                                <input type="checkbox" className="mr-2" checked={check.useCheck} onChange={useBtnEvent} />
                                                                 <span>이용약관 동의</span>
                                                             </span>
                                                             <span className="mb-2">
-                                                                <input type="checkbox" className="mr-2" checked={personalCheck} onChange={personalBtnEvent} />
+                                                                <input type="checkbox" className="mr-2" checked={check.personalCheck} onChange={personalBtnEvent} />
                                                                 <span>프로그래머스 개인정보 수집 및 이용동의</span>
                                                             </span>
                                                             <span className="mb-2">
-                                                                <input type="checkbox" className="mr-2" checked={ageCheck} onChange={ageBtnEvent} />
+                                                                <input type="checkbox" className="mr-2" checked={check.ageCheck} onChange={ageBtnEvent} />
                                                                 <span>[선택] 만 14세 이상입니다.</span>
                                                             </span>
                                                             <span className="mb-2">
-                                                                <input type="checkbox" className="mr-2" checked={marketingCheck} onChange={marketingBtnEvent} />
+                                                                <input type="checkbox" className="mr-2" checked={check.marketingCheck} onChange={marketingBtnEvent} />
                                                                 <span>[선택] 마케팅 활용 동의 및 광고 수신 동의</span>
                                                             </span>
                                                         </div>
