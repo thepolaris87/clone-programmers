@@ -24,7 +24,14 @@ export default function SignIn() {
 
     const [e_mail, setE_mail] = useState<email>({ email: 'hidden', email2: 'hidden', email3: 'hidden' });
     const [password, setPassword] = useState<password>({ pw: 'hidden', pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
-    const [check, setCheck] = useState<check>({allCheck: false, useCheck: false, personalCheck: false, ageCheck: false, marketingCheck: false, mustCheck: false})
+    const [check, setCheck] = useState<check>({
+        allCheck: false,
+        useCheck: false,
+        personalCheck: false,
+        ageCheck: false,
+        marketingCheck: false,
+        mustCheck: false
+    });
 
     const navigate = useNavigate();
     const setName = useSetAtom(nameAtom);
@@ -82,10 +89,11 @@ export default function SignIn() {
     const onSignUpClick = async (event: React.FormEvent<HTMLFormElement>) => {
         event?.preventDefault();
         if (!check.mustCheck) return;
-        const name = ((event.target as HTMLFormElement).name as any).value;
+        const name = (event.target as HTMLFormElement)._name.value;
         const email = (event.target as HTMLFormElement).email.value;
         const password1 = (event.target as HTMLFormElement).pw1.value;
         const password2 = (event.target as HTMLFormElement).pw2.value;
+        console.log(name);
         if (!name) {
             setCheckName('');
         } else {
@@ -124,40 +132,40 @@ export default function SignIn() {
 
     //약관동의
     const allBtnEvent = () => {
-        setCheck({...check, allCheck: !check.allCheck})
+        setCheck({ ...check, allCheck: !check.allCheck });
         if (check.allCheck) {
-            setCheck({...check, useCheck: false, personalCheck: false, ageCheck: false, marketingCheck: false})
+            setCheck({ ...check, useCheck: false, personalCheck: false, ageCheck: false, marketingCheck: false });
         } else {
-            setCheck({...check, useCheck: true, personalCheck: true, ageCheck: true, marketingCheck: true})
+            setCheck({ ...check, useCheck: true, personalCheck: true, ageCheck: true, marketingCheck: true });
         }
     };
     const useBtnEvent = () => {
-        setCheck({...check, useCheck: !check.useCheck});
+        setCheck({ ...check, useCheck: !check.useCheck });
     };
     const personalBtnEvent = () => {
-        setCheck({...check, personalCheck: !check.personalCheck});
+        setCheck({ ...check, personalCheck: !check.personalCheck });
     };
     const ageBtnEvent = () => {
-        setCheck({...check, ageCheck: !check.ageCheck});
+        setCheck({ ...check, ageCheck: !check.ageCheck });
     };
     const marketingBtnEvent = () => {
-        setCheck({...check, marketingCheck: !check.marketingCheck});
+        setCheck({ ...check, marketingCheck: !check.marketingCheck });
     };
 
     useEffect(() => {
         //약관 전체 동의
         if (!check.useCheck || !check.personalCheck || !check.ageCheck || !check.marketingCheck) {
-            setCheck({...check, allCheck: false});
+            setCheck({ ...check, allCheck: false });
         } else if (check.useCheck && check.personalCheck && check.ageCheck && check.marketingCheck) {
-            setCheck({...check, allCheck: true});
+            setCheck({ ...check, allCheck: true });
         }
 
         //필수 약관 동의
         if (check.useCheck && check.personalCheck) {
-            setCheck({...check, mustCheck: true});
+            setCheck({ ...check, mustCheck: true });
             setSignUpBtn('bg-signin_btn cursor-pointer');
         } else {
-            setCheck({...check, mustCheck: false});
+            setCheck({ ...check, mustCheck: false });
             setSignUpBtn('bg-[#C8C8C8]');
         }
     }, [check.useCheck, check.personalCheck, check.ageCheck, check.marketingCheck]);
@@ -171,7 +179,7 @@ export default function SignIn() {
         setE_mail({ ...e_mail, email2: 'hidden', email3: 'hidden' });
         setPassword({ ...password, pw2: 'hidden', pw3: 'hidden', pw4: 'hidden' });
         setCheckName('hidden');
-        setCheck({...check, useCheck: false, personalCheck: false, ageCheck: false, marketingCheck: false})
+        setCheck({ ...check, useCheck: false, personalCheck: false, ageCheck: false, marketingCheck: false });
     };
 
     return (
@@ -289,7 +297,7 @@ export default function SignIn() {
                                                         }}
                                                     >
                                                         <div className="mb-[0.625rem] font-bold">이름</div>
-                                                        <Input svg={<Smile />} type={'text'} name={'name'} placeholder={'이름을 입력해 주세요'} />
+                                                        <Input svg={<Smile />} type={'text'} name={'_name'} placeholder={'이름을 입력해 주세요'} />
                                                         <div className={`flex gap-1 mt-2 text-[#f90] ${checkName}`}>
                                                             <Caution />
                                                             이름을 입력해주세요.
@@ -319,7 +327,12 @@ export default function SignIn() {
                                                                 <span>이용약관 동의</span>
                                                             </span>
                                                             <span className="mb-2">
-                                                                <input type="checkbox" className="mr-2" checked={check.personalCheck} onChange={personalBtnEvent} />
+                                                                <input
+                                                                    type="checkbox"
+                                                                    className="mr-2"
+                                                                    checked={check.personalCheck}
+                                                                    onChange={personalBtnEvent}
+                                                                />
                                                                 <span>프로그래머스 개인정보 수집 및 이용동의</span>
                                                             </span>
                                                             <span className="mb-2">
@@ -327,7 +340,12 @@ export default function SignIn() {
                                                                 <span>[선택] 만 14세 이상입니다.</span>
                                                             </span>
                                                             <span className="mb-2">
-                                                                <input type="checkbox" className="mr-2" checked={check.marketingCheck} onChange={marketingBtnEvent} />
+                                                                <input
+                                                                    type="checkbox"
+                                                                    className="mr-2"
+                                                                    checked={check.marketingCheck}
+                                                                    onChange={marketingBtnEvent}
+                                                                />
                                                                 <span>[선택] 마케팅 활용 동의 및 광고 수신 동의</span>
                                                             </span>
                                                         </div>
