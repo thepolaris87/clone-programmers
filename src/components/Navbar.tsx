@@ -10,7 +10,7 @@ const navbars = ['강의', '국비지원', '코딩테스트 연습', 'MY 스쿨'
 export const Navbar = () => {
     const navigate = useNavigate();
     const toastMessage = useSetAtom(toastAtom);
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState('코딩테스트 연습');
 
     const onClick = (value: string) => {
         setValue(value);

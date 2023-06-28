@@ -37,12 +37,12 @@ export default function CodingTest() {
         const value = window.confirm('정말로 초기화하시겠습니까?');
         if (value) setCodeValue(data.questionStatus.defaultCode);
     };
-    const onResetResult = useCallback((idx: number, setValue: (value: any) => void) => {
+    const onResetResult = useCallback((idx: number, setValue: (value: { [key: number]: null }) => void) => {
+        let obj: { [x: number]: null } = { 0: null };
         for (let index = 0; index < idx; index++) {
-            setValue((prev: any) => {
-                return { ...prev, [index]: null };
-            });
+            obj = Object.assign(obj, { [index]: null });
         }
+        setValue(obj);
     }, []);
 
     const runFunc = () => {
