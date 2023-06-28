@@ -293,8 +293,8 @@ export default function SignIn() {
                                                             <div className="font-bold">비밀번호</div>
                                                         </div>
                                                         <InputPw placeholder={'비밀번호를 입력해주세요'} name={'password'} />
-                                                        <div className={`flex gap-2 items-center mt-0 ${checkPw} text-[#f90]`}>
-                                                            <div className="pt-4">
+                                                        <div className={`flex gap-2 items-center pt-2 ${checkPw} text-[#f90]`}>
+                                                            <div className="pt-[0.1rem]">
                                                                 <Caution />
                                                             </div>
                                                             <div>{text}</div>
