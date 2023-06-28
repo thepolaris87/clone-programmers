@@ -1,10 +1,9 @@
 import { atom } from 'jotai';
 
 export const listDataAtom = atom([{}]);
-export const sortAtom = atom('');
 
-export const filterAtom = atom<string[]>([]);
+export const sortAtom = atom('');
 
 export const userModalAtom = atom<boolean>(false);
 
-export const newFilterAtom = atom<{level: [], test: []}>({level: [], test: []});
+export const filterAtom = atom<{level: string[], test: string[]}>({level: [], test: []});

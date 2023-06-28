@@ -23,8 +23,13 @@ export default function DropDownMenu() {
     };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
-        if (e.target.checked) setFilters([...filters, name]);
-        else setFilters(filters.filter((f) => f !== name));
+        if (e.target.checked) {
+            if (e.target.value === 'level') setFilters({ ...filters, level: [...filters.level, name] });
+            if (e.target.value === 'test') setFilters({ ...filters, test: [...filters.test, name] });
+        } else {
+            if (e.target.value === 'level') setFilters({ ...filters, level: [...filters.level.filter((f) => f !== name)] });
+            if (e.target.value === 'test') setFilters({ ...filters, test: [...filters.test.filter((f) => f !== name)] });
+        }
     };
     return (
         <>
@@ -37,6 +42,7 @@ export default function DropDownMenu() {
                             onClick={() => onDropDownClick('level')}
                             title="난이도"
                             style="w-[140px]"
+                            value="level"
                             onChange={onChange}
                         />
                     </div>
@@ -47,13 +53,19 @@ export default function DropDownMenu() {
                             onClick={() => onDropDownClick('test')}
                             title="기출문제 모음"
                             style="min-w-[159px] max-w-[249x]"
+                            value="test"
                             onChange={onChange}
                         />
                     </div>
                 </div>
             </div>
             <div className="flex flex-wrap gap-1">
-                {filters.map((f) => (
+                {filters.level.map((f) => (
+                    <button key={f} className="border rounded bg-[#44576c] px-2 pt-1 pb-0.5 text-white text-xs">
+                        {f}
+                    </button>
+                ))}
+                {filters.test.map((f) => (
                     <button key={f} className="border rounded bg-[#44576c] px-2 pt-1 pb-0.5 text-white text-xs">
                         {f}
                     </button>
