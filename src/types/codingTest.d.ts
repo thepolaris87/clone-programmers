@@ -9,3 +9,5 @@ type NavbarProps = { setModal?: (modal: boolean) => void; title: string; categor
 type TestResultProps = { data: ResultProps[]; results: { [key: number]: number | string | null | string[] }; answerNum: number; error: string; mode: boolean };
 
 type ResultProps = { input: string[] | number[]; output: number | string | string[] | number[] };
+
+type HeaderProps = { title: string; onSetMode: (value: boolean) => void; mode: boolean };
