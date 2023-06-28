@@ -12,7 +12,7 @@ export default function Middle() {
         setMessage({ message: '준비 중입니다.' });
     };
     return (
-        <div className="">
+        <div>
             <div className="flex items-center p-[1.5rem]">
                 <div className="font-[NotoSansKRBold] text-[1rem]">내 실력 향상을 위한 추천 코스</div>
                 <div>
