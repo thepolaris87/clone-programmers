@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import { ToolTip } from './Tooltip';
+import { ToolTip } from '.';
 
 export const BottomNavbar = ({ functions, questionId, mode }: BottomNavbarProps) => {
     const [onReset, runFunc, onSubmit] = functions;
