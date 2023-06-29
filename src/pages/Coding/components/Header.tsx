@@ -2,7 +2,7 @@ import { toastAtom } from '@/atoms/toast';
 import { useSetAtom } from 'jotai';
 import classNames from 'classnames';
 
-export const Header = ({ title, onSetMode, mode }: { title: string; onSetMode: (value: boolean) => void; mode: boolean }) => {
+export const Header = ({ title, onSetMode, mode }: CodingHeaderProps) => {
     const toastMessage = useSetAtom(toastAtom);
     return (
         <section

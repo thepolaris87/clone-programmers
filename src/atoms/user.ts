@@ -9,7 +9,7 @@ export const accessTokenAtom = atom(
     (get) => get(tokenAtom),
     (_get, set, update: string) => {
         window.localStorage.setItem('token', update);
-        axios.defaults.headers.common.Authorization = update;
+        axios.defaults.headers.common.Authorization = `Bearer ${update}`;
         set(tokenAtom, update);
     }
 );

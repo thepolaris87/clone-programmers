@@ -8,6 +8,8 @@ export const List = styled.li`
     color: #263747;
     div {
         padding: 0 2px 0 2px;
+    }
+    .tag {
         cursor: pointer;
         :hover {
             color: #0078ff;

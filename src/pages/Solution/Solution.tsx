@@ -5,14 +5,16 @@ import { useParams } from 'react-router-dom';
 import { emailAtom } from '@/atoms/user';
 import { useAtomValue } from 'jotai';
 import { Navbar } from '../Coding/components';
-import { Header, CodeItem } from './components';
+import { Header, CodeItem, ModalContent } from './components';
 import Pagination from '@/components/Pagination';
+import { Modal } from '@/components/Modal';
 
 export default function Solution() {
     const params = useParams();
     const { data, refetch } = useQuery(['solution', params.questionId], () => getSolutions(params.questionId as string));
     const [value, setValue] = useState(true);
     const [datas, setDatas] = useState<SolutionProps[]>(data.solutions);
+    const [modal, setModal] = useState(false);
     const email = useAtomValue(emailAtom);
     const { mutate } = useMutation(patchLike, {
         onSuccess: () => {
@@ -51,7 +53,13 @@ export default function Solution() {
 
     return (
         <div className="min-h-[calc(100vh-50px-394px-80px)]">
-            <Navbar title={data.questionInfo.title} category={data.questionInfo.category} id={data.questionInfo.questionId} children="다른 사람의 풀이" />
+            <Navbar
+                setModal={setModal}
+                title={data.questionInfo.title}
+                category={data.questionInfo.category}
+                id={data.questionInfo.questionId}
+                children="다른 사람의 풀이"
+            />
             <div className="max-w-[1200px] px-[16px] mx-auto">
                 <Header value={value} setValue={setValue} />
                 {datas.map((solution: SolutionProps, index: number) => {
@@ -65,6 +73,9 @@ export default function Solution() {
             <div className="flex justify-center items-center my-[40px] gap-[9px]">
                 <Pagination onClickPage={onSetPage} totalNum={data.solutions.length} />
             </div>
+            <Modal title={data.questionInfo.title} width="992px" open={modal} onClick={setModal}>
+                <ModalContent onClick={setModal} questionId={params.questionId as string} />
+            </Modal>
         </div>
     );
 }

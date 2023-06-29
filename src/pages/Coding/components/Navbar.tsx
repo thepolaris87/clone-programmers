@@ -17,7 +17,9 @@ export const Navbar = ({ setModal, title, category, id, children }: NavbarProps)
                     <div className="hidden text-[#98a8b9] text-[14px] mx-[4px] md:block">{'>'}</div>
                     <Link
                         className={classNames(
-                            setModal ? 'text-[#ffffff] font-[NotoSansKRMedium] hover:text-white' : 'text-[#98a8b9] cursor-pointer hover:text-white',
+                            setModal && !children
+                                ? 'text-[#ffffff] font-[NotoSansKRMedium] hover:text-white'
+                                : 'text-[#98a8b9] cursor-pointer hover:text-white',
                             id ? 'cursor-pointer' : 'cursor-text',
                             'text-[14px] mx-[4px]'
                         )}
@@ -34,17 +36,27 @@ export const Navbar = ({ setModal, title, category, id, children }: NavbarProps)
                     )}
                 </span>
             </span>
-            {children === '다른 사람의 풀이' && (
-                <span className="whitespace-nowrap">
-                    <Link
-                        className="hidden bg-[#44576c] text-[white] text-[12px] font-[NotoSansKRMedium] p-[2px_6px] rounded-[4px] hover:bg-[#343a40] md:block"
-                        to={`/learn/courses/${id}`}
-                    >
-                        <h5>다시 풀기</h5>
-                    </Link>
-                </span>
+            {setModal && children && (
+                <div className="flex">
+                    <span className="whitespace-nowrap">
+                        <button
+                            className="hidden bg-[#44576c] text-[white] text-[12px] font-[NotoSansKRMedium] p-[2px_6px] rounded-[4px_0_0_4px] hover:bg-[#343a40] md:block"
+                            onClick={() => setModal && setModal(true)}
+                        >
+                            <h5>문제 보기</h5>
+                        </button>
+                    </span>
+                    <span className="whitespace-nowrap">
+                        <Link
+                            className="hidden bg-[#44576c] text-[white] text-[12px] font-[NotoSansKRMedium] p-[2px_6px] rounded-[0_4px_4px_0] hover:bg-[#343a40] md:block"
+                            to={`/learn/courses/${id}`}
+                        >
+                            <h5>다시 풀기</h5>
+                        </Link>
+                    </span>
+                </div>
             )}
-            {setModal && (
+            {setModal && !children && (
                 <span className="whitespace-nowrap">
                     <button
                         className="hidden text-[#b2c0cc] text-[16px] font-[NotoSansKRMedium] p-[4px_8px] hover:text-white md:block cursor-pointer"
