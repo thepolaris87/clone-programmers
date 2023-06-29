@@ -13,7 +13,7 @@ export default function DropDownMenu() {
     const [filters, setFilters] = useAtom(filterAtom);
     const filterList = useMemo(() => {
         const list = listData?.questions;
-        const level = Array.from(new Set(list?.map((q) => `LV.${q.difficulty}`).sort()));
+        const level = Array.from(new Set(list?.map((q) => `Lv.${q.difficulty}`).sort()));
         const test = Array.from(new Set(list?.map((q) => q.category)));
         return { level, test };
     }, [listData]);
@@ -31,6 +31,7 @@ export default function DropDownMenu() {
             if (e.target.value === 'test') setFilters({ ...filters, test: [...filters.test.filter((f) => f !== name)] });
         }
     };
+
     return (
         <>
             <div className="block lg:flex">

@@ -31,8 +31,8 @@ export default function Table() {
         const testFilter = filters.test;
 
         const level = listData?.questions.filter((q: filteredData) => {
-            if (filters.test.length === 0 && filters.test.length === 0) return true;
-            const condi1 = levelFilter.length === 0 || levelFilter.includes(`LV.${q.difficulty}`);
+            if (filters.test.length === 0 && filters.level.length === 0) return true;
+            const condi1 = levelFilter.length === 0 || levelFilter.includes(`Lv.${q.difficulty}`);
             const condi2 = testFilter.length === 0 || testFilter.includes(q.category);
             return condi1 && condi2;
         });
