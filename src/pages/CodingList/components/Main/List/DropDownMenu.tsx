@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { MouseEvent, MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react';
 import Dropdown from './Dropdown';
 import { useQueryClient } from 'react-query';
 import { useAtom } from 'jotai';
@@ -32,10 +32,25 @@ export default function DropDownMenu() {
         }
     };
 
+    const outsideRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (e: any) => {
+            if (outsideRef.current && !outsideRef.current.contains(e.target)) {
+                setDropDown({ level: false, test: false });
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [outsideRef]);
+
     return (
         <>
             <div className="block lg:flex">
-                <div className="flex gap-[0.5rem] mb-[0.5rem]">
+                <div ref={outsideRef} className="flex gap-[0.5rem] mb-[0.5rem]">
                     <div className="dropdown-menu w-full lg:w-auto min-w-[8.75rem]">
                         <Dropdown
                             visibility={dropdown.level}
