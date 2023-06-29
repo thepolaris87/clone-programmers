@@ -91,7 +91,7 @@ export const getSolutions = async (questionId: string) => {
 
 export const patchLike = async (body: { questionId: string; userEmail: string }) => {
     return axios
-        .patch('${HOST}/learn/solution-like', {
+        .patch(`${HOST}/learn/solution-like`, {
             questionId: body.questionId,
             userEmail: body.userEmail
         })
@@ -102,7 +102,7 @@ export const patchLike = async (body: { questionId: string; userEmail: string })
 
 export const patchUnLike = async (body: { questionId: string; userEmail: string }) => {
     return axios
-        .patch('${HOST}/learn/solution-unlike', {
+        .patch(`${HOST}/learn/solution-unlike`, {
             questionId: body.questionId,
             userEmail: body.userEmail
         })
