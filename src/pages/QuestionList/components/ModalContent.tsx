@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { postQuestion } from '@/apis/api';
 import classNames from 'classnames';
 import { Code } from '../../../components/Code';
-
+// test
 export const ModalContent = ({ onClick, content, questionId, status }: ModalContentProps) => {
     const navigate = useNavigate();
     const [form, setForm] = useState({ title: '', description: '' });
